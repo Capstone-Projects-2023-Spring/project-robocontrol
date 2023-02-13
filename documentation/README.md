@@ -10,8 +10,8 @@ $ yarn
 
 ### Local Development
 
-```
-$ yarn start
+```sh
+$ PROJECT_NAME=<name> yarn start # Add in the project name
 ```
 
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
