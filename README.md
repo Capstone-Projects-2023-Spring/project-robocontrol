@@ -60,3 +60,5 @@ Discuss what you need to develop this project. This includes background informat
 ## Commands
 - Cloning the repo
   - `git clone --recurse-submodules https://github.com/Capstone-Projects-2023-Spring/project-robocontrol.git`
+- Updating this repo locally with changes in the submodules
+  - `git submodule update --init --recursive`
