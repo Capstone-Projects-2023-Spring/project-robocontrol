@@ -4,3 +4,6 @@
 [submodule "tread-bot"]
 	path = tread-bot
 	url = https://github.com/ryanhodge240/tread-bot.git
+[submodule "tread-bot-website"]
+	path = tread-bot-website
+	url = https://github.com/ryanhodge240/tread-bot-website.git
