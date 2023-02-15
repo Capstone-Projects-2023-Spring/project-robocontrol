@@ -56,3 +56,7 @@ Discuss what you need to develop this project. This includes background informat
 </table>
 
 [//]: # ( readme: collaborators -end )
+
+## Commands
+- Cloning the repo
+  - `git clone --recurse-submodules https://github.com/Capstone-Projects-2023-Spring/project-robocontrol.git`
