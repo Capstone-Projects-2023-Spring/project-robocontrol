@@ -3,3 +3,30 @@ sidebar_position: 4
 ---
 
 # Features and Requirements
+- Movement Control
+  - User should be able to move robot forwards, backwards, and make turns by alternating direction of treads
+  - User should be able to make slow turns without stuttering stops
+  - User should be able to issue an emergency stop command in the middle of any movement operation
+  - User should be able to sequence movement commands
+  - Robot should be able to move in autonomous mode within established parameters
+- Video Imaging
+  - User should be able to receive video stream from robot
+  - User should be able to receive screenshots of video stream
+  - Robot should be able to upload video stream or snapshots in autonomous mode to the GUI
+- Ultrasonic Sensor
+  - User should be able to receive ultrasonic data indicating distance to nearest object
+  - User should be notified if max range of ultrasonic sensor has been reached
+  - Robot should be able to upload ultrasonic sensor data in autonomous mode
+- Autonomous Mode
+  - User should be able to enable and disable autonomous mode allowing robot to act within a set of parameters
+  - Robot should have parameters established for autonomous mode allowing for movement within object or following distinct feature within video or ultrasonic sensor
+  - Robot should be able to identify obstacles in autonomous mode and find routes to continue with issued commands
+- Image Recognition
+  - Video data or image data from robot should be fed into algorithm allowing for recognition of object in robots path
+  - Video data or image data should allow for identification of follow parameters in autonomous mode or notification for user in control mode
+  - Video data or image data should be processed to detect follow-lines of a specific color on each side of the robot
+- World Route Construction
+  - Ultrasonic and video data should enable web server to build graph of traversable paths
+  - Server should have preset parameters defined allowing for scanning with video or ultrasonic data to identify traversable paths 
+  - Graph data should be transmitted to robot to enable autonomous movement command sequencing
+  - Follow-line data will be sent to the robot to stay in between the detected path
