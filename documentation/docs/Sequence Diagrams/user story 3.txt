@@ -1,0 +1,34 @@
+title User Story 3
+
+participant Charlie Puth
+participant Raspberry Pi
+participant GUI
+
+participant Movement
+
+participant Camera
+
+
+Charlie Puth->Raspberry Pi:Powers on robot
+Raspberry Pi ->Movement: Powers on movement
+activate Movement
+Raspberry Pi->Camera: Powers on camera
+activate Camera
+Charlie Puth->GUI:Connects to RoboControl Raspberry Pi
+activate GUI
+group camera [while power on]
+Camera -> GUI: Sends image feed back
+end
+group movement [while charlie controls the robot around the store]
+Charlie Puth ->GUI: Charlie Input movement
+GUI ->Movement: robot moves around the store
+Camera ->Charlie Puth: Charlie uses this information to update inventory of the store
+end 
+Charlie Puth ->GUI: Sends shut down signal
+deactivate GUI
+Charlie Puth ->Raspberry Pi: Shut down
+Raspberry Pi->Movement: Shut down signal
+deactivate Movement
+Raspberry Pi->Camera: Shut down signal
+deactivate Camera
+

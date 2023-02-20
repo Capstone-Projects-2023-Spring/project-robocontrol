@@ -1,0 +1,102 @@
+title User Story 1
+
+Madison Beer -> RasberryPi:Powers on Robot
+activate RasberryPi
+==Initialization==
+RasberryPi -> GUI: Connects
+
+Madison Beer -> GUI: Connects
+
+activate GUI
+RasberryPi -> Ultrasonic Sensor: Powers On
+loop while powered on
+Ultrasonic Sensor -> GUI: Feeds GUI
+end
+
+RasberryPi -> Camera: Powers On
+activate Ultrasonic Sensor
+
+activate Camera
+loop while powered on
+Camera -> GUI: Feeds Video
+end
+
+RasberryPi -> Motor Control: Powers On
+##activate Motor Control
+
+RasberryPi -> Arm Control: Powers On
+##activate Arm Control
+
+
+loop while searching for object
+
+	Madison Beer -> GUI: Sends move commands to search 	for missing object
+
+	GUI->RasberryPi: Hold Down Move Forward Button
+	RasberryPi->Motor Control: move.move(speed_set, direction_command, turn_command, rad)
+	activate Motor Control
+	
+    GUI->RasberryPi: Turn Left
+    RasberryPi->Motor Control: move.move(speed_set, no, left, rad
+    GUI->RasberryPi: Turn Right
+    RasberryPi->Motor Control: move.move(speed_set, no, right, rad
+    end
+	note over Madison Beer: Madison sees object
+	Madison Beer->GUI: Stop move commands
+    
+GUI->RasberryPi: Let Up Move Forward Button
+RasberryPi->Motor Control: Stop movement
+deactivate Motor Control
+
+note over Madison Beer: Madison wants to pick up object
+loop while object is not picked up
+	Madison Beer->GUI: Move Arm Down
+	GUI->RasberryPi : H2_sc.singleServo(13, -1, 7) 
+	RasberryPi->Arm Control: singleServo(13,-1,7)
+	activate Arm Control
+
+	Madison Beer -> GUI: Grab Item
+	GUI-> RasberryPi: G_sc.singleServo(15, 1, 3)
+	RasberryPi->Arm Control: singleServo(15,1,3)
+	Madison Beer->GUI: Move Arm Up
+	GUI->RasberryPi :  H1_sc.singleServo(12, 1, 7) 
+	RasberryPi->Arm Control: singleServo(12,1,7)
+	deactivate Arm Control
+end 
+note over Madison Beer: Object is grabbed, Madison wants robot to leave
+loop while Robot is inside area
+	Madison Beer -> GUI: Sends move commands to search 	for missing object
+
+	GUI->RasberryPi: Hold Down Move Forward Button
+	RasberryPi->Motor Control: move.move(speed_set, direction_command, turn_command, rad)
+	activate Motor Control
+	
+    GUI->RasberryPi: Turn Left
+    RasberryPi->Motor Control: move.move(speed_set, no, left, rad
+    GUI->RasberryPi: Turn Right
+    RasberryPi->Motor Control: move.move(speed_set, no, right, rad
+    
+	
+	Madison Beer->GUI: Stop move commands
+    
+	GUI->RasberryPi: Let Up Move Forward Button
+	RasberryPi->Motor Control: Stop movement
+    deactivate Motor Control
+end 
+
+Madison Beer->GUI: Sends shutdown signal
+deactivate GUI
+Madison Beer->RasberryPi: Turns off Robot
+==Shutdown ==
+
+RasberryPi->Ultrasonic Sensor: Shutdown Signal
+deactivate Ultrasonic Sensor
+RasberryPi->Camera: Shutdown Signal
+deactivate Camera
+deactivate RasberryPi
+
+
+
+
+
+

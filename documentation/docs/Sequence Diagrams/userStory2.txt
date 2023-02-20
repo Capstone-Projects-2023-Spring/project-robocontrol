@@ -1,0 +1,24 @@
+title User Story 2 (No Camera)
+
+actor Jason
+activate RaspberryPi
+activate Web GUI
+Jason -> RaspberryPi: Powers ON
+Jason -> Web GUI : Connect
+RaspberryPi ->Motor Control: Enable
+
+activate Motor Control
+loop while traversing
+Jason -> Web GUI: Input Movement Command (left, right, up, down)
+	Web GUI -> RaspberryPi: Send Movement Command
+	RaspberryPi -> Motor Control: Move in specified 		direction (left, right, up, down)
+	
+end
+RaspberryPi -> Jason : Finish track
+Jason ->RaspberryPi: Powers OFF
+RaspberryPi -> Motor Control: Powers OFF
+deactivate Motor Control
+deactivate RaspberryPi
+Jason -> Web GUI : Powers OFF
+deactivate Web GUI
+
