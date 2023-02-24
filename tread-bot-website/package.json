@@ -2,21 +2,23 @@
   "name": "tread-bot-website",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ryanhodge240.github.io/tread-bot-website",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.12",
-    "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.10",
+    "@types/socket.io-client": "^3.0.0",
+    "bootstrap": "^5.2.3",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.6",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "websocket": "^1.0.34"
   },
   "scripts": {
     "predeploy": "npm run build",
@@ -24,7 +26,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "nginx": "react-scripts build && cp -r ./build/* /var/www/ryanhodge/html"
   },
   "eslintConfig": {
     "extends": [
@@ -45,7 +48,14 @@
     ]
   },
   "devDependencies": {
+    "@types/bootstrap": "^5.2.6",
+    "@types/react": "^18.0.28",
+    "@types/react-bootstrap": "^0.32.32",
     "@types/styled-components": "^5.1.26",
-    "gh-pages": "^5.0.0"
+    "@types/websocket": "^1.0.5",
+    "gh-pages": "^5.0.0",
+    "http": "^0.0.1-security",
+    "react-use-websocket": "^4.3.1",
+    "socket.io-client": "^4.6.1"
   }
 }

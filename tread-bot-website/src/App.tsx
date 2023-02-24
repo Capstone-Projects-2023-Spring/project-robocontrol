@@ -1,7 +1,7 @@
 import Styles from "./AppStyles";
 
-const PORT = 8888;
-const WS_URL = `wss://172.26.5.67:${PORT}/ws`
+// const PORT = 8999;
+const WS_URL = `wss://ryanhodge.net/ws/`
 const ws = new WebSocket(WS_URL)
 
 function App() {
