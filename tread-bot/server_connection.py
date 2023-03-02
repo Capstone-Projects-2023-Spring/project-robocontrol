@@ -5,6 +5,7 @@ import asyncio
 import cv2
 import base64
 import move
+import functions
 
 # Server data
 OPENCV_PORT = 8998
@@ -12,6 +13,9 @@ WEBSITE_PORT = 8999
 
 # The device the pi cam is recognized as
 PI_CAM_PORT = 0
+
+fuc = functions.Functions()
+fuc.start()
 
 # The pi cam capture port
 vid = cv2.VideoCapture(PI_CAM_PORT)
@@ -31,7 +35,8 @@ async def opencv_handler(websocket, path):
         while(vid.isOpened()):
             json_data = {
                 'image': cv2_to_base64(vid.read()[1]),
-                'command': ''
+                'direction': '',
+                'turn': ''
             }
             await websocket.send(json.dumps(json_data))
     # Handle disconnecting clients 
@@ -47,12 +52,13 @@ async def website_handler(websocket, path):
         async for message in websocket:
             if message != '':
                 message_data = json.loads(message)
-                move.move(100, message_data['command'], 'no', 0.5)
+                move.move(100, message_data['direction'], message_data['turn'], 0.5)
                 print('[Message]: ' + message)
             
             json_data = {
-                'image': cv2_to_base64(vid.read()[1]),
-                'command': ''
+                'image': cv2_to_base64(vid.read()[1]).decode('utf-8'),
+                'direction': '',
+                'turn': ''
             }
             # Send a response to all connected clients
             await websocket.send(json.dumps(json_data))
