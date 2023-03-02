@@ -4,6 +4,10 @@ import Styles from "./AppStyles";
 const WS_URL = `wss://ryanhodge.net/ws/robot`
 const ws = new WebSocket(WS_URL) // A websocket for the robot
 
+type MsgData = {
+	command: string
+}
+
 function App() {
 	const [img, setImg] = useState('');
 
@@ -19,10 +23,19 @@ function App() {
 		setImg(await new Response(event.data).text())
 	}
 
+	const sendMessage = (command: string) => {
+		const data: MsgData = {
+			command: command
+		}
+
+		ws.send(JSON.stringify(data))
+	}
+
 	return (
 		<Styles.AppContainer>
 			{/* Send a message to the robot */}
-			<button onClick={() => ws.send('Test Message')}>Test Communication</button>
+			<button onClick={() => sendMessage('forward')}>Move Forward</button>
+			<button onClick={() => sendMessage('backward')}>Move Backward</button>
 
 			{/* Display the Base64 image string sent from the robot */}
 			{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/>: ''}

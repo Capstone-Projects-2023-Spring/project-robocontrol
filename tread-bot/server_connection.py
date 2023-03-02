@@ -1,8 +1,10 @@
 # Importing the relevant libraries
+import json
 import websockets
 import asyncio
 import cv2
 import base64
+import move
 
 # Server data
 OPENCV_PORT = 8998
@@ -40,7 +42,11 @@ async def website_handler(websocket, path):
     try:
         # Receeive and print the incoming message from the website
         async for message in websocket:
-            if message != '': print('[Message]: ' + message)
+            if message != '':
+                message_data = json.loads(message)
+                move.move(100, message_data['command'], 'no', 0.5)
+                print('[Message]: ' + message)
+            
             # Send a response to all connected clients
             b64_image = cv2_to_base64(vid.read()[1])
             await websocket.send(b64_image)
