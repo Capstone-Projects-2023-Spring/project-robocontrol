@@ -5,7 +5,8 @@ const WS_URL = `wss://ryanhodge.net/ws/robot`
 const ws = new WebSocket(WS_URL) // A websocket for the robot
 
 type MsgData = {
-	command: string
+	direction: string
+	turn: string
 	image: string
 }
 
@@ -26,8 +27,20 @@ function App() {
 	}
 
 	const sendMessage = (command: string) => {
+		const direction = 
+			command === 'right' ? 'no' :
+			command === 'left' ? 'no' :
+			command === 'forward' ? command :
+			command === 'backward' ? command : command
+		const turn = 
+			command === 'right' ? command :
+			command === 'left' ? command :
+			command === 'forward' ? 'no' :
+			command === 'backward' ? 'no' : 'no'
+
 		const data: MsgData = {
-			command: command,
+			direction: direction,
+			turn: turn,
 			image: ''
 		}
 
@@ -37,8 +50,11 @@ function App() {
 	return (
 		<Styles.AppContainer>
 			{/* Send a message to the robot */}
-			<button onClick={() => sendMessage('forward')}>Move Forward</button>
-			<button onClick={() => sendMessage('backward')}>Move Backward</button>
+			<button onClick={() => sendMessage('backward')}>Forward</button>
+			<button onClick={() => sendMessage('forward')}>Backward</button>
+			<button onClick={() => sendMessage('right')}>Right</button>
+			<button onClick={() => sendMessage('left')}>Left</button>
+			<button onClick={() => sendMessage('no')}>Stop</button>
 
 			{/* Display the Base64 image string sent from the robot */}
 			{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/>: ''}
