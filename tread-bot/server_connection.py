@@ -29,8 +29,11 @@ async def opencv_handler(websocket, path):
     try:
         # Send a video to OpenCV client
         while(vid.isOpened()):
-            b64_image = cv2_to_base64(vid.read()[1])
-            await websocket.send(b64_image)
+            json_data = {
+                'image': cv2_to_base64(vid.read()[1]),
+                'command': ''
+            }
+            await websocket.send(json.dumps(json_data))
     # Handle disconnecting clients 
     except websockets.exceptions.ConnectionClosed as e:
         print("The OpenCV client disconnected")
@@ -47,9 +50,12 @@ async def website_handler(websocket, path):
                 move.move(100, message_data['command'], 'no', 0.5)
                 print('[Message]: ' + message)
             
+            json_data = {
+                'image': cv2_to_base64(vid.read()[1]),
+                'command': ''
+            }
             # Send a response to all connected clients
-            b64_image = cv2_to_base64(vid.read()[1])
-            await websocket.send(b64_image)
+            await websocket.send(json.dumps(json_data))
     # Handle disconnecting clients 
     except websockets.exceptions.ConnectionClosed as e:
         print("The website client disconnected")

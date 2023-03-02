@@ -6,6 +6,7 @@ const ws = new WebSocket(WS_URL) // A websocket for the robot
 
 type MsgData = {
 	command: string
+	image: string
 }
 
 function App() {
@@ -20,12 +21,14 @@ function App() {
 	ws.onmessage = async (event: MessageEvent<any>) => {
 		// event.data is given as a blob (since it is an unrecognized data type)
 		// Convert this blob to UTF-8 text for display purposes
-		setImg(await new Response(event.data).text())
+		const json_data: MsgData = JSON.parse(await new Response(event.data).text())
+		setImg(json_data.image)
 	}
 
 	const sendMessage = (command: string) => {
 		const data: MsgData = {
-			command: command
+			command: command,
+			image: ''
 		}
 
 		ws.send(JSON.stringify(data))
