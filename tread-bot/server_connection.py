@@ -8,34 +8,45 @@ import base64
 OPENCV_PORT = 8998
 WEBSITE_PORT = 8999
 
-# The pi cam capture
-vid = cv2.VideoCapture(0)
+# The device the pi cam is recognized as
+PI_CAM_PORT = 0
 
+# The pi cam capture port
+vid = cv2.VideoCapture(PI_CAM_PORT)
+
+# Convert an OpenCV image to Base64 bytes for transmission
 def cv2_to_base64(img):
     _, img_encoded = cv2.imencode('.jpg', img) # Convert image into memory buffer
     img_bytes = img_encoded.tobytes() # Convert memory buffer to bytes
     return base64.b64encode(img_bytes) # Convert bytes to base64
 
-# Handler for all the OpenCV code
+# Handler for all the OpenCV communication
 async def opencv_handler(websocket, path):
     print("OpenCV client connected")
 
-    # Handle incoming messages
     try:
-        # Send a response to all connected clients
+        # Send a video to OpenCV client
         while(vid.isOpened()):
             b64_image = cv2_to_base64(vid.read()[1])
             await websocket.send(b64_image)
-                    
     # Handle disconnecting clients 
     except websockets.exceptions.ConnectionClosed as e:
-        print("A client just disconnected")
+        print("The OpenCV client disconnected")
 
-# Handler for the website
+# Handler for the website messages
 async def website_handler(websocket, path):
     print("Website client connected")
-    async for message in websocket:
-        print('[Message]: ' + message)
+
+    try:
+        # Receeive and print the incoming message from the website
+        async for message in websocket:
+            if message != '': print('[Message]: ' + message)
+            # Send a response to all connected clients
+            b64_image = cv2_to_base64(vid.read()[1])
+            await websocket.send(b64_image)
+    # Handle disconnecting clients 
+    except websockets.exceptions.ConnectionClosed as e:
+        print("The website client disconnected")
 
 if __name__ == '__main__':
     print("Server listening on Port " + str(OPENCV_PORT))
