@@ -57,7 +57,7 @@ function App() {
 			<button onClick={() => sendMessage('no')}>Stop</button>
 
 			{/* Display the Base64 image string sent from the robot */}
-			{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/>: ''}
+			{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/> : ''}
 		</Styles.AppContainer>
 	);
 }
