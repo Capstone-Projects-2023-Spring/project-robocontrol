@@ -16,8 +16,10 @@ def base64_to_cv2(img):
 
 # The main function that will handle connection and communication with the server
 async def listen():
+    print('Listening for ' + WEBSOCKET)
     # Connect to the server
     async with websockets.connect(WEBSOCKET) as ws:
+        print('Connected to ' + WEBSOCKET)
         # Stay alive forever, listening to incoming msgs
         while True:
             packet = await ws.recv()
@@ -30,5 +32,12 @@ async def listen():
 
 if __name__ == '__main__':
     # Start the connection
-    asyncio.get_event_loop().run_until_complete(listen())
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    try:
+        asyncio.run(listen())
+    except KeyboardInterrupt:
+        pass
+
     cv2.destroyAllWindows()
