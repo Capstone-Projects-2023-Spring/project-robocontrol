@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Styles from "./AppStyles";
+import Navigation from "./components/Navigation";
 
 const WS_URL = `wss://ryanhodge.net/ws/robot`
 const ws = new WebSocket(WS_URL) // A websocket for the robot
