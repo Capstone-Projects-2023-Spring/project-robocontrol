@@ -8,7 +8,7 @@ import Styles from './HomeStyles'
 const Home = (): React.ReactElement => {
 	return (
 		<Styles.HomeContainer>
-            <p>Home</p>
+            <h1>Home</h1>
 		</Styles.HomeContainer>
 	)
 }
