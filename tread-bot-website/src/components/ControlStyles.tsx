@@ -2,18 +2,14 @@ import styled from 'styled-components'
 
 export default class ControlStyles {
 	static readonly ControlContainer = styled.div`
-		display: flex;
-		flex-direction: row;
-		align-items: center;
+		display: grid;
+		grid-template-columns: repeat(3, 100px);
+		grid-template-rows: repeat(3, 100px);
+		gap: 5px;
 		justify-content: center;
-		flex-wrap: wrap;
+		align-content: center;
 		width: 100%;
-
-		button {
-			width: 100px;
-			height: 100px;
-			margin: 5px;
-		}
-
 	`
+
+	
 }
