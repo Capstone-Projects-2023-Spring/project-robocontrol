@@ -64,10 +64,10 @@ const Control = (): React.ReactElement => {
 
 			<Styles.ControlContainer>
 				{/* Send a message to the robot */}
-				<button style={{ gridArea: "1 / 2" }} onClick={() => sendMessage('backward')}>W</button>
-				<button style={{ gridArea: "2 / 2" }} onClick={() => sendMessage('forward')}>S</button>
-				<button style={{ gridArea: "2 / 3" }} onClick={() => sendMessage('right')}>D</button>
-				<button style={{ gridArea: "2 / 1" }} onClick={() => sendMessage('left')}>A</button>
+				<button style={{ gridArea: "1 / 2" }} onMouseDown={() => sendMessage('backward')} onMouseUp={() => sendMessage('no')}>W</button>
+				<button style={{ gridArea: "2 / 2" }} onMouseDown={() => sendMessage('forward')} onMouseUp={() => sendMessage('no')}>S</button>
+				<button style={{ gridArea: "2 / 3" }} onMouseDown={() => sendMessage('right')} onMouseUp={() => sendMessage('no')}>D</button>
+				<button style={{ gridArea: "2 / 1" }} onMouseDown={() => sendMessage('left')} onMouseUp={() => sendMessage('no')}>A</button>
 				<button style={{ gridArea: "3 / 2" }} onClick={() => sendMessage('no')}>Stop</button>
 			</Styles.ControlContainer>
 		</FlexContainer>
