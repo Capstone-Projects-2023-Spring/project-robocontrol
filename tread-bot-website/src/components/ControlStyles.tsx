@@ -11,5 +11,19 @@ export default class ControlStyles {
 		width: 100%;
 	`
 
+	static readonly VideoFeedContainer = styled.div`
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
 	
+	`
+
+	static readonly FlexContainer = styled.div`
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+	`
+
 }

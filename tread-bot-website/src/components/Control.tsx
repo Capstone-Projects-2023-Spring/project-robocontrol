@@ -50,18 +50,27 @@ const Control = (): React.ReactElement => {
 		ws.send(JSON.stringify(data))
 	}
 	
-	return (
-		<Styles.ControlContainer>
-            {/* Send a message to the robot */}
-			<button style={{ gridArea: "1 / 2" }} onClick={() => sendMessage('backward')}>Forward</button>
-			<button style={{ gridArea: "2 / 1" }} onClick={() => sendMessage('forward')}>Backward</button>
-			<button style={{ gridArea: "2 / 2" }} onClick={() => sendMessage('right')}>Right</button>
-			<button style={{ gridArea: "2 / 3" }} onClick={() => sendMessage('left')}>Left</button>
-			<button style={{ gridArea: "3 / 2" }} onClick={() => sendMessage('no')}>Stop</button>
+	//import FlexContainer
+	const FlexContainer = Styles.FlexContainer;
 
+	return (
+
+		// give camera feed its own container to avoid overlapping with WASD controls
+		<FlexContainer>
 			{/* Display the Base64 image string sent from the robot */}
-			{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/> : ''}
-		</Styles.ControlContainer>
+			<Styles.VideoFeedContainer>
+				{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/> : ''}
+			</Styles.VideoFeedContainer>
+
+			<Styles.ControlContainer>
+				{/* Send a message to the robot */}
+				<button style={{ gridArea: "1 / 2" }} onClick={() => sendMessage('backward')}>W</button>
+				<button style={{ gridArea: "2 / 2" }} onClick={() => sendMessage('forward')}>S</button>
+				<button style={{ gridArea: "2 / 3" }} onClick={() => sendMessage('right')}>D</button>
+				<button style={{ gridArea: "2 / 1" }} onClick={() => sendMessage('left')}>A</button>
+				<button style={{ gridArea: "3 / 2" }} onClick={() => sendMessage('no')}>Stop</button>
+			</Styles.ControlContainer>
+		</FlexContainer>
 	)
 }
 
