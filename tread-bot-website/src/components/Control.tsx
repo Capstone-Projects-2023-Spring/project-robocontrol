@@ -53,6 +53,48 @@ const Control = (): React.ReactElement => {
 	//import FlexContainer
 	const FlexContainer = Styles.FlexContainer;
 
+	useEffect(() => {
+		const handleKeyDown = (event: KeyboardEvent) => {
+			switch (event.key.toLowerCase()) {
+				case 'w':
+					sendMessage('backward');
+					break;
+				case 's':
+					sendMessage('forward');
+					break;
+				case 'a':
+					sendMessage('left');
+					break;
+				case 'd':
+					sendMessage('right');
+					break;
+				default:
+					break;
+			}
+		};
+
+		const handleKeyUp = (event: KeyboardEvent) => {
+			switch (event.key.toLowerCase()) {
+				case 'w':
+				case 's':
+				case 'a':
+				case 'd':
+					sendMessage('no');
+					break;
+				default:
+					break;
+			}
+		};
+
+		window.addEventListener('keydown', handleKeyDown);
+		window.addEventListener('keyup', handleKeyUp);
+
+		return () => {
+			window.removeEventListener('keydown', handleKeyDown);
+			window.removeEventListener('keyup', handleKeyUp);
+		};
+	}, []);
+
 	return (
 
 		// give camera feed its own container to avoid overlapping with WASD controls
