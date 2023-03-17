@@ -1,7 +1,10 @@
 import Styles from "./AppStyles";
-
-const WS_URL = `wss://ryanhodge.net/ws/robot`
-const ws = new WebSocket(WS_URL) // A websocket for the robot
+import Banner from "./components/Banner";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Control from "./components/Control";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { PATHS } from "./tools/Constants";
+import Home from "./components/Home";
 
 function App() {
 	return (

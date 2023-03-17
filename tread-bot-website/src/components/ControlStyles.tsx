@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 export default class ControlStyles {
 	static readonly ControlContainer = styled.div`
@@ -55,7 +55,7 @@ export default class ControlStyles {
 		-webkit-user-select: none;
 		touch-action: manipulation;
 
-		}
+		
 
 		&:active {
 		box-shadow: 0px 0px 0px 0px;
@@ -87,7 +87,7 @@ export default class ControlStyles {
 		user-select: none;
 		-webkit-user-select: none;
 		touch-action: manipulation;
-		}
+		
 
 		&:active {
 		box-shadow: 0px 0px 0px 0px;

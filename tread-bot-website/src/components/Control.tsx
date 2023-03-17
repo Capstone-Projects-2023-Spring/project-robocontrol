@@ -1,6 +1,5 @@
 // Third party imports
 import React, { useEffect, useState } from 'react'
-import { COLORS } from '../tools/Constants'
 
 // Custom styles
 import Styles from './ControlStyles'
