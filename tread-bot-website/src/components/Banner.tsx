@@ -9,6 +9,7 @@ import { scrollToTop } from '../tools/HelpfulFunctions';
 // Custom styles
 import Styles from './BannerStyles'
 
+
 class Banner extends React.Component <unknown, { show: boolean }> {
 
     constructor(props: unknown) {

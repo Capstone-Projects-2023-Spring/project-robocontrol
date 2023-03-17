@@ -2,6 +2,7 @@
 /* added to make the background color change go cover 100% of the height of the page */
 html, body, #root, .App, .App-container, .App-content {
   height: 100%;
+  
 }
 
 body {
