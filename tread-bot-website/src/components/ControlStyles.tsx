@@ -26,7 +26,6 @@ export default class ControlStyles {
 				box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px, 6px 6px 0px 0px, 7px 7px 0px 0px, 20px 20px 13px rgba(0, 0, 0, 0.3);	
 				
      		
-				
 		}
 	
 	`
@@ -55,14 +54,14 @@ export default class ControlStyles {
 		-webkit-user-select: none;
 		touch-action: manipulation;
 
-		}
+		
 
 		&:active {
 		box-shadow: 0px 0px 0px 0px;
 		top: 5px;
 		left: 5px;
 		}
-
+		
 		@media (min-width: 768px) {
 		
 			padding: 0.25em 0.75em;
