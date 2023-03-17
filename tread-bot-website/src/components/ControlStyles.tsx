@@ -5,7 +5,7 @@ export default class ControlStyles {
 		display: grid;
 		grid-template-columns: repeat(3, 100px);
 		grid-template-rows: repeat(3, 100px);
-		gap: 5px;
+		gap: 15px;
 		justify-content: center;
 		align-content: center;
 		width: 100%;
@@ -19,12 +19,14 @@ export default class ControlStyles {
 		padding: 50px;
 
 		img {
-			border: 7px solid #282424; 
-			padding: 2px;
-			border-radius: 20px;
-			overflow: hidden;
-     		box-shadow: 15px 15px 13px rgba(0, 0, 0, 0.3);
-			
+
+				color: #000;
+				border: 3px solid;
+				padding: 0.25em;
+				box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px, 6px 6px 0px 0px, 7px 7px 0px 0px, 20px 20px 13px rgba(0, 0, 0, 0.3);	
+				
+     		
+				
 		}
 	
 	`
@@ -37,53 +39,69 @@ export default class ControlStyles {
 	`
 
 	static readonly DirectionButton = styled.button`
-		border-color: darkslategray;
-		border-radius: 8px;
-		margin: 4px;
-		box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-		
-
-		&:hover {
-			box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
-			transition-duration: .1s;
-			}
-	`
-
-	static readonly StopButton = styled.button`
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
-		border-radius: 8px;
-		border: 1px solid darkslategray;
-		box-sizing: border-box;
-		color: #FFFFFF;
-		cursor: pointer;
-		flex-shrink: 0;
-		font-family: "Inter UI","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+		font-family: "Open Sans", sans-serif;
 		font-size: 16px;
-		font-weight: 500;
-		height: 4rem;
-		padding: 0 1.6rem;
-		margin-top: 20px;
-		text-align: center;
-		text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
-		transition: all .5s;
+		letter-spacing: 2px;
+		text-decoration: none;
+		text-transform: uppercase;
+		color: #000;
+		cursor: pointer;
+		border: 3px solid;
+		padding: 0.25em 0.5em;
+		box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px, 15px 15px 13px rgba(0, 0, 0, 0.3);	
+		position: relative;
 		user-select: none;
 		-webkit-user-select: none;
 		touch-action: manipulation;
 
-		&:hover {
-		box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
-		transition-duration: .1s;
+		}
+
+		&:active {
+		box-shadow: 0px 0px 0px 0px;
+		top: 5px;
+		left: 5px;
 		}
 
 		@media (min-width: 768px) {
-		padding: 0 2.6rem;
+		
+			padding: 0.25em 0.75em;
+		
 		}
+		
+
+	`
+
+	static readonly StopButton = styled.button`
+		font-family: "Open Sans", sans-serif;
+		font-size: 16px;
+		letter-spacing: 2px;
+		text-decoration: none;
+		text-transform: uppercase;
+		color: #000;
+		cursor: pointer;
+		border: 3px solid;
+		padding: 0.25em 0.5em;
+		box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px, 15px 15px 13px rgba(0, 0, 0, 0.3);	
+		position: relative;
+		user-select: none;
+		-webkit-user-select: none;
+		touch-action: manipulation;
+		}
+
+		&:active {
+		box-shadow: 0px 0px 0px 0px;
+		top: 5px;
+		left: 5px;
+		}
+
+		@media (min-width: 768px) {
+		
+			padding: 0.25em 0.75em;
+		
+		}
+  
 	`
 
 
 }
-
 

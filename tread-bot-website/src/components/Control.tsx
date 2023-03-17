@@ -58,6 +58,12 @@ const Control = (): React.ReactElement => {
 	const [backwardActive, setBackwardActive] = useState(false);
 	const [leftActive, setLeftActive] = useState(false);
 	const [rightActive, setRightActive] = useState(false);
+	const activeStyle = {
+		boxShadow: '0px 0px 0px 0px',
+		top: '5px',
+		left: '5px',
+	  };
+	
 
 	//allow bot to be controlled by WASD keys on keyboard
 	useEffect(() => {
@@ -155,7 +161,8 @@ const Control = (): React.ReactElement => {
 				<Styles.DirectionButton
 					style={{
 						gridArea: "1 / 2",
-						backgroundColor: backwardActive ? "lightgrey" : "initial",
+						backgroundColor: backwardActive ? "#f0ecec" : "#98a4fc",
+						...(backwardActive ? activeStyle : {}),
 					}}
 					onMouseDown={() => {
 						setBackwardActive(true);
@@ -171,7 +178,8 @@ const Control = (): React.ReactElement => {
 				<Styles.DirectionButton
 					style={{
 						gridArea: "2 / 2",
-						backgroundColor: forwardActive ? "lightgrey" : "initial",
+						backgroundColor: forwardActive ? "#f0ecec" : "#98a4fc",
+						...(forwardActive ? activeStyle : {}),
 					}}
 					onMouseDown={() => {
 						setForwardActive(true);
@@ -187,7 +195,8 @@ const Control = (): React.ReactElement => {
 				<Styles.DirectionButton
 					style={{
 						gridArea: "2 / 3",
-						backgroundColor: rightActive ? "lightgrey" : "initial",
+						backgroundColor: rightActive ? "#f0ecec" : "#98a4fc",
+						...(rightActive ? activeStyle : {}),
 					}}
 					onMouseDown={() => {
 						setRightActive(true);
@@ -203,7 +212,8 @@ const Control = (): React.ReactElement => {
 				<Styles.DirectionButton
 					style={{
 						gridArea: "2 / 1",
-						backgroundColor: leftActive ? "lightgrey" : "initial",
+						backgroundColor: leftActive ? "#f0ecec" : "#98a4fc",
+						...(leftActive ? activeStyle : {}),
 					}}
 					onMouseDown={() => {
 						setLeftActive(true);
@@ -216,10 +226,10 @@ const Control = (): React.ReactElement => {
 				>
 					A
 				</Styles.DirectionButton>
-				<Styles.StopButton
+				{/* <Styles.StopButton
 					style={{ gridArea: "3 / 2" }}
-					onClick={() => sendMessage('no')}>Emergency Stop
-					</Styles.StopButton>
+					onClick={() => sendMessage('no')}>Stop
+				</Styles.StopButton> */}
 
 			</Styles.ControlContainer>
 			
