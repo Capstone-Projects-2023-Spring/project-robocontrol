@@ -34,7 +34,7 @@ async def opencv_handler(websocket, path):
         # Send a video to OpenCV client
         while(vid.isOpened()):
             json_data = {
-                'image': cv2_to_base64(vid.read()[1]),
+                'image': cv2_to_base64(vid.read()[1]).decode('utf-8'),
                 'direction': '',
                 'turn': ''
             }
