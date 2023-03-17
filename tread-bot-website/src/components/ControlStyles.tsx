@@ -19,11 +19,12 @@ export default class ControlStyles {
 		padding: 50px;
 
 		img {
-			border: 3px solid darkslategray; 
-			border-radius: 20px; 
-			overflow: hidden;
+			border: 7px solid #282424; 
 			padding: 2px;
-     		box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+			border-radius: 20px;
+			overflow: hidden;
+     		box-shadow: 15px 15px 13px rgba(0, 0, 0, 0.3);
+			
 		}
 	
 	`
@@ -54,7 +55,7 @@ export default class ControlStyles {
 		align-items: center;
 		background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
 		border-radius: 8px;
-		border-style: none;
+		border: 1px solid darkslategray;
 		box-sizing: border-box;
 		color: #FFFFFF;
 		cursor: pointer;
@@ -81,6 +82,7 @@ export default class ControlStyles {
 		padding: 0 2.6rem;
 		}
 	`
+
 
 }
 
