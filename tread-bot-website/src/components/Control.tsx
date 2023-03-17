@@ -162,7 +162,7 @@ const Control = (): React.ReactElement => {
 				<Styles.DirectionButton
 					style={{
 						gridArea: "1 / 2",
-						backgroundColor: backwardActive ? "#f0ecec" : "#98a4fc",
+						backgroundColor: backwardActive ? "#98a4fc" : "#f0ecec",
 						...(backwardActive ? activeStyle : {}),
 					}}
 					onMouseDown={() => {
@@ -179,7 +179,7 @@ const Control = (): React.ReactElement => {
 				<Styles.DirectionButton
 					style={{
 						gridArea: "2 / 2",
-						backgroundColor: forwardActive ? "#f0ecec" : "#98a4fc",
+						backgroundColor: forwardActive ? "#98a4fc" : "#f0ecec",
 						...(forwardActive ? activeStyle : {}),
 					}}
 					onMouseDown={() => {
@@ -196,7 +196,7 @@ const Control = (): React.ReactElement => {
 				<Styles.DirectionButton
 					style={{
 						gridArea: "2 / 3",
-						backgroundColor: rightActive ? "#f0ecec" : "#98a4fc",
+						backgroundColor: rightActive ? "#98a4fc" : "#f0ecec",
 						...(rightActive ? activeStyle : {}),
 					}}
 					onMouseDown={() => {
@@ -213,7 +213,7 @@ const Control = (): React.ReactElement => {
 				<Styles.DirectionButton
 					style={{
 						gridArea: "2 / 1",
-						backgroundColor: leftActive ? "#f0ecec" : "#98a4fc",
+						backgroundColor: leftActive ?  "#98a4fc" : "#f0ecec",
 						...(leftActive ? activeStyle : {}),
 					}}
 					onMouseDown={() => {
