@@ -16,6 +16,13 @@ export default class ControlStyles {
 		justify-content: center;
 		align-items: center;
 		width: 100%;
+		padding: 50px;
+
+		img {
+			border: 3px solid black; 
+			border-radius: 20px; 
+			overflow: hidden;
+		}
 	
 	`
 

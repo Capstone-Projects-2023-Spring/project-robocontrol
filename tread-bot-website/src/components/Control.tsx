@@ -53,6 +53,13 @@ const Control = (): React.ReactElement => {
 	//import FlexContainer
 	const FlexContainer = Styles.FlexContainer;
 
+	//activity states to make buttons change color when activated
+	const [forwardActive, setForwardActive] = useState(false);
+	const [backwardActive, setBackwardActive] = useState(false);
+	const [leftActive, setLeftActive] = useState(false);
+	const [rightActive, setRightActive] = useState(false);
+
+	//allow bot to be controlled by WASD keys on keyboard
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			switch (event.key.toLowerCase()) {
@@ -71,6 +78,24 @@ const Control = (): React.ReactElement => {
 				default:
 					break;
 			}
+
+			switch (event.key.toLowerCase()) {
+				case 'w':
+					setBackwardActive(true);
+					break;
+				case 's':
+					setForwardActive(true);
+					break;
+				case 'a':
+					setLeftActive(true);
+					break;
+				case 'd':
+					setRightActive(true);
+					break;
+				default:
+					break;
+			}
+
 		};
 
 		const handleKeyUp = (event: KeyboardEvent) => {
@@ -84,6 +109,24 @@ const Control = (): React.ReactElement => {
 				default:
 					break;
 			}
+
+			switch (event.key.toLowerCase()) {
+			case 'w':
+				setBackwardActive(false);
+				break;
+			case 's':
+				setForwardActive(false);
+				break;
+			case 'a':
+				setLeftActive(false);
+				break;
+			case 'd':
+				setRightActive(false);
+				break;
+			default:
+				break;
+		}
+
 		};
 
 		window.addEventListener('keydown', handleKeyDown);
@@ -106,10 +149,70 @@ const Control = (): React.ReactElement => {
 
 			<Styles.ControlContainer>
 				{/* Send a message to the robot */}
-				<button style={{ gridArea: "1 / 2" }} onMouseDown={() => sendMessage('backward')} onMouseUp={() => sendMessage('no')}>W</button>
-				<button style={{ gridArea: "2 / 2" }} onMouseDown={() => sendMessage('forward')} onMouseUp={() => sendMessage('no')}>S</button>
-				<button style={{ gridArea: "2 / 3" }} onMouseDown={() => sendMessage('right')} onMouseUp={() => sendMessage('no')}>D</button>
-				<button style={{ gridArea: "2 / 1" }} onMouseDown={() => sendMessage('left')} onMouseUp={() => sendMessage('no')}>A</button>
+				<button
+					style={{
+						gridArea: "1 / 2",
+						backgroundColor: backwardActive ? "blue" : "initial",
+					}}
+					onMouseDown={() => {
+						setBackwardActive(true);
+						sendMessage('backward');
+					}}
+					onMouseUp={() => {
+						setBackwardActive(false);
+						sendMessage('no');
+					}}
+				>
+					W
+				</button>
+				<button
+					style={{
+						gridArea: "2 / 2",
+						backgroundColor: forwardActive ? "blue" : "initial",
+					}}
+					onMouseDown={() => {
+						setForwardActive(true);
+						sendMessage('forward');
+					}}
+					onMouseUp={() => {
+						setForwardActive(false);
+						sendMessage('no');
+					}}
+				>
+					S
+				</button>
+				<button
+					style={{
+						gridArea: "2 / 3",
+						backgroundColor: rightActive ? "blue" : "initial",
+					}}
+					onMouseDown={() => {
+						setRightActive(true);
+						sendMessage('right');
+					}}
+					onMouseUp={() => {
+						setRightActive(false);
+						sendMessage('no');
+					}}
+				>
+					D
+				</button>
+				<button
+					style={{
+						gridArea: "2 / 1",
+						backgroundColor: leftActive ? "blue" : "initial",
+					}}
+					onMouseDown={() => {
+						setLeftActive(true);
+						sendMessage('left');
+					}}
+					onMouseUp={() => {
+						setLeftActive(false);
+						sendMessage('no');
+					}}
+				>
+					A
+				</button>
 				<button style={{ gridArea: "3 / 2" }} onClick={() => sendMessage('no')}>Stop</button>
 			</Styles.ControlContainer>
 		</FlexContainer>
