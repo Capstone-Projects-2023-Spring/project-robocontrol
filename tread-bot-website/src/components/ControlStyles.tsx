@@ -40,6 +40,7 @@ export default class ControlStyles {
 
 	static readonly DirectionButton = styled.button`
 		font-family: "Open Sans", sans-serif;
+		font-weight: bold;
 		font-size: 16px;
 		letter-spacing: 2px;
 		text-decoration: none;

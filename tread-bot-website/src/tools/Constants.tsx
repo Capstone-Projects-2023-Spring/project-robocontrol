@@ -1,5 +1,6 @@
 export class COLORS {
     static readonly PRIMARY = '#ffffff'
+    static readonly OFFWHITE = '#f0ecec'
     static readonly HOVER = '#8c8c8c'
 	static readonly BACKGROUND = '#ffffff'
 	static readonly TEXT = '#000000'
