@@ -39,9 +39,9 @@ export default class BannerStyles {
         left: 3%;
         padding: 1%;
         z-index: 100;
-        background-color: ${COLORS.PRIMARY};
-        border: 2px solid black;
-        border-radius: 4px;
+        background-color: ${COLORS.OFFWHITE};
+        border: 3px solid black;
+        box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px, 15px 15px 13px rgba(0, 0, 0, 0.3);	
 
         display: flex;
         align-items: center;
