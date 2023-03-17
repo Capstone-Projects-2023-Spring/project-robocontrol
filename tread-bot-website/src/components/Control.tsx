@@ -142,17 +142,20 @@ const Control = (): React.ReactElement => {
 
 		// give camera feed its own container to avoid overlapping with WASD controls
 		<FlexContainer>
+
 			{/* Display the Base64 image string sent from the robot */}
 			<Styles.VideoFeedContainer>
 				{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/> : ''}
 			</Styles.VideoFeedContainer>
 
 			<Styles.ControlContainer>
+
+
 				{/* Send a message to the robot */}
-				<button
+				<Styles.DirectionButton
 					style={{
 						gridArea: "1 / 2",
-						backgroundColor: backwardActive ? "blue" : "initial",
+						backgroundColor: backwardActive ? "lightgrey" : "initial",
 					}}
 					onMouseDown={() => {
 						setBackwardActive(true);
@@ -164,11 +167,11 @@ const Control = (): React.ReactElement => {
 					}}
 				>
 					W
-				</button>
-				<button
+				</Styles.DirectionButton>
+				<Styles.DirectionButton
 					style={{
 						gridArea: "2 / 2",
-						backgroundColor: forwardActive ? "blue" : "initial",
+						backgroundColor: forwardActive ? "lightgrey" : "initial",
 					}}
 					onMouseDown={() => {
 						setForwardActive(true);
@@ -180,11 +183,11 @@ const Control = (): React.ReactElement => {
 					}}
 				>
 					S
-				</button>
-				<button
+				</Styles.DirectionButton>
+				<Styles.DirectionButton
 					style={{
 						gridArea: "2 / 3",
-						backgroundColor: rightActive ? "blue" : "initial",
+						backgroundColor: rightActive ? "lightgrey" : "initial",
 					}}
 					onMouseDown={() => {
 						setRightActive(true);
@@ -196,11 +199,11 @@ const Control = (): React.ReactElement => {
 					}}
 				>
 					D
-				</button>
-				<button
+				</Styles.DirectionButton>
+				<Styles.DirectionButton
 					style={{
 						gridArea: "2 / 1",
-						backgroundColor: leftActive ? "blue" : "initial",
+						backgroundColor: leftActive ? "lightgrey" : "initial",
 					}}
 					onMouseDown={() => {
 						setLeftActive(true);
@@ -212,9 +215,14 @@ const Control = (): React.ReactElement => {
 					}}
 				>
 					A
-				</button>
-				<button style={{ gridArea: "3 / 2" }} onClick={() => sendMessage('no')}>Stop</button>
+				</Styles.DirectionButton>
+				<Styles.StopButton
+					style={{ gridArea: "3 / 2" }}
+					onClick={() => sendMessage('no')}>Emergency Stop
+					</Styles.StopButton>
+
 			</Styles.ControlContainer>
+			
 		</FlexContainer>
 	)
 }
