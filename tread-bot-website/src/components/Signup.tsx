@@ -10,6 +10,7 @@ const Signup = (): React.ReactElement => {
   const [phone, setPhone] = useState('');
 
   const handleSignup = async () => {
+    console.log('handleSignup called with:', { username, password, confirmPassword, email, phone });
     try {
       const response = await fetch('http://localhost:3001/signup', {
         method: 'POST',
@@ -18,6 +19,7 @@ const Signup = (): React.ReactElement => {
         },
         body: JSON.stringify({ username, password, confirmPassword, email, phone }),
       });
+      
   
       if (response.ok) {
         console.log('User data saved');
@@ -25,8 +27,17 @@ const Signup = (): React.ReactElement => {
         console.error('Error saving user data');
       }
     } catch (error) {
-      console.error('Error:', error);
-    }
+        console.error('Error:', error);
+      }
+      fetch('http://localhost:3001/signup', {
+        // ...
+      })
+        .then((response) => {
+          // ...
+        })
+        .catch((error) => {
+          console.error('Fetch error:', error);
+        });
   };
 
   return (
