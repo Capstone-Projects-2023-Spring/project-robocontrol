@@ -24,7 +24,6 @@ export default class ControlStyles {
 			padding: 0.25em;
 			box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px, 6px 6px 0px 0px, 7px 7px 0px 0px, 20px 20px 13px rgba(0, 0, 0, 0.3);	
 		}
-	
 	`
 
 	static readonly FlexContainer = styled.div`
@@ -87,9 +86,5 @@ export default class ControlStyles {
 		@media (min-width: 768px) {
 			padding: 0.25em 0.75em;
 		}
-  
 	`
-
-
 }
-

@@ -10,6 +10,7 @@ type MsgData = {
 	image: string
 }
 
+// Type to use for robot movement
 type wasd = {
 	[index: string]: boolean,
 	forward: boolean,
@@ -18,6 +19,19 @@ type wasd = {
 	right: boolean
 }
 
+type dir_content = {
+	grid: string,
+	direction: string,
+	character: string
+}
+
+const direction_buttons: dir_content[] = [
+	{ grid: '1 / 2', direction: 'backward', character: 'W' },
+	{ grid: '2 / 1', direction: 'left', character: 'A' },
+	{ grid: '2 / 2', direction: 'forward', character: 'S' },
+	{ grid: '2 / 3', direction: 'right', character: 'D' }
+]
+const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px' };
 const wasd_default: wasd = {forward: false, backward: false, left: false, right: false}
 
 const WS_URL = `wss://ryanhodge.net/ws/robot`
@@ -26,16 +40,11 @@ const ws = new WebSocket(WS_URL) // A websocket for the robot
 const Control = (): React.ReactElement => {
 	const [img, setImg] = useState('');
 
-	//activity states to make buttons change color when activated
-	const [activeMovement, setActiveMovement] = useState({forward: false, backward: false, left: false, right: false});
-	const [forwardActive, setForwardActive] = useState(false);
-	const [backwardActive, setBackwardActive] = useState(false);
-	const [leftActive, setLeftActive] = useState(false);
-	const [rightActive, setRightActive] = useState(false);
+	// Activity states to make buttons change color when activated
+	const [activeMovement, setActiveMovement] = useState<wasd>(wasd_default);
 
 	useEffect(() => {
 		const interval = setInterval(() => {ws.send('')}, 50);
-	
 		return () => clearInterval(interval);
 	}, []);
 
@@ -48,10 +57,12 @@ const Control = (): React.ReactElement => {
 
 	const sendMessage = (command: string) => {
 		let direction, turn;
-		let active = wasd_default;
+		let active = {...wasd_default};
+
 		command !== 'no' ? active[command] = true : active = wasd_default
 		setActiveMovement(active)
 		
+		// Messy because two commands are needed, a turn command and forward/backward
 		direction = 
 			command === 'right' ? 'no' :
 			command === 'left' ? 'no' :
@@ -71,54 +82,20 @@ const Control = (): React.ReactElement => {
 
 		ws.send(JSON.stringify(data))
 	}
-	
-	const activeStyle = {
-		boxShadow: '0px 0px 0px 0px',
-		top: '5px',
-		left: '5px',
-	};
-	
 
-	//allow bot to be controlled by WASD keys on keyboard
+	// Allow bot to be controlled by WASD keys on keyboard
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			switch (event.key.toLowerCase()) {
-				case 'w':
-					sendMessage('backward');
-					setBackwardActive(true);
-					break;
-				case 'a':
-					sendMessage('left');
-					setLeftActive(true);
-					break;
-				case 's':
-					sendMessage('forward');
-					setForwardActive(true);
-					break;
-				case 'd':
-					sendMessage('right');
-					setRightActive(true);
-					break;
-				default:
-					break;
+				case 'w': sendMessage('backward'); break;
+				case 'a': sendMessage('left'); break;
+				case 's': sendMessage('forward'); break;
+				case 'd': sendMessage('right'); break;
 			}
 		};
 
 		const handleKeyUp = (event: KeyboardEvent) => {
-			switch (event.key.toLowerCase()) {
-				case 'w':
-				case 's':
-				case 'a':
-				case 'd':
-					sendMessage('no');
-					setBackwardActive(false);
-					setForwardActive(false);
-					setLeftActive(false);
-					setRightActive(false);
-					break;
-				default:
-					break;
-			}
+			if ('wasd'.includes(event.key.toLowerCase())) sendMessage('no');
 		};
 
 		window.addEventListener('keydown', handleKeyDown);
@@ -130,88 +107,37 @@ const Control = (): React.ReactElement => {
 		};
 	}, []);
 
+	const renderDirections = (): React.ReactElement[] => {
+		const directionButtons: React.ReactElement[] = []
+		direction_buttons.forEach((direction, i) => {
+			directionButtons.push(
+				<Styles.DirectionButton
+					style={{
+						gridArea: direction.grid,
+						backgroundColor: activeMovement[direction.direction] ?  "#98a4fc" : "#f0ecec",
+						...(activeMovement[direction.direction] ? activeStyle : {}),
+					}}
+					onMouseDown={() => sendMessage(direction.direction)}
+					onMouseUp={() => sendMessage('no')}
+					key={i} >{direction.character}</Styles.DirectionButton>
+			)
+		})
+		return directionButtons
+	}
+
 	return (
 
-		// give camera feed its own container to avoid overlapping with WASD controls
+		// Give camera feed its own container to avoid overlapping with WASD controls
 		<Styles.FlexContainer>
-
 			{/* Display the Base64 image string sent from the robot */}
 			<Styles.VideoFeedContainer>
 				{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/> : ''}
 			</Styles.VideoFeedContainer>
 
 			<Styles.ControlContainer>
-
-
 				{/* Send a message to the robot */}
-				<Styles.DirectionButton
-					style={{
-						gridArea: "1 / 2",
-						backgroundColor: backwardActive ? "#98a4fc" : "#f0ecec",
-						...(backwardActive ? activeStyle : {}),
-					}}
-					onMouseDown={() => {
-						setBackwardActive(true);
-						sendMessage('backward');
-					}}
-					onMouseUp={() => {
-						setBackwardActive(false);
-						sendMessage('no');
-					}}
-				>
-					W
-				</Styles.DirectionButton>
-				<Styles.DirectionButton
-					style={{
-						gridArea: "2 / 2",
-						backgroundColor: forwardActive ? "#98a4fc" : "#f0ecec",
-						...(forwardActive ? activeStyle : {}),
-					}}
-					onMouseDown={() => {
-						setForwardActive(true);
-						sendMessage('forward');
-					}}
-					onMouseUp={() => {
-						setForwardActive(false);
-						sendMessage('no');
-					}}
-				>
-					S
-				</Styles.DirectionButton>
-				<Styles.DirectionButton
-					style={{
-						gridArea: "2 / 3",
-						backgroundColor: rightActive ? "#98a4fc" : "#f0ecec",
-						...(rightActive ? activeStyle : {}),
-					}}
-					onMouseDown={() => {
-						setRightActive(true);
-						sendMessage('right');
-					}}
-					onMouseUp={() => {
-						setRightActive(false);
-						sendMessage('no');
-					}}
-				>
-					D
-				</Styles.DirectionButton>
-				<Styles.DirectionButton
-					style={{
-						gridArea: "2 / 1",
-						backgroundColor: leftActive ?  "#98a4fc" : "#f0ecec",
-						...(leftActive ? activeStyle : {}),
-					}}
-					onMouseDown={() => {
-						setLeftActive(true);
-						sendMessage('left');
-					}}
-					onMouseUp={() => {
-						setLeftActive(false);
-						sendMessage('no');
-					}}
-				>
-					A
-				</Styles.DirectionButton>
+				{renderDirections()}
+
 				{/* <Styles.StopButton
 					style={{ gridArea: "3 / 2" }}
 					onClick={() => sendMessage('no')}>Stop
