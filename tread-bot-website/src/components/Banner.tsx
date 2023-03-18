@@ -2,7 +2,6 @@
 import React from 'react'
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { RxHamburgerMenu } from 'react-icons/rx';
-import { Link } from 'react-router-dom';
 import { PATHS } from '../tools/Constants';
 import { scrollToTop } from '../tools/HelpfulFunctions';
 
