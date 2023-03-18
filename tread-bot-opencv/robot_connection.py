@@ -5,7 +5,8 @@ import websockets
 import cv2
 import asyncio
 import base64
-import numpy as np   
+import numpy as np
+import json
 
 WEBSOCKET = "ws://192.168.2.3:8998"
 
@@ -22,8 +23,8 @@ async def listen():
         print('Connected to ' + WEBSOCKET)
         # Stay alive forever, listening to incoming msgs
         while True:
-            packet = await ws.recv()
-            image = base64_to_cv2(packet)
+            packet = json.loads(await ws.recv())
+            image = base64_to_cv2(packet['image'])
 
             cv2.imshow('Socket data', image)
             c = cv2.waitKey(1)
