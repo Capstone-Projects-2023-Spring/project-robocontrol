@@ -1,6 +1,5 @@
 // Third party imports
 import React, { useEffect, useState } from 'react'
-import { COLORS } from '../tools/Constants'
 
 // Custom styles
 import Styles from './ControlStyles'
@@ -11,11 +10,28 @@ type MsgData = {
 	image: string
 }
 
+type wasd = {
+	[index: string]: boolean,
+	forward: boolean,
+	backward: boolean,
+	left: boolean,
+	right: boolean
+}
+
+const wasd_default: wasd = {forward: false, backward: false, left: false, right: false}
+
 const WS_URL = `wss://ryanhodge.net/ws/robot`
 const ws = new WebSocket(WS_URL) // A websocket for the robot
 
 const Control = (): React.ReactElement => {
 	const [img, setImg] = useState('');
+
+	//activity states to make buttons change color when activated
+	const [activeMovement, setActiveMovement] = useState({forward: false, backward: false, left: false, right: false});
+	const [forwardActive, setForwardActive] = useState(false);
+	const [backwardActive, setBackwardActive] = useState(false);
+	const [leftActive, setLeftActive] = useState(false);
+	const [rightActive, setRightActive] = useState(false);
 
 	useEffect(() => {
 		const interval = setInterval(() => {ws.send('')}, 50);
@@ -31,12 +47,17 @@ const Control = (): React.ReactElement => {
 	}
 
 	const sendMessage = (command: string) => {
-		const direction = 
+		let direction, turn;
+		let active = wasd_default;
+		command !== 'no' ? active[command] = true : active = wasd_default
+		setActiveMovement(active)
+		
+		direction = 
 			command === 'right' ? 'no' :
 			command === 'left' ? 'no' :
 			command === 'forward' ? command :
 			command === 'backward' ? command : command
-		const turn = 
+		turn = 
 			command === 'right' ? command :
 			command === 'left' ? command :
 			command === 'forward' ? 'no' :
@@ -51,19 +72,11 @@ const Control = (): React.ReactElement => {
 		ws.send(JSON.stringify(data))
 	}
 	
-	//import FlexContainer
-	const FlexContainer = Styles.FlexContainer;
-
-	//activity states to make buttons change color when activated
-	const [forwardActive, setForwardActive] = useState(false);
-	const [backwardActive, setBackwardActive] = useState(false);
-	const [leftActive, setLeftActive] = useState(false);
-	const [rightActive, setRightActive] = useState(false);
 	const activeStyle = {
 		boxShadow: '0px 0px 0px 0px',
 		top: '5px',
 		left: '5px',
-	  };
+	};
 	
 
 	//allow bot to be controlled by WASD keys on keyboard
@@ -72,37 +85,23 @@ const Control = (): React.ReactElement => {
 			switch (event.key.toLowerCase()) {
 				case 'w':
 					sendMessage('backward');
-					break;
-				case 's':
-					sendMessage('forward');
+					setBackwardActive(true);
 					break;
 				case 'a':
 					sendMessage('left');
+					setLeftActive(true);
+					break;
+				case 's':
+					sendMessage('forward');
+					setForwardActive(true);
 					break;
 				case 'd':
 					sendMessage('right');
-					break;
-				default:
-					break;
-			}
-
-			switch (event.key.toLowerCase()) {
-				case 'w':
-					setBackwardActive(true);
-					break;
-				case 's':
-					setForwardActive(true);
-					break;
-				case 'a':
-					setLeftActive(true);
-					break;
-				case 'd':
 					setRightActive(true);
 					break;
 				default:
 					break;
 			}
-
 		};
 
 		const handleKeyUp = (event: KeyboardEvent) => {
@@ -112,28 +111,14 @@ const Control = (): React.ReactElement => {
 				case 'a':
 				case 'd':
 					sendMessage('no');
+					setBackwardActive(false);
+					setForwardActive(false);
+					setLeftActive(false);
+					setRightActive(false);
 					break;
 				default:
 					break;
 			}
-
-			switch (event.key.toLowerCase()) {
-			case 'w':
-				setBackwardActive(false);
-				break;
-			case 's':
-				setForwardActive(false);
-				break;
-			case 'a':
-				setLeftActive(false);
-				break;
-			case 'd':
-				setRightActive(false);
-				break;
-			default:
-				break;
-		}
-
 		};
 
 		window.addEventListener('keydown', handleKeyDown);
@@ -148,7 +133,7 @@ const Control = (): React.ReactElement => {
 	return (
 
 		// give camera feed its own container to avoid overlapping with WASD controls
-		<FlexContainer>
+		<Styles.FlexContainer>
 
 			{/* Display the Base64 image string sent from the robot */}
 			<Styles.VideoFeedContainer>
@@ -233,8 +218,7 @@ const Control = (): React.ReactElement => {
 				</Styles.StopButton> */}
 
 			</Styles.ControlContainer>
-			
-		</FlexContainer>
+		</Styles.FlexContainer>
 	)
 }
 
