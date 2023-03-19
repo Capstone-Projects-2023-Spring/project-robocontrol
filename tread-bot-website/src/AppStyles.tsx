@@ -1,12 +1,10 @@
 import styled from 'styled-components'
 
 export default class AppStyles {
-	static readonly AppContainer = styled.div`
-		display: flex;
-		flex-direction: column;
-		justify-items: center;
-		height: 100%;
-		width: 100%;
-		align-items: center;
+	static readonly AppContainer = styled.div`		
+		background: linear-gradient(135deg, hsla(255, 12%, 94%, 1) 0%, hsla(230, 100%, 78%, 1) 100%);
+	`
+
+	static readonly Content = styled.div`
 	`
 }

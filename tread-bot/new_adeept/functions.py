@@ -179,7 +179,7 @@ class Functions(threading.Thread):
 	def automaticProcessing(self):
 		print('automaticProcessing')
 		if self.rangeKeep/3 > ultra.checkdist():
-			move.move(100, 'backward', 'no', 0.5)
+			 move.move(100, 'backward', 'no', 0.5)
 		elif self.rangeKeep > ultra.checkdist():
 			move.move(100, 'no', 'left', 0.5)
 		else:
