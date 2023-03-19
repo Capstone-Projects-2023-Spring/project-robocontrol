@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 // Custom styles
 import Styles from './ControlStyles'
+import Login from './Login'
 
 type MsgData = {
 	direction: string
@@ -39,6 +40,7 @@ const ws = new WebSocket(WS_URL) // A websocket for the robot
 
 const Control = (): React.ReactElement => {
 	const [img, setImg] = useState('');
+	const [loggedIn, login] = useState(false)
 
 	// Activity states to make buttons change color when activated
 	const [activeMovement, setActiveMovement] = useState<wasd>(wasd_default);
@@ -134,16 +136,21 @@ const Control = (): React.ReactElement => {
 				{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/> : ''}
 			</Styles.VideoFeedContainer>
 
-			<Styles.ControlContainer>
-				{/* Send a message to the robot */}
-				{renderDirections()}
+			{
+				!loggedIn ?
+				<Login loginSuccessful={login}/> :
+				<Styles.ControlContainer>
+					{/* Send a message to the robot */}
+					{renderDirections()}
 
-				{/* <Styles.StopButton
-					style={{ gridArea: "3 / 2" }}
-					onClick={() => sendMessage('no')}>Stop
-				</Styles.StopButton> */}
+					{/* <Styles.StopButton
+						style={{ gridArea: "3 / 2" }}
+						onClick={() => sendMessage('no')}>Stop
+					</Styles.StopButton> */}
 
-			</Styles.ControlContainer>
+				</Styles.ControlContainer>
+			}
+
 		</Styles.FlexContainer>
 	)
 }
