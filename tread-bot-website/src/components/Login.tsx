@@ -30,7 +30,6 @@ const Login = (props: LoginProps): React.ReactElement => {
 
 			if (response.ok) {
 				console.log('Login successful');
-				// setSuccessMessage('Login Successfully!'); // TODO: Put in a variable here that gets set
 				props.loginSuccessful(true)
 		 
 			} else {
@@ -64,19 +63,9 @@ const Login = (props: LoginProps): React.ReactElement => {
 				/>
 			</InputContainer>
 			<button onClick={handleLogin}>Login</button>
-			<p style={{ color: true ? 'orange' : 'blue', marginTop: '1cm' }}>
-				{error ? 'Username or Password is not correct, please try again.' : 'successMessage'}
+			<p style={{ color: error ? 'red' : 'blue', marginTop: '1cm' }}>
+				{error ? 'Username or Password is not correct, please try again.' : ''}
 			</p>
-			{error && (
-				<button onClick={() => navigate('/signup')} style={{ marginTop: '1cm' }}>
-					Signup
-				</button>
-			)}
-			{true && (
-				<button onClick={() => navigate('/control')} style={{ marginTop: '1cm' }}>
-					Start
-				</button>
-			)}
 		</LoginContainer>
 	);
 };
