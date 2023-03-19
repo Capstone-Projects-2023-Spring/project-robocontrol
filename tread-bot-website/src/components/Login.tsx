@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LoginContainer, InputContainer } from './LoginStyles';
+import Styles from './LoginStyles';
 
 type LoginProps = {
 	loginSuccessful: Function
@@ -36,9 +36,9 @@ const Login = (props: LoginProps): React.ReactElement => {
 	};
 
 	return (
-		<LoginContainer>
+		<Styles.LoginContainer>
 			<h1>Login to Control</h1>
-			<InputContainer>
+			<Styles.InputContainer>
 				<label htmlFor="username">Username: </label>
 				<input
 					type="text"
@@ -46,8 +46,8 @@ const Login = (props: LoginProps): React.ReactElement => {
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
 				/>
-			</InputContainer>
-			<InputContainer>
+			</Styles.InputContainer>
+			<Styles.InputContainer>
 				<label htmlFor="password">Password: </label>
 				<input
 					type="password"
@@ -55,12 +55,12 @@ const Login = (props: LoginProps): React.ReactElement => {
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
-			</InputContainer>
+			</Styles.InputContainer>
 			<button onClick={handleLogin}>Login</button>
 			<p style={{ color: error ? 'red' : 'blue', marginTop: '1cm' }}>
 				{error ? 'Username or Password is not correct, please try again.' : ''}
 			</p>
-		</LoginContainer>
+		</Styles.LoginContainer>
 	);
 };
 
