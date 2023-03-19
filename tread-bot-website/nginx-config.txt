@@ -33,5 +33,12 @@ server {
             proxy_pass http://192.168.2.3:8999;
         }
     }
+
+    location /login {
+        proxy_pass http://localhost:9001/login;
+        proxy_set_header Origin https://www.ryanhodge.net;
+        proxy_hide_header Access-Control-Allow-Origin;
+        add_header Access-Control-Allow-Origin https://www.ryanhodge.net;
+    }
 }
 

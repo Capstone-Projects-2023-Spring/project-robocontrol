@@ -12,9 +12,9 @@ const Login = (props: LoginProps): React.ReactElement => {
 
 	const handleLogin = async () => {
 		setError('');
-
+		const endpoint = window.location.hostname === 'localhost' ? 'http://localhost:9001/login' : 'https://ryanhodge.net/login'
 		try {
-			const response = await fetch('http://localhost:9001/login', {
+			const response = await fetch(endpoint, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
