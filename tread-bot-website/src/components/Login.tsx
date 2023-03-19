@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { LoginContainer, InputContainer } from './LoginStyles';
-import { useNavigate } from 'react-router-dom';
 
 type LoginProps = {
 	loginSuccessful: Function
@@ -11,14 +10,10 @@ const Login = (props: LoginProps): React.ReactElement => {
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 
-	// const [successMessage, setSuccessMessage] = useState('');
-	const navigate = useNavigate();
-
 	const handleLogin = async () => {
 		setError('');
 
 		try {
-			console.log('Login');
 			const response = await fetch('http://localhost:9001/login', {
 				method: 'POST',
 				headers: {
@@ -26,7 +21,6 @@ const Login = (props: LoginProps): React.ReactElement => {
 				},
 				body: JSON.stringify({ username, password }),
 			});
-			console.log('Login2');
 
 			if (response.ok) {
 				console.log('Login successful');
