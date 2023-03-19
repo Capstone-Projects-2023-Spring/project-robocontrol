@@ -9,4 +9,6 @@ export class COLORS {
 export class PATHS {
     static readonly HOME = '/home'
     static readonly CONTROL = '/control'
+    static readonly Login = '/login'
+    static readonly Signup = '/signup'
 }
