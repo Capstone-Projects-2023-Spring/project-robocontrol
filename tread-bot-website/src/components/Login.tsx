@@ -11,20 +11,22 @@ const Login = (props: LoginProps): React.ReactElement => {
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 
-	const [successMessage, setSuccessMessage] = useState('');
+	// const [successMessage, setSuccessMessage] = useState('');
 	const navigate = useNavigate();
 
 	const handleLogin = async () => {
 		setError('');
 
 		try {
-			const response = await fetch('http://localhost:3001/login', {
+			console.log('Login');
+			const response = await fetch('http://localhost:9001/login', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({ username, password }),
 			});
+			console.log('Login2');
 
 			if (response.ok) {
 				console.log('Login successful');
@@ -62,15 +64,15 @@ const Login = (props: LoginProps): React.ReactElement => {
 				/>
 			</InputContainer>
 			<button onClick={handleLogin}>Login</button>
-			<p style={{ color: successMessage ? 'orange' : 'blue', marginTop: '1cm' }}>
-				{error ? 'Username or Password is not correct, please try again.' : successMessage}
+			<p style={{ color: true ? 'orange' : 'blue', marginTop: '1cm' }}>
+				{error ? 'Username or Password is not correct, please try again.' : 'successMessage'}
 			</p>
 			{error && (
 				<button onClick={() => navigate('/signup')} style={{ marginTop: '1cm' }}>
 					Signup
 				</button>
 			)}
-			{successMessage && (
+			{true && (
 				<button onClick={() => navigate('/control')} style={{ marginTop: '1cm' }}>
 					Start
 				</button>
