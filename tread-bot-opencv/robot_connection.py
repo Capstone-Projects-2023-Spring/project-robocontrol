@@ -24,7 +24,6 @@ async def listen():
         while True:
             packet = await ws.recv()
             image = base64_to_cv2(packet)
-
             cv2.imshow('Socket data', image)
             c = cv2.waitKey(1)
             if c == 27:
