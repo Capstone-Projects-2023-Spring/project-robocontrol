@@ -36,8 +36,6 @@ class Banner extends React.Component <unknown, { show: boolean }> {
                     </Offcanvas.Header>
                     <Styles.OffcanvasBody>
                         <Styles.LinkCont className='first-link' to={PATHS.HOME} onClick={this.handleLink}>Home</Styles.LinkCont>
-                        <Styles.LinkCont to={PATHS.Signup} onClick={this.handleLink}>Signup</Styles.LinkCont>
-                        <Styles.LinkCont to={PATHS.Login} onClick={this.handleLink}>Login</Styles.LinkCont>
                         <Styles.LinkCont to={PATHS.CONTROL} onClick={this.handleLink}>Control</Styles.LinkCont>
                         <Styles.LinkCont to={PATHS.CONTROL} onClick={this.handleLink}>Navigation</Styles.LinkCont>
                         <Styles.LinkCont to={PATHS.CONTROL} onClick={this.handleLink}>About</Styles.LinkCont>
