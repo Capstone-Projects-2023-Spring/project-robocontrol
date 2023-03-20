@@ -155,9 +155,9 @@ const Control = (): React.ReactElement => {
 				{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/> : ''}
 			</Styles.VideoFeedContainer>
 
-			<Styles.VideoFeedContainerOpenCV>
+			{/* <Styles.VideoFeedContainerOpenCV>
 				{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/> : ''}
-			</Styles.VideoFeedContainerOpenCV>
+			</Styles.VideoFeedContainerOpenCV> */}
 
 			<Styles.ControlContainer>
 
