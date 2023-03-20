@@ -52,6 +52,7 @@ const Control = (): React.ReactElement => {
 	
 	//import FlexContainer
 	const FlexContainer = Styles.FlexContainer;
+	// const FlexContainerOpenCV = Styles.FlexContainer;
 
 	//activity states to make buttons change color when activated
 	const [forwardActive, setForwardActive] = useState(false);
@@ -153,6 +154,10 @@ const Control = (): React.ReactElement => {
 			<Styles.VideoFeedContainer>
 				{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/> : ''}
 			</Styles.VideoFeedContainer>
+
+			<Styles.VideoFeedContainerOpenCV>
+				{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/> : ''}
+			</Styles.VideoFeedContainerOpenCV>
 
 			<Styles.ControlContainer>
 
