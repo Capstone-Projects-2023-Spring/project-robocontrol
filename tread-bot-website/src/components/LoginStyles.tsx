@@ -1,45 +1,46 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export default class LoginStyles {
 	static readonly LoginContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
-    padding: 2rem;
-    min-height: 20vh;
-    max-height: 25vh;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 50px;
+        padding: 2rem;
+        min-height: 20vh;
+        max-height: 25vh;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
   `;
 
     static readonly InputContainer = styled.div`
-    position: relative;
-    border-bottom: 2px solid lightgrey;
-    margin-bottom: 1.5rem;
-    padding-top: .1rem;
-    font-weight: bold;
+        position: relative;
+        border-bottom: 2px solid lightgrey;
+        margin-bottom: 1.5rem;
+        padding-top: .1rem;
+        font-weight: bold;
     
 
     label {
-    position: absolute;
-    left: 0;
-    font-size: 0.9em;
-    color: grey;
+        position: absolute;
+        left: 0;
+        font-size: 0.9em;
+        color: grey;
     }
 
     input {
-    background: none;
-    border: none;
-    outline: none;
-    color: grey;
-    padding: 0;
+        background: none;
+        border: none;
+        outline: none;
+        color: grey;
+        padding: 0;
     }
     `;
 
-    static readonly LoginButton = styled.button`
+static readonly LoginButton = styled.button<{ isFocused: boolean }>`
+
     font-family: "Open Sans", sans-serif;
     font-weight: bold;
     font-size: 16px;
@@ -58,14 +59,22 @@ export default class LoginStyles {
     touch-action: manipulation;
 
     &:active {
-    box-shadow: 0px 0px 0px 0px;
-    top: 5px;
-    left: 5px;
+        box-shadow: 0px 0px 0px 0px;
+        top: 5px;
+        left: 5px;
     }
 
     @media (min-width: 768px) {
         padding: 0.25em 0.75em;
     }
+
+    /* for animation on login button when enter key is pressed */
+    ${(props) => props.isFocused && css`
+        box-shadow: 0px 0px 0px 0px;
+        top: 5px;
+        left: 5px;
+    `}
+    
     `;
 
 
