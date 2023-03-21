@@ -9,6 +9,8 @@ const Login = (props: LoginProps): React.ReactElement => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
+	const [usernameFocused, setUsernameFocused] = useState(false);
+  	const [passwordFocused, setPasswordFocused] = useState(false);
 
 	const handleLogin = async () => {
 		setError('');
@@ -37,32 +39,40 @@ const Login = (props: LoginProps): React.ReactElement => {
 
 	return (
 		<Styles.LoginContainer>
-			<h1>Login to Control</h1>
-			<Styles.InputContainer>
-				<label htmlFor="username">Username: </label>
-				<input
-					type="text"
-					id="username"
-					value={username}
-					onChange={(e) => setUsername(e.target.value)}
-				/>
-			</Styles.InputContainer>
-			<Styles.InputContainer>
-				<label htmlFor="password">Password: </label>
-				<input
-					type="password"
-					id="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-				/>
-			</Styles.InputContainer>
-			
-			<Styles.LoginButton onClick={handleLogin}>Login</Styles.LoginButton>
-
-			<p style={{ color: error ? 'red' : 'blue', marginTop: '1cm' }}>
-				{error ? 'Username or Password is not correct, please try again.' : ''}
-			</p>
-		</Styles.LoginContainer>
+		<Styles.Heading>Login to Control</Styles.Heading>
+		<Styles.InputContainer>
+		  {!usernameFocused && !username && (
+			<label htmlFor="username">Username</label>
+		  )}
+		  <input
+			type="text"
+			id="username"
+			value={username}
+			onChange={(e) => setUsername(e.target.value)}
+			style={{ paddingTop: '0.25rem' }}
+			onFocus={() => setUsernameFocused(true)}
+			onBlur={() => setUsernameFocused(false)}
+		  />
+		</Styles.InputContainer>
+		<Styles.InputContainer>
+		  {!passwordFocused && !password && (
+			<label htmlFor="password">Password</label>
+		  )}
+		  <input
+			type="password"
+			id="password"
+			value={password}
+			onChange={(e) => setPassword(e.target.value)}
+			style={{ paddingTop: '0.25rem' }}
+			onFocus={() => setPasswordFocused(true)}
+			onBlur={() => setPasswordFocused(false)}
+		  />
+		</Styles.InputContainer>
+		<Styles.LoginButton onClick={handleLogin}>Login</Styles.LoginButton>
+		<p style={{ color: error ? 'red' : 'blue', marginTop: '1cm' }}>
+		  {error ? 'Username or Password is not correct, please try again.' : ''}
+		</p>
+	  </Styles.LoginContainer>
 	);
 };
 

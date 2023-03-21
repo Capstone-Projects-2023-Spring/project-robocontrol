@@ -6,6 +6,7 @@ export default class LoginStyles {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 50px;
     padding: 2rem;
     min-height: 20vh;
     max-height: 25vh;
@@ -16,13 +17,15 @@ export default class LoginStyles {
 
     static readonly InputContainer = styled.div`
     position: relative;
-    border-bottom: 2px solid grey;
+    border-bottom: 2px solid lightgrey;
     margin-bottom: 1.5rem;
+    padding-top: .1rem;
+    font-weight: bold;
+    
 
     label {
     position: absolute;
     left: 0;
-    top: -0.5em;
     font-size: 0.9em;
     color: grey;
     }
@@ -32,7 +35,7 @@ export default class LoginStyles {
     border: none;
     outline: none;
     color: grey;
-    padding: 0.5rem 0;
+    padding: 0;
     }
     `;
 
@@ -41,6 +44,7 @@ export default class LoginStyles {
     font-weight: bold;
     font-size: 16px;
     letter-spacing: 2px;
+    margin-top: 20px; // add a margin to create spacing between the input and the button
     text-decoration: none;
     text-transform: uppercase;
     color: #000;
@@ -60,7 +64,21 @@ export default class LoginStyles {
     }
 
     @media (min-width: 768px) {
-    padding: 0.25em 0.75em;
+        padding: 0.25em 0.75em;
     }
-`;
+    `;
+
+
+    static readonly Heading = styled.h1`
+        font-family: 'Poppins-Bold', sans-serif;
+        font-size: 30px;
+        color: #333;
+        padding-bottom: 30px;
+        padding-top: 30px;
+        font-weight: bold;
+        
+    `;
+
+  
+
 }
