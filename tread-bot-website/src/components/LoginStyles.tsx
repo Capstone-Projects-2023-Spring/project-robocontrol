@@ -8,11 +8,12 @@ export default class LoginStyles {
         justify-content: center;
         margin-top: 50px;
         padding: 2rem;
-        min-height: 20vh;
-        max-height: 25vh;
+        height: 375px;
         background-color: white;
         border-radius: 8px;
         box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 275px;
   `;
 
     static readonly InputContainer = styled.div`
@@ -68,6 +69,11 @@ static readonly LoginButton = styled.button<{ isFocused: boolean }>`
         padding: 0.25em 0.75em;
     }
 
+    @media (max-width: 768px) {
+      font-size: 14px;
+      padding: 0.25em 0.5em;
+    }
+
     /* for animation on login button when enter key is pressed */
     ${(props) => props.isFocused && css`
         box-shadow: 0px 0px 0px 0px;
@@ -85,6 +91,10 @@ static readonly LoginButton = styled.button<{ isFocused: boolean }>`
         padding-bottom: 30px;
         padding-top: 30px;
         font-weight: bold;
+
+        @media (max-width: 768px) {
+            font-size: 24px;
+        }
         
     `;
 
