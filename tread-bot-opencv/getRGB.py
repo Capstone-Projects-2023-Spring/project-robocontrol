@@ -21,4 +21,4 @@ def get_rgb(frames):
     cv2.destroyAllWindows()
 
 
-#get_rgb(1)
+get_rgb(1)
