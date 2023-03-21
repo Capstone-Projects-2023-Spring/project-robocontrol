@@ -32,13 +32,13 @@ class Banner extends React.Component <unknown, { show: boolean }> {
 
                 <Styles.OffcanvasContainer show={this.state.show} onHide={this.handleClose}>
                     <Offcanvas.Header closeButton>
-                        <Offcanvas.Title style={{color: 'black'}}>RoboControl</Offcanvas.Title>
+                        <Styles.OffcanvasTitle>RoboControl</Styles.OffcanvasTitle>
                     </Offcanvas.Header>
                     <Styles.OffcanvasBody>
-                        <Styles.LinkCont className='first-link' to={PATHS.HOME} onClick={this.handleLink}>Home</Styles.LinkCont>
-                        <Styles.LinkCont to={PATHS.CONTROL} onClick={this.handleLink}>Control</Styles.LinkCont>
-                        <Styles.LinkCont to={PATHS.CONTROL} onClick={this.handleLink}>Navigation</Styles.LinkCont>
-                        <Styles.LinkCont to={PATHS.CONTROL} onClick={this.handleLink}>About</Styles.LinkCont>
+                        <Styles.LinkCont className='first-link' to={PATHS.HOME} onClick={this.handleLink}>HOME</Styles.LinkCont>
+                        <Styles.LinkCont to={PATHS.CONTROL} onClick={this.handleLink}>CONTROL</Styles.LinkCont>
+                        <Styles.LinkCont to={PATHS.CONTROL} onClick={this.handleLink}>NAVIGATION</Styles.LinkCont>
+                        <Styles.LinkCont to={PATHS.CONTROL} onClick={this.handleLink}>ABOUT</Styles.LinkCont>
                     </Styles.OffcanvasBody>
                 </Styles.OffcanvasContainer>
             </>

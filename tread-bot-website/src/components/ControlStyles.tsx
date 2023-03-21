@@ -65,6 +65,7 @@ export default class ControlStyles {
 	static readonly StopButton = styled.button`
 		font-family: "Open Sans", sans-serif;
 		font-size: 16px;
+		font-weight: bold;
 		letter-spacing: 2px;
 		text-decoration: none;
 		text-transform: uppercase;
@@ -77,6 +78,10 @@ export default class ControlStyles {
 		user-select: none;
 		-webkit-user-select: none;
 		touch-action: manipulation;
+
+		background: linear-gradient(-45deg, #F894A4, #F9D1B7);
+    	background-size: 400% 400%;
+    	animation: gradient 5s ease infinite;
 
 		&:active {
 			box-shadow: 0px 0px 0px 0px;
