@@ -14,7 +14,25 @@ export default class LoginStyles {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
   `;
 
-	static readonly InputContainer = styled.div`
-    //...
-	`
+    static readonly InputContainer = styled.div`
+    position: relative;
+    border-bottom: 2px solid grey;
+    margin-bottom: 1.5rem;
+
+    label {
+    position: absolute;
+    left: 0;
+    top: -0.5em;
+    font-size: 0.9em;
+    color: grey;
+    }
+
+    input {
+    background: none;
+    border: none;
+    outline: none;
+    color: grey;
+    padding: 0.5rem 0;
+    }
+    `;
 }
