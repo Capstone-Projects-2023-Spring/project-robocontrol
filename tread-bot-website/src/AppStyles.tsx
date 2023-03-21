@@ -1,8 +1,9 @@
 import styled from 'styled-components'
+import { COLORS } from './tools/Constants';
 
 export default class AppStyles {
 	static readonly AppContainer = styled.div`		
-		background: linear-gradient(135deg, hsla(255, 12%, 94%, 1) 0%, hsla(230, 100%, 78%, 1) 100%);
+		background: linear-gradient(135deg, ${COLORS.GRADIENT_START} 0%, ${COLORS.GRADIENT_END} 100%);
 	`
 
 	static readonly Content = styled.div`

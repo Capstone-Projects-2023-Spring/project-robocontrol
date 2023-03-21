@@ -1,5 +1,6 @@
 // Third party imports
 import React, { useEffect, useState } from 'react'
+import { COLORS } from '../tools/Constants'
 
 // Custom styles
 import Styles from './ControlStyles'
@@ -116,7 +117,7 @@ const Control = (): React.ReactElement => {
 				<Styles.DirectionButton
 					style={{
 						gridArea: direction.grid,
-						backgroundColor: activeMovement[direction.direction] ?  "#98a4fc" : "#f0ecec",
+						backgroundColor: activeMovement[direction.direction] ? COLORS.PRESSBUTTON : COLORS.UNPRESSBUTTON,
 						...(activeMovement[direction.direction] ? activeStyle : {}),
 					}}
 					onMouseDown={() => sendMessage(direction.direction)}
