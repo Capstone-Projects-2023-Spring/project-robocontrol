@@ -56,7 +56,9 @@ const Login = (props: LoginProps): React.ReactElement => {
 					onChange={(e) => setPassword(e.target.value)}
 				/>
 			</Styles.InputContainer>
-			<button onClick={handleLogin}>Login</button>
+			
+			<Styles.LoginButton onClick={handleLogin}>Login</Styles.LoginButton>
+
 			<p style={{ color: error ? 'red' : 'blue', marginTop: '1cm' }}>
 				{error ? 'Username or Password is not correct, please try again.' : ''}
 			</p>
