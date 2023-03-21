@@ -1,5 +1,6 @@
 // Third party imports
 import React, { useEffect, useState } from 'react'
+import { COLORS } from '../tools/Constants'
 
 // Custom styles
 import Styles from './ControlStyles'
@@ -88,16 +89,18 @@ const Control = (): React.ReactElement => {
 	// Allow bot to be controlled by WASD keys on keyboard
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
-			switch (event.key.toLowerCase()) {
-				case 'w': sendMessage('backward'); break;
-				case 'a': sendMessage('left'); break;
-				case 's': sendMessage('forward'); break;
-				case 'd': sendMessage('right'); break;
+			if (loggedIn) {
+				switch (event.key.toLowerCase()) {
+					case 'w': sendMessage('backward'); break;
+					case 'a': sendMessage('left'); break;
+					case 's': sendMessage('forward'); break;
+					case 'd': sendMessage('right'); break;
+				}
 			}
 		};
 
 		const handleKeyUp = (event: KeyboardEvent) => {
-			if ('wasd'.includes(event.key.toLowerCase())) sendMessage('no');
+			if ('wasd'.includes(event.key.toLowerCase()) && loggedIn) sendMessage('no');
 		};
 
 		window.addEventListener('keydown', handleKeyDown);
@@ -116,7 +119,7 @@ const Control = (): React.ReactElement => {
 				<Styles.DirectionButton
 					style={{
 						gridArea: direction.grid,
-						backgroundColor: activeMovement[direction.direction] ?  "#98a4fc" : "#f0ecec",
+						backgroundColor: activeMovement[direction.direction] ? COLORS.PRESSBUTTON : COLORS.UNPRESSBUTTON,
 						...(activeMovement[direction.direction] ? activeStyle : {}),
 					}}
 					onMouseDown={() => sendMessage(direction.direction)}
