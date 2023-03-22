@@ -9,6 +9,9 @@ import Login from './Login'
 type MsgData = {
 	direction: string
 	turn: string
+}
+
+type VideoData = {
 	image: string
 }
 
@@ -36,8 +39,10 @@ const direction_buttons: dir_content[] = [
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px' };
 const wasd_default: wasd = {forward: false, backward: false, left: false, right: false}
 
-const WS_URL = `wss://ryanhodge.net/ws/robot`
-const ws = new WebSocket(WS_URL) // A websocket for the robot
+const VIDEO_WS_URL = `wss://ryanhodge.net/ws/video`
+const COMMANDS_WS_URL = `wss://ryanhodge.net/ws/commands`
+const video_ws = new WebSocket(VIDEO_WS_URL) // A websocket for the video
+const commands_ws = new WebSocket(COMMANDS_WS_URL) // A websocket for the robot commands
 
 const Control = (): React.ReactElement => {
 	const [img, setImg] = useState('');
@@ -46,15 +51,10 @@ const Control = (): React.ReactElement => {
 	// Activity states to make buttons change color when activated
 	const [activeMovement, setActiveMovement] = useState<wasd>(wasd_default);
 
-	useEffect(() => {
-		const interval = setInterval(() => {ws.send('')}, 50);
-		return () => clearInterval(interval);
-	}, []);
-
-	ws.onmessage = async (event: MessageEvent<any>) => {
+	video_ws.onmessage = async (event: MessageEvent<any>) => {
 		// event.data is given as a blob (since it is an unrecognized data type)
 		// Convert this blob to UTF-8 text for display purposes
-		const json_data: MsgData = JSON.parse(await new Response(event.data).text())
+		const json_data: VideoData = JSON.parse(await new Response(event.data).text())
 		setImg(json_data.image)
 	}
 
@@ -80,12 +80,11 @@ const Control = (): React.ReactElement => {
 		const data: MsgData = {
 			direction: direction,
 			turn: turn,
-			image: ''
 		}
 		
 		console.log(data.direction);
 
-		ws.send(JSON.stringify(data))
+		commands_ws.send(JSON.stringify(data))
 	}
 
 	// Allow bot to be controlled by WASD keys on keyboard

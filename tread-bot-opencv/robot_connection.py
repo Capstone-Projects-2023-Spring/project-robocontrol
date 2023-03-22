@@ -17,29 +17,6 @@ def base64_to_cv2(img):
     im_arr = np.frombuffer(img_bytes, dtype=np.uint8)
     
     return cv2.imdecode(im_arr, flags=1)
-
-# Handler for the website messages
-async def website_handler(websocket, path):
-    print("Website client connected")
-
-    try:
-        # Receeive and print the incoming message from the website
-        async for message in websocket:
-            if message != '':
-                message_data = json.loads(message)
-                move.move(100, message_data['direction'], message_data['turn'], 0.5)
-                print('[Message]: ' + message)
-            
-            json_data = {
-                'image': cv2_to_base64(vid.read()[1]).decode('utf-8'),
-                'direction': '',
-                'turn': ''
-            }
-            # Send a response to all connected clients
-            await websocket.send(json.dumps(json_data))
-    # Handle disconnecting clients 
-    except websockets.exceptions.ConnectionClosed as e:
-        print("The website client disconnected")
         
 # The main function that will handle connection and communication with the server
 async def listen():
@@ -155,11 +132,8 @@ if __name__ == '__main__':
     # Start the connection
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    website_server = websockets.serve(website_handler, "192.168.2.3", WEBSITE_PORT)
     try:
         asyncio.run(listen())
-        
-        asyncio.get_event_loop().run_until_complete(website_server)
     except KeyboardInterrupt:
         pass
 
