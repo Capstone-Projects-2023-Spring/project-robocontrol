@@ -30,7 +30,7 @@ class RobotVideoWS():
 		print('Video listening to ' + RobotVideoWS.HOST_PATH)
 		# Connect to the server
 		try:
-			async with websockets.connect(RobotVideoWS.HOST_PATH) as ws:
+			async with websockets.connect(RobotVideoWS.HOST_PATH, ping_timeout=None) as ws:
 				print('Video connected to ' + RobotVideoWS.HOST_PATH)
 				# Stay alive forever, listening to incoming msgs
 				while True:
@@ -39,4 +39,4 @@ class RobotVideoWS():
 					}
 					await ws.send(json.dumps(json_data))
 		except websockets.exceptions.ConnectionClosed as e:
-			print('Video disconnected')
+			print(e)

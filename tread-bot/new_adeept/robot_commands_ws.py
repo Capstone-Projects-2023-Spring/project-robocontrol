@@ -20,12 +20,13 @@ class RobotCommandWS():
 		print('Commands listening to ' + RobotCommandWS.HOST_PATH)
 		# Connect to the server
 		try:
-			async with websockets.connect(RobotCommandWS.HOST_PATH) as ws:
+			async with websockets.connect(RobotCommandWS.HOST_PATH, ping_timeout=None) as ws:
 				print('Commands connected to ' + RobotCommandWS.HOST_PATH)
 				# Stay alive forever, listening to incoming msgs
 				while True:
 					msg = await ws.recv()
+					print(msg)
 					message_data = json.loads(msg)
 					move.move(100, message_data['direction'], message_data['turn'], 0.5)
 		except websockets.exceptions.ConnectionClosed as e:
-			print('Commands disconnected')
+			print(e)
