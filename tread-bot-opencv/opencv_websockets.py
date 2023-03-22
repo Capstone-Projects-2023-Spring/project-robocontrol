@@ -1,71 +1,22 @@
 # Importing the relevant libraries
-import json
-import websockets
 import asyncio
-import cv2
-import base64
-import numpy as np
+import websockets
+from video_ws import VideoWS
+from commands_ws import CommandWS
 
-ROBOT_PORT = 8997
-WEBSOCKET = "ws://192.168.2.3:8998"
+def main():
+	commands = CommandWS()
+	video = VideoWS()
 
-def base64_to_cv2(img):
-    img_bytes = base64.b64decode(img)
-    im_arr = np.frombuffer(img_bytes, dtype=np.uint8)
-    return cv2.imdecode(im_arr, flags=1)
+	# Start the servers
+	loop = asyncio.new_event_loop()
+	asyncio.set_event_loop(loop)
 
-# Handler for all the robot communication
-async def robot_handler(websocket, path):
-    print("Robot client connected")
-
-    try:
-        # Receive and print the incoming message from the robot
-        async for message in websocket:
-            robot_msg = json.loads(message)
-            image = base64_to_cv2(robot_msg['image'])
-            cv2.imshow('Socket data', image)
-            c = cv2.waitKey(1)
-            if c == 27:
-                break
-
-            json_data = {
-                'image': '',
-                'direction': '',
-                'turn': ''
-            } # TODO: Change direction and turn to variables
-            await websocket.send(json.dumps(json_data))
-    # Handle disconnecting clients 
-    except websockets.exceptions.ConnectionClosed as e:
-        print("The Robot client disconnected")
-
-async def website_listener():
-    print('Listening for ' + WEBSOCKET)
-    # Connect to the server
-    async with websockets.connect(WEBSOCKET) as ws:
-        print('Connected to ' + WEBSOCKET)
-        # Stay alive forever, listening to incoming msgs
-        while True:
-            packet = await ws.recv()
-            image = base64_to_cv2(packet)
-            cv2.imshow('Socket data', image)
-            c = cv2.waitKey(1)
-            if c == 27:
-                break
+	commands_server = websockets.serve(commands.serve, commands.HOST, commands.PORT)
+	video_server = websockets.serve(video.serve, video.HOST, video.PORT)
+	loop.run_until_complete(commands_server)
+	loop.run_until_complete(video_server)
+	loop.run_forever()
 
 if __name__ == '__main__':
-    # Start the connection
-    print("Server listening on Port " + str(ROBOT_PORT))
-    
-    # Start the servers
-    robot_server = websockets.serve(robot_handler, "192.168.2.3", ROBOT_PORT)
-    asyncio.get_event_loop().run_until_complete(robot_server)
-    asyncio.get_event_loop().run_forever()
-
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    try:
-        asyncio.run(website_listener())
-    except KeyboardInterrupt:
-        pass
-
-    cv2.destroyAllWindows()
+	main()

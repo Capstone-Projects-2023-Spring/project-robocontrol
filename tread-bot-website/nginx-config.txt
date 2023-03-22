@@ -29,8 +29,12 @@ server {
         proxy_set_header Connection "Upgrade";
         proxy_set_header Host $host;
 
-        location /ws/robot {
-            proxy_pass http://192.168.2.3:8999;
+        location /ws/video {
+            proxy_pass http://192.168.2.1:10333;
+        }
+
+        location /ws/commands {
+            proxy_pass http://192.168.2.1:10334;
         }
     }
 
