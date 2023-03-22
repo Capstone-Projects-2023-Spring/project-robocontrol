@@ -26,7 +26,6 @@ class RobotCommandWS():
 				await ws.send('robot')
 				while True:
 					msg = await ws.recv()
-					print('Command received')
 					message_data = json.loads(msg)
 					move.move(100, message_data['direction'], message_data['turn'], 0.5)
 		except websockets.exceptions.ConnectionClosed as e:

@@ -1,18 +1,18 @@
 # Importing the relevant libraries
 import asyncio
-import websockets
 from video_ws import VideoWS
 from commands_ws import CommandWS
+import threading
 
 async def main():
 	commands = CommandWS()
 	video = VideoWS()
-
-	commands_task = asyncio.create_task(commands.start_server())
-	video_task = asyncio.create_task(video.start_server())
-
-	await commands_task
-	await video_task
+	video_thread = threading.Thread(target=asyncio.run, args=(video.start_server(),))
+	commands_thread = threading.Thread(target=asyncio.run, args=(commands.start_server(),))
+	video_thread.start()
+	commands_thread.start()
+	while True:
+		pass
 
 if __name__ == '__main__':
 	asyncio.run(main())

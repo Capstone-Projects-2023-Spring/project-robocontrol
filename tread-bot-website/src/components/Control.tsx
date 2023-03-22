@@ -47,7 +47,6 @@ const commands_ws = new WebSocket(COMMANDS_WS_URL) // A websocket for the robot 
 const Control = (): React.ReactElement => {
 	const [img, setImg] = useState('');
 	const [loggedIn, login] = useState(false)
-	const [vidCounter, setVidCounter] = useState(0)
 
 	// Activity states to make buttons change color when activated
 	const [activeMovement, setActiveMovement] = useState<wasd>(wasd_default);
@@ -55,12 +54,8 @@ const Control = (): React.ReactElement => {
 	video_ws.onmessage = async (event: MessageEvent<any>) => {
 		// event.data is given as a blob (since it is an unrecognized data type)
 		// Convert this blob to UTF-8 text for display purposes
-		if (vidCounter == 5) {
-			setVidCounter(0)
-			const json_data: VideoData = JSON.parse(await new Response(event.data).text())
-			setImg(json_data.image)
-		}
-		setVidCounter(vidCounter + 1)
+		const json_data: VideoData = JSON.parse(await new Response(event.data).text())
+		setImg(json_data.image)
 	}
 
 	const sendMessage = (command: string) => {
