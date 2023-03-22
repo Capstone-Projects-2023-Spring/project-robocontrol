@@ -14,6 +14,7 @@ export default class LoginStyles {
         box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
         width: 100%;
         max-width: 275px;
+        margin-bottom: 100px;
   `;
 
     static readonly InputContainer = styled.div`
