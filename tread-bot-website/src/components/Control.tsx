@@ -82,6 +82,8 @@ const Control = (): React.ReactElement => {
 			turn: turn,
 			image: ''
 		}
+		
+		console.log(data.direction);
 
 		ws.send(JSON.stringify(data))
 	}
@@ -95,12 +97,13 @@ const Control = (): React.ReactElement => {
 					case 'a': sendMessage('left'); break;
 					case 's': sendMessage('forward'); break;
 					case 'd': sendMessage('right'); break;
+					case ' ': sendMessage('no'); break;
 				}
 			}
 		};
 
 		const handleKeyUp = (event: KeyboardEvent) => {
-			if ('wasd'.includes(event.key.toLowerCase()) && loggedIn) sendMessage('no');
+			if ('wasd '.includes(event.key.toLowerCase()) && loggedIn) sendMessage('no');
 		};
 
 		window.addEventListener('keydown', handleKeyDown);
@@ -146,10 +149,10 @@ const Control = (): React.ReactElement => {
 					{/* Send a message to the robot */}
 					{renderDirections()}
 
-					{/* <Styles.StopButton
+					<Styles.StopButton
 						style={{ gridArea: "3 / 2" }}
 						onClick={() => sendMessage('no')}>Stop
-					</Styles.StopButton> */}
+					</Styles.StopButton>
 
 				</Styles.ControlContainer>
 			}
