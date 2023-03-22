@@ -4,6 +4,7 @@ import websockets
 import cv2
 import numpy as np
 import base64
+import asyncio
 
 # Keep for when it is needed
 def base64_to_cv2(img):
@@ -20,6 +21,11 @@ class VideoWS():
 			'image': ''
 		}
 		self.clients = set()
+
+	async def start_server(self):
+		# Start the servers
+		async with websockets.serve(self.serve, VideoWS.HOST, VideoWS.PORT, ping_timeout=None):
+			await asyncio.Future()
 	
 	async def serve(self, websocket):
 		print("Video client connected")
