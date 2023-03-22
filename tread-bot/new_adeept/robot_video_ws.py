@@ -3,6 +3,7 @@ import websockets
 import base64
 import cv2
 import json
+import time
 
 # The device the pi cam is recognized as
 PI_CAM_PORT = 0
@@ -38,5 +39,6 @@ class RobotVideoWS():
 						'image': cv2_to_base64(self.vid.read()[1]).decode('utf-8'),
 					}
 					await ws.send(json.dumps(json_data))
+					print('Video sent')
 		except websockets.exceptions.ConnectionClosed as e:
 			print(e)

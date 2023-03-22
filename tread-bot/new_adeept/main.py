@@ -1,19 +1,15 @@
 # Importing the relevant libraries
 import asyncio
-import cv2
 from robot_commands_ws import RobotCommandWS
 from robot_video_ws import RobotVideoWS
-
-async def main():
-    commands = RobotCommandWS()
-    video = RobotVideoWS()
-
-    commands_task = asyncio.create_task(commands.connect())
-    video_task = asyncio.create_task(video.connect())
-
-    await commands_task
-    await video_task
+import threading
 
 if __name__ == '__main__':
-    asyncio.run(main())
-    cv2.destroyAllWindows()
+    commands = RobotCommandWS()
+    video = RobotVideoWS()
+    video_thread = threading.Thread(target=asyncio.run, args=(video.connect(),))
+    commands_thread = threading.Thread(target=asyncio.run, args=(commands.connect(),))
+    video_thread.start()
+    commands_thread.start()
+    while True:
+        pass
