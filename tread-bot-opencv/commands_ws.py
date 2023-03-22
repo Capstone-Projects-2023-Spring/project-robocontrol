@@ -22,10 +22,12 @@ class CommandWS():
 		try:
 			while True:
 				msg = await websocket.recv()
-				# TODO: Find out how to get robot websocket set
-				# if (self.robot_ws):
-				# 	self.robot_ws.send(msg)
-				websockets.broadcast(self.clients, msg)
+				if (msg == 'robot'):
+					self.robot_ws = websocket
+					print('Found robot')
+				elif(self.robot_ws):
+					await self.robot_ws.send(msg)
+					print('Command sent')
 		except websockets.exceptions.ConnectionClosed as e:
 			print("Command client disconnected")
 		finally:

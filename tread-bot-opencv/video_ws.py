@@ -34,6 +34,7 @@ class VideoWS():
 			while True:
 				msg = await websocket.recv()
 				self.msg = json.loads(msg)
+				# print('Video received')
 				# TODO: Will probably send the message back out to the robot. Might need to change for performance
 				websockets.broadcast(self.clients, msg)
 		except websockets.exceptions.ConnectionClosed as e:
