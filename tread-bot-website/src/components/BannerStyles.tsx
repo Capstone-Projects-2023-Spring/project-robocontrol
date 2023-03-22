@@ -1,7 +1,6 @@
 import { Offcanvas } from 'react-bootstrap'
 import styled from 'styled-components'
 import { COLORS } from '../tools/Constants'
-import BGPattern from '../assets/background-pattern.png'
 import { Link } from 'react-router-dom'
 
 export default class BannerStyles {
