@@ -90,19 +90,17 @@ const Control = (): React.ReactElement => {
 	// Allow bot to be controlled by WASD keys on keyboard
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
-			if (loggedIn) {
-				switch (event.key.toLowerCase()) {
-					case 'w': sendMessage('backward'); break;
-					case 'a': sendMessage('left'); break;
-					case 's': sendMessage('forward'); break;
-					case 'd': sendMessage('right'); break;
-					case ' ': sendMessage('no'); break;
-				}
+			switch (event.key.toLowerCase()) {
+				case 'w': sendMessage('backward'); break;
+				case 'a': sendMessage('left'); break;
+				case 's': sendMessage('forward'); break;
+				case 'd': sendMessage('right'); break;
+				case ' ': sendMessage('no'); break;
 			}
 		};
 
 		const handleKeyUp = (event: KeyboardEvent) => {
-			if ('wasd '.includes(event.key.toLowerCase()) && loggedIn) sendMessage('no');
+			if ('wasd '.includes(event.key.toLowerCase())) sendMessage('no');
 		};
 
 		window.addEventListener('keydown', handleKeyDown);
