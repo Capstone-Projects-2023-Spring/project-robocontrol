@@ -1,42 +1,23 @@
 # Importing the relevant libraries
-import json
-import websockets
 import cv2
-import numpy as np
-import base64
-import asyncio
-
-# Keep for when it is needed
-def base64_to_cv2(img):
-    img_bytes = base64.b64decode(img)
-    im_arr = np.frombuffer(img_bytes, dtype=np.uint8)
-    return cv2.imdecode(im_arr, flags=1)
 
 class VideoWS():
-	PORT = 10333
-	HOST = '192.168.2.1'
 
 	def __init__(self) -> None:
-		self.msg = {
-			'image': ''
-		}
-		self.clients = set()
+		self.vid = None
 
-	async def start_server(self):
-		# Start the servers
-		async with websockets.serve(self.serve, VideoWS.HOST, VideoWS.PORT, ping_timeout=None):
-			await asyncio.Future()
-	
-	async def serve(self, websocket):
-		print("Video client connected")
-		self.clients.add(websocket)
-		try:
-			while True:
-				msg = await websocket.recv()
-				self.msg = json.loads(msg)
-				# TODO: Will probably send the message back out to the robot. Might need to change for performance
-				websockets.broadcast(self.clients, msg)
-		except websockets.exceptions.ConnectionClosed as e:
-			print("Video client disconnected")
-		finally:
-			self.clients.remove(websocket)
+	async def run(self):
+		# gstreamer_str = 'udpsrc port=8888 ! queue ! h264parse ! avdec_h264 ! videoconvert ! appsink drop=1'
+		gstreamer_str = 'udpsrc port=8888 ! tee name=t ! queue ! h264parse ! avdec_h264 ! videoconvert ! appsink drop=1 t. ! h264parse ! mpegtsmux ! hlssink max-files=5'
+		self.vid = cv2.VideoCapture(gstreamer_str, cv2.CAP_GSTREAMER)
+
+		if not self.vid.isOpened():
+			print('VideoCapture or VideoWriter not opened')
+
+		while True:
+			ret, frame = self.vid.read()
+			if ret:
+				cv2.imshow('Stream', frame)
+				c = cv2.waitKey(1)
+				if c == 27:
+					break

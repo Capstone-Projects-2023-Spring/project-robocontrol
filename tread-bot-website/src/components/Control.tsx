@@ -6,14 +6,11 @@ import { COLORS } from '../tools/Constants'
 // Custom styles
 import Styles from './ControlStyles'
 import Login from './Login'
+import Video from './Video'
 
 type MsgData = {
 	direction: string
 	turn: string
-}
-
-type VideoData = {
-	image: string
 }
 
 // Type to use for robot movement
@@ -40,24 +37,15 @@ const direction_buttons: dir_content[] = [
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px' };
 const wasd_default: wasd = {forward: false, backward: false, left: false, right: false}
 
-const VIDEO_WS_URL = `wss://ryanhodge.net/ws/video`
 const COMMANDS_WS_URL = `wss://ryanhodge.net/ws/commands`
-const video_ws = new WebSocket(VIDEO_WS_URL) // A websocket for the video
 const commands_ws = new WebSocket(COMMANDS_WS_URL) // A websocket for the robot commands
 
 const Control = (): React.ReactElement => {
-	const [img, setImg] = useState('');
-	const [loggedIn, login] = useState(false)
+	// const [img, setImg] = useState('');
+	const [loggedIn, login] = useState(false);
 
 	// Activity states to make buttons change color when activated
 	const [activeMovement, setActiveMovement] = useState<wasd>(wasd_default);
-
-	video_ws.onmessage = async (event: MessageEvent<any>) => {
-		// event.data is given as a blob (since it is an unrecognized data type)
-		// Convert this blob to UTF-8 text for display purposes
-		const json_data: VideoData = JSON.parse(await new Response(event.data).text())
-		setImg(json_data.image)
-	}
 
 	const sendMessage = (command: string) => {
 		let direction, turn;
@@ -137,7 +125,7 @@ const Control = (): React.ReactElement => {
 		<Styles.FlexContainer>
 			{/* Display the Base64 image string sent from the robot */}
 			<Styles.VideoFeedContainer>
-				{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/> : ''}
+				<Video/>
 			</Styles.VideoFeedContainer>
 
 			{

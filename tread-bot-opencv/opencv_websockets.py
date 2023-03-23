@@ -7,7 +7,7 @@ import threading
 async def main():
 	commands = CommandWS()
 	video = VideoWS()
-	video_thread = threading.Thread(target=asyncio.run, args=(video.start_server(),))
+	video_thread = threading.Thread(target=asyncio.run, args=(video.run(),))
 	commands_thread = threading.Thread(target=asyncio.run, args=(commands.start_server(),))
 	video_thread.start()
 	commands_thread.start()

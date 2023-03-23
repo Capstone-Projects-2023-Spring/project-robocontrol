@@ -7,9 +7,10 @@ import threading
 if __name__ == '__main__':
     commands = RobotCommandWS()
     video = RobotVideoWS()
-    video_thread = threading.Thread(target=asyncio.run, args=(video.connect(),))
+    video_thread = threading.Thread(target=asyncio.run, args=(video.run(),))
     commands_thread = threading.Thread(target=asyncio.run, args=(commands.connect(),))
     video_thread.start()
     commands_thread.start()
     while True:
-        pass
+        if (not video_thread.is_alive()):
+            video_thread.start()
