@@ -31,7 +31,9 @@ const direction_buttons: direction_content[] = [
 	{ grid: '1 / 2', command: 'forward', character: 'W' },
 	{ grid: '2 / 1', command: 'left', character: 'A' },
 	{ grid: '2 / 2', command: 'backward', character: 'S' },
-	{ grid: '2 / 3', command: 'right', character: 'D' }
+	{ grid: '2 / 3', command: 'right', character: 'D' },
+	{ grid: '1 / 4', direction: 'up', character: '↑' }, // added up button
+	{ grid: '3 / 4', direction: 'down', character: '↓' } // added down button
 ]
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
 const wasd_default: wasd = {forward: false, backward: false, left: false, right: false}
