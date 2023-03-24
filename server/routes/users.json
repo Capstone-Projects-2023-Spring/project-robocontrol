@@ -1,49 +1,49 @@
 [
   {
     "username": "ryan",
-    "password": "ryan",
+    "password": "$2b$10$PQjWtBpzSEup6uksZ29T3eKi7XFZtBommTCLXzaJBPdzxcylzS6/2",
     "email": "",
     "phone": ""
   },
   {
     "username": "antonio",
-    "password": "antonio",
+    "password": "$2b$10$G9RE0kjxKToFiQrAgsV1CebEGpnc68AsR7/A8ETn7peZqM/AdX/kS",
     "email": "",
     "phone": ""
   },
   {
     "username": "kevin",
-    "password": "kevin",
+    "password": "$2b$10$W7ZUz9V.9kwpeWnvJUSvru7Wju13gXJyJqtwGAruQjUE3j2Nj.TUS",
     "email": "",
     "phone": ""
   },
   {
     "username": "qian",
-    "password": "qian",
+    "password": "$2b$10$pVE2nZyBcDHSphUXDyR6Ce1Bg9MFztJiQio8pvNxb9n.UvpTUp2X6",
     "email": "",
     "phone": ""
   },
   {
     "username": "olivia",
-    "password": "olivia",
+    "password": "$2b$10$doDdVAf8HFGZ9Q38F/DWvOXrdacz./pieIbJRXvNp1FXzghBeZT5q",
     "email": "",
     "phone": ""
   },
   {
     "username": "cindy",
-    "password": "cindy",
+    "password": "$2b$10$errYrT6Yj.m8tfrefcEhfuTHR35spf3ITER5n6N30M6Kvjlu97Yrq",
     "email": "",
     "phone": ""
   },
   {
     "username": "anubhav",
-    "password": "anubhav",
+    "password": "$2b$10$lCzC4ZD.abDQNs93bClBaOjKtn1L9Dga7wDQ40f6wFJka6f6pLYbi",
     "email": "",
     "phone": ""
   },
   {
     "username": "edward",
-    "password": "edward",
+    "password": "$2b$10$lCugSrPGP5T/uLhJF6yvnOEUOk.bJQ1LvexU7.DHdkU7hNJ7XmCKy",
     "email": "",
     "phone": ""
   }
