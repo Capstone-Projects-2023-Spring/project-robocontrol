@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { COLORS } from '../tools/Constants';
-import controlsImage from '../assets/images/controlsimage.png';
+import controlsImage from '../assets/images/controlsimage.png'
+import { Link } from 'react-router-dom';
+
 
 export default class HomeStyles {
   static readonly HomeContainer = styled.div`
@@ -48,7 +50,7 @@ export default class HomeStyles {
   static readonly LeftNavigationColumn = styled.div`
     display: grid;
     grid-template-rows: repeat(3, 1fr);
-    border: solid orange;
+    /* border: solid orange; */
     grid-column: 1;
 	justify-content: right;
 	margin-right: 100px;
@@ -77,13 +79,38 @@ static readonly ControlsImage = styled.div`
   box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
 `;
 
-  static readonly ControlBox = styled(HomeStyles.RoboControlBox)`
-    grid-row: 3;
-	width: 150px;
-    height: 49px;
-	font-size: 16px;
-	margin-left: 150px;
-  `;
+static readonly ControlButton = styled.button`
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: ${COLORS.TEXT};
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px, 15px 15px 13px rgba(0, 0, 0, 0.3);
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  grid-row: 3;
+  width: 150px;
+  height: 49px;
+  margin-left: 150px;
+
+  &:active {
+    box-shadow: 0px 0px 0px 0px;
+    top: 5px;
+    left: 5px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 0.25em 0.75em;
+  }
+`;
+  
 
   static readonly RightNavigationColumn = styled.div`
     display: grid;
