@@ -1,59 +1,89 @@
 import styled from 'styled-components';
-import { COLORS } from '../tools/Constants' 
+import { COLORS } from '../tools/Constants';
 
-const HomeStyles = {
+export default class HomeStyles {
+  static readonly HomeContainer = styled.div`
+    display: grid;
+    grid-template-rows: repeat(8, 1fr);
+    height: 100vh;
+  `;
 
-	HomeContainer: styled.div`
-		display: grid;
-		grid-template-rows: repeat(6, 1fr);
-		height: 100vh;
-	`,
+  static readonly RoboControlBox = styled.div`
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: ${COLORS.TEXT};
+    border: 3px solid;
+    padding: 0.25em 0.5em;
+    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px, 15px 15px 13px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    height: 73px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    background-color: ${COLORS.OFFWHITE};
+  `;
 
-	RoboControlBox: styled.div`
-		font-family: "Open Sans", sans-serif;
-		font-weight: bold;
-		font-size: 25px;
-		letter-spacing: 2px;
-		text-decoration: none;
-		text-transform: uppercase;
-		color: ${COLORS.TEXT};
-		border: 3px solid;
-		padding: 0.25em 0.5em;
-		box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px, 15px 15px 13px rgba(0, 0, 0, 0.3);
-		width: 300px;
-		height: 70px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin-top: 40px;
-		background-color: ${COLORS.OFFWHITE};
-	`,
+  static readonly LogoContainer = styled.div`
+    border: solid red;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    grid-row: 1 / 3;
+  `;
 
-	LogoContainer: styled.div`
-		border: solid red;
-		display: flex;
-		justify-content: center;
-		text-align: center;
-		grid-row: 1 / 3;
-	`,
+  static readonly NavigationContainer = styled.div`
+    border: solid blue;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    grid-row: 3 / 7;
+  `;
 
-	NavigationContainer: styled.div`
-		border: solid blue;
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		text-align: center;
-		grid-row: 3 / 7;
-	`,
+  static readonly LeftNavigationColumn = styled.div`
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    border: solid orange;
+    grid-column: 1;
+	justify-content: right;
+	margin-right: 100px;
+  `;
 
-	NavigationColumn: styled.div`
-		border: solid orange;
-		padding: 1rem;
-	`,
+  static readonly ControlsContainer = styled.div`
+    background-color: white;
+	border: solid blue;
+    width: 300px;
+    grid-row: 1 / 3;
+  `;
 
-	FooterContainer: styled.div`
-		display: none;
-	`,
+  static readonly ControlBox = styled(HomeStyles.RoboControlBox)`
+    grid-row: 3;
+  `;
 
-};
+  static readonly RightNavigationColumn = styled.div`
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    border: solid orange;
+    grid-column: 2;
+	justify-content: left;
+	margin-left: 100px;
+  `;
 
-export default HomeStyles;
+  static readonly AboutContainer = styled.div`
+    background-color: white;
+    width: 300px;
+    grid-row: 1 / 3;
+  `;
+
+  static readonly AboutBox = styled(HomeStyles.RoboControlBox)`
+    grid-row: 3;
+  `;
+
+  static readonly FooterContainer = styled.div`
+    display: none;
+  `;
+}
