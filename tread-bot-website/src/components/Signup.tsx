@@ -1,4 +1,5 @@
 // Signup.tsx
+import bcrypt from 'bcryptjs';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../tools/Constants';
@@ -18,7 +19,7 @@ const Signup = (): React.ReactElement => {
 
   const handleSignup = async () => {
     console.log('handleSignup called with:', { username, password, confirmPassword, email, phone });
-
+    
     if (!username) {
       setErrorMessage('Please Enter Your Username');
       return;
@@ -44,13 +45,17 @@ const Signup = (): React.ReactElement => {
       return;
     }
 
+    /* hash password */
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(password, salt);
+
     try {
       const response = await fetch('http://localhost:3001/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password, confirmPassword, email, phone }),
+        body: JSON.stringify({ username, hashedPassword, confirmPassword, email, phone }),
       });
       
   
@@ -143,3 +148,9 @@ const Signup = (): React.ReactElement => {
 };
 
 export default Signup;
+
+
+
+
+
+
