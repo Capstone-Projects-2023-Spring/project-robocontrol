@@ -1,5 +1,7 @@
 import React from 'react';
 import HomeStyles from './HomeStyles';
+import controlsImage from '../assets/images/controlsimage.png';
+
 
 const Home = () => (
   <HomeStyles.HomeContainer>

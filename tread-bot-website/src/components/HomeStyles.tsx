@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { COLORS } from '../tools/Constants';
+import controlsImage from '../assets/images/controlsimage.png';
 
 export default class HomeStyles {
   static readonly HomeContainer = styled.div`
@@ -53,14 +54,17 @@ export default class HomeStyles {
 	margin-right: 100px;
   `;
 
-  static readonly ControlsContainer = styled.div`
-    background-color: white;
-	/* border: solid blue; */
-    width: 350px;
-    grid-row: 1 / 3;
-	border-radius: 8px;
-    box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
-  `;
+static readonly ControlsContainer = styled.div`
+  background-image: url(${controlsImage});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 350px;
+  height: auto;
+  grid-row: 1 / 3;
+  border-radius: 8px;
+  box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
+`;
 
   static readonly ControlBox = styled(HomeStyles.RoboControlBox)`
     grid-row: 3;
