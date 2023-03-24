@@ -29,7 +29,7 @@ export default class HomeStyles {
   `;
 
   static readonly LogoContainer = styled.div`
-    border: solid red;
+    /* border: solid red; */
     display: flex;
     justify-content: center;
     text-align: center;
@@ -37,7 +37,7 @@ export default class HomeStyles {
   `;
 
   static readonly NavigationContainer = styled.div`
-    border: solid blue;
+    /* border: solid blue; */
     display: grid;
     grid-template-columns: 1fr 1fr;
     text-align: center;
@@ -47,7 +47,7 @@ export default class HomeStyles {
   static readonly LeftNavigationColumn = styled.div`
     display: grid;
     grid-template-rows: repeat(3, 1fr);
-    border: solid orange;
+    /* border: solid orange; */
     grid-column: 1;
 	justify-content: right;
 	margin-right: 100px;
@@ -55,19 +55,25 @@ export default class HomeStyles {
 
   static readonly ControlsContainer = styled.div`
     background-color: white;
-	border: solid blue;
-    width: 300px;
+	/* border: solid blue; */
+    width: 350px;
     grid-row: 1 / 3;
+	border-radius: 8px;
+    box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
   `;
 
   static readonly ControlBox = styled(HomeStyles.RoboControlBox)`
     grid-row: 3;
+	width: 150px;
+    height: 49px;
+	font-size: 16px;
+	margin-left: 100px;
   `;
 
   static readonly RightNavigationColumn = styled.div`
     display: grid;
     grid-template-rows: repeat(3, 1fr);
-    border: solid orange;
+    /* border: solid orange; */
     grid-column: 2;
 	justify-content: left;
 	margin-left: 100px;
@@ -75,12 +81,18 @@ export default class HomeStyles {
 
   static readonly AboutContainer = styled.div`
     background-color: white;
-    width: 300px;
+    width: 350px;
     grid-row: 1 / 3;
+	border-radius: 8px;
+    box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
   `;
 
   static readonly AboutBox = styled(HomeStyles.RoboControlBox)`
     grid-row: 3;
+	width: 150px;
+    height: 49px;
+	font-size: 16px;
+	margin-left: 100px;
   `;
 
   static readonly FooterContainer = styled.div`
