@@ -24,7 +24,7 @@ export default class Video extends React.Component<{}, {player: HTMLMediaElement
 	render(): React.ReactNode {
 		return (
 			<>
-				<video id="video2332"/>
+				<video id="video2332" autoPlay/>
 			</>
 		)
 	}
