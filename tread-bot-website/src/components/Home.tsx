@@ -1,16 +1,23 @@
-// Third party imports
-import React from 'react'
+import React from 'react';
+import HomeStyles from './HomeStyles';
 
-// Custom styles
-import Styles from './HomeStyles'
+const Home = () => (
+  <HomeStyles.HomeContainer>
+    <HomeStyles.LogoContainer>
+      <HomeStyles.RoboControlBox>ROBOCONTROL</HomeStyles.RoboControlBox>
+    </HomeStyles.LogoContainer>
+    <HomeStyles.NavigationContainer>
+      <HomeStyles.NavigationColumn>
+        {/* First column content */}
+      </HomeStyles.NavigationColumn>
+      <HomeStyles.NavigationColumn>
+        {/* Second column content */}
+      </HomeStyles.NavigationColumn>
+    </HomeStyles.NavigationContainer>
+    <HomeStyles.FooterContainer>
+      {/* Your footer here */}
+    </HomeStyles.FooterContainer>
+  </HomeStyles.HomeContainer>
+);
 
-
-const Home = (): React.ReactElement => {
-	return (
-		<Styles.HomeContainer>
-            <h1>Home</h1>
-		</Styles.HomeContainer>
-	)
-}
-
-export default Home
+export default Home;
