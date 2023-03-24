@@ -40,7 +40,7 @@ const ws = new WebSocket(WS_URL) // A websocket for the robot
 
 const Control = (): React.ReactElement => {
 	const [img, setImg] = useState('');
-	const [loggedIn, login] = useState(false)
+	const [loggedIn, login] = useState(true)
 
 	// Activity states to make buttons change color when activated
 	const [activeMovement, setActiveMovement] = useState<wasd>(wasd_default);
@@ -126,6 +126,8 @@ const Control = (): React.ReactElement => {
 		})
 		return directionButtons
 	}
+
+	
 
 	return (
 
