@@ -48,20 +48,31 @@ export default class HomeStyles {
   static readonly LeftNavigationColumn = styled.div`
     display: grid;
     grid-template-rows: repeat(3, 1fr);
-    /* border: solid orange; */
+    border: solid orange;
     grid-column: 1;
 	justify-content: right;
 	margin-right: 100px;
   `;
 
 static readonly ControlsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+  height: 450px;
+  grid-row: 1 / 3;
+  background-color: ${COLORS.OFFWHITE};
+  border-radius: 8px;
+  box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
+`;
+
+static readonly ControlsImage = styled.div`
   background-image: url(${controlsImage});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 350px;
-  height: auto;
-  grid-row: 1 / 3;
+  width: calc(100% - 100px);
+  height: calc(100% - 100px);
   border-radius: 8px;
   box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
 `;
@@ -71,7 +82,7 @@ static readonly ControlsContainer = styled.div`
 	width: 150px;
     height: 49px;
 	font-size: 16px;
-	margin-left: 100px;
+	margin-left: 150px;
   `;
 
   static readonly RightNavigationColumn = styled.div`

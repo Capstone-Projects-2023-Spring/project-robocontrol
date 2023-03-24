@@ -11,7 +11,7 @@ const Home = () => (
     <HomeStyles.NavigationContainer>
       <HomeStyles.LeftNavigationColumn>
         <HomeStyles.ControlsContainer>
-          {/* Controls content */}
+			<HomeStyles.ControlsImage />
         </HomeStyles.ControlsContainer>
         <HomeStyles.ControlBox>
           CONTROL
