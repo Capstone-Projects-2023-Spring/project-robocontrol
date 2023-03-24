@@ -1,16 +1,44 @@
-// Third party imports
-import React from 'react'
+import React from 'react';
+import HomeStyles from './HomeStyles';
+import controlsImage from '../assets/images/controlsimage.png';
+import { PATHS } from '../tools/Constants';
+import { useNavigate } from 'react-router-dom';
 
-// Custom styles
-import Styles from './HomeStyles'
+const Home = () => {
+  const navigate = useNavigate();
 
+  const handleClick = (path: string) => {
+    navigate(path);
+  };
 
-const Home = (): React.ReactElement => {
-	return (
-		<Styles.HomeContainer>
-            <h1>Home</h1>
-		</Styles.HomeContainer>
-	)
-}
+  return (
+    <HomeStyles.HomeContainer>
+      <HomeStyles.LogoContainer>
+        <HomeStyles.RoboControlBox>ROBOCONTROL</HomeStyles.RoboControlBox>
+      </HomeStyles.LogoContainer>
+      <HomeStyles.NavigationContainer>
+        <HomeStyles.LeftNavigationColumn>
+          <HomeStyles.ControlsContainer>
+            <HomeStyles.ControlsImage />
+          </HomeStyles.ControlsContainer>
+          <HomeStyles.ControlButton onClick={() => handleClick(PATHS.CONTROL)}>
+            CONTROL
+          </HomeStyles.ControlButton>
+        </HomeStyles.LeftNavigationColumn>
+        <HomeStyles.RightNavigationColumn>
+          <HomeStyles.AboutContainer>
+            <HomeStyles.AboutImage />
+          </HomeStyles.AboutContainer>
+          <HomeStyles.AboutButton onClick={() => handleClick(PATHS.ABOUT)}>
+            ABOUT
+          </HomeStyles.AboutButton>
+        </HomeStyles.RightNavigationColumn>
+      </HomeStyles.NavigationContainer>
+      <HomeStyles.FooterContainer>
+        {/* Your footer here */}
+      </HomeStyles.FooterContainer>
+    </HomeStyles.HomeContainer>
+  );
+};
 
-export default Home
+export default Home;
