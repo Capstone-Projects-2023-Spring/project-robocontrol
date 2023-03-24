@@ -141,7 +141,7 @@ static readonly AboutImage = styled.div`
   background-size: cover;
   width: calc(100% - 100px);
   height: calc(100% - 100px);
-  border-radius: 8px;
+  border-radius: 15px;
   box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
 `;
 
