@@ -141,7 +141,7 @@ const Control = (): React.ReactElement => {
 			</Styles.VideoFeedContainer>
 
 			{
-				loggedIn ?
+				!loggedIn ?
 				<Login loginSuccessful={login}/> :
 				<Styles.ControlContainer>
 					{/* Send a message to the robot */}

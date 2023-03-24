@@ -64,7 +64,7 @@ static readonly ControlsContainer = styled.div`
   height: 450px;
   grid-row: 1 / 3;
   background-color: ${COLORS.OFFWHITE};
-  border-radius: 8px;
+  border-radius: 15px;
   box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
 `;
 
@@ -75,7 +75,7 @@ static readonly ControlsImage = styled.div`
   background-size: cover;
   width: calc(100% - 100px);
   height: calc(100% - 100px);
-  border-radius: 8px;
+  border-radius: 15px;
   box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
 `;
 
@@ -129,7 +129,7 @@ static readonly ControlButton = styled.button`
   height: 450px;
   grid-row: 1 / 3;
   background-color: ${COLORS.OFFWHITE};
-  border-radius: 8px;
+  border-radius: 15px;
   box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
 `;
 
