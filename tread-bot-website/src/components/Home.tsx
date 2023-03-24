@@ -27,11 +27,11 @@ const Home = () => {
         </HomeStyles.LeftNavigationColumn>
         <HomeStyles.RightNavigationColumn>
           <HomeStyles.AboutContainer>
-            {/* About content */}
+		  <HomeStyles.ControlsImage />
           </HomeStyles.AboutContainer>
-          <HomeStyles.AboutBox>
+          <HomeStyles.AboutButton onClick={handleClick}>
             ABOUT
-          </HomeStyles.AboutBox>
+          </HomeStyles.AboutButton>
         </HomeStyles.RightNavigationColumn>
       </HomeStyles.NavigationContainer>
       <HomeStyles.FooterContainer>

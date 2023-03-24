@@ -15,4 +15,5 @@ export class PATHS {
     static readonly CONTROL = '/control'
     static readonly Login = '/login'
     static readonly Signup = '/signup'
+    static readonly ABOUT = '/about'
 }
