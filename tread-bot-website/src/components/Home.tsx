@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate(PATHS.CONTROL);
+  const handleClick = (path: string) => {
+    navigate(path);
   };
 
   return (
@@ -21,15 +21,15 @@ const Home = () => {
           <HomeStyles.ControlsContainer>
             <HomeStyles.ControlsImage />
           </HomeStyles.ControlsContainer>
-          <HomeStyles.ControlButton onClick={handleClick}>
+          <HomeStyles.ControlButton onClick={() => handleClick(PATHS.CONTROL)}>
             CONTROL
           </HomeStyles.ControlButton>
         </HomeStyles.LeftNavigationColumn>
         <HomeStyles.RightNavigationColumn>
           <HomeStyles.AboutContainer>
-		  <HomeStyles.ControlsImage />
+            <HomeStyles.AboutImage />
           </HomeStyles.AboutContainer>
-          <HomeStyles.AboutButton onClick={handleClick}>
+          <HomeStyles.AboutButton onClick={() => handleClick(PATHS.ABOUT)}>
             ABOUT
           </HomeStyles.AboutButton>
         </HomeStyles.RightNavigationColumn>

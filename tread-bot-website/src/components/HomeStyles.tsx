@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { COLORS } from '../tools/Constants';
-import controlsImage from '../assets/images/controlsimage.png'
+import controlsImage from '../assets/images/controlsimage.png';
+import aboutImage from '../assets/images/aboutimage.png';
 import { Link } from 'react-router-dom';
 
 
@@ -53,7 +54,7 @@ export default class HomeStyles {
     /* border: solid orange; */
     grid-column: 1;
 	justify-content: right;
-	margin-right: 100px;
+	margin-right: 50px;
   `;
 
 static readonly ControlsContainer = styled.div`
@@ -118,7 +119,7 @@ static readonly ControlButton = styled.button`
     /* border: solid orange; */
     grid-column: 2;
 	justify-content: left;
-	margin-left: 100px;
+	margin-left: 50px;
   `;
 
   static readonly AboutContainer = styled.div`
@@ -134,7 +135,7 @@ static readonly ControlButton = styled.button`
 `;
 
 static readonly AboutImage = styled.div`
-  background-image: url(${controlsImage});
+  background-image: url(${aboutImage}); // Use aboutImage here instead of controlsImage
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -143,6 +144,7 @@ static readonly AboutImage = styled.div`
   border-radius: 8px;
   box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
 `;
+
 
 static readonly AboutButton = styled.button`
   font-family: "Open Sans", sans-serif;
