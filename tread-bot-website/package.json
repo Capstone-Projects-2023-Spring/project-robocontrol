@@ -11,6 +11,7 @@
     "@types/react-dom": "^18.0.10",
     "@types/socket.io-client": "^3.0.0",
     "bootstrap": "^5.2.3",
+    "hls.js": "^1.3.5",
     "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
@@ -31,7 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "nginx": "react-scripts build && cp -r ./build/* /var/www/ryanhodge/html"
+    "nginx": "react-scripts build && sudo cp -r ./build/* /var/www/ryanhodge/html"
   },
   "eslintConfig": {
     "extends": [

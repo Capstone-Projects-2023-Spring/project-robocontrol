@@ -27,6 +27,7 @@ class RobotCommandWS():
 				while True:
 					msg = await ws.recv()
 					message_data = json.loads(msg)
+					print(message_data)
 					move.move(100, message_data['direction'], message_data['turn'], 0.5)
 		except websockets.exceptions.ConnectionClosed as e:
 			print(e)

@@ -6,15 +6,14 @@ import { COLORS } from '../tools/Constants'
 // Custom styles
 import Styles from './ControlStyles'
 import Login from './Login'
+import Video from './Video'
 
 type MsgData = {
 	direction: string
 	turn: string
 }
 
-type VideoData = {
-	image: string
-}
+type VideoData = { image: string, cv2_image: string }
 
 // Type to use for robot movement
 type wasd = {
@@ -47,16 +46,24 @@ const commands_ws = new WebSocket(COMMANDS_WS_URL) // A websocket for the robot 
 
 const Control = (): React.ReactElement => {
 	const [img, setImg] = useState('');
-	const [loggedIn, login] = useState(false)
+	const [cv2Img, setCv2Img] = useState('');
+	const [loggedIn, login] = useState(false);
 
 	// Activity states to make buttons change color when activated
 	const [activeMovement, setActiveMovement] = useState<wasd>(wasd_default);
+
+	useEffect(() => {
+		const interval = setInterval(() => {video_ws.send('')}, 50);
+	
+		return () => clearInterval(interval);
+	}, []);
 
 	video_ws.onmessage = async (event: MessageEvent<any>) => {
 		// event.data is given as a blob (since it is an unrecognized data type)
 		// Convert this blob to UTF-8 text for display purposes
 		const json_data: VideoData = JSON.parse(await new Response(event.data).text())
 		setImg(json_data.image)
+		setCv2Img(json_data.cv2_image)
 	}
 
 	const sendMessage = (command: string) => {
@@ -138,6 +145,7 @@ const Control = (): React.ReactElement => {
 			{/* Display the Base64 image string sent from the robot */}
 			<Styles.VideoFeedContainer>
 				{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/> : ''}
+				{cv2Img ? <img src={`data:image/jpg;base64,${cv2Img}`} alt='Stream from robot'/> : ''}
 			</Styles.VideoFeedContainer>
 
 			{
