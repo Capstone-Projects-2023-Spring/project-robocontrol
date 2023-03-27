@@ -6,9 +6,9 @@ import { COLORS } from '../tools/Constants'
 import Styles from './ControlStyles'
 import Login from './Login'
 
-type MsgData = { direction: string, turn: string}
+type MsgData = { direction: string, turn: string, arm_command: string }
 type VideoData = { image: string, cv2_image: string }
-type direction_content = { grid: string, command: string, character: string }
+type DirectionContent = { grid: string, command: string, character: string }
 
 // Type to use for robot movement
 type wasd = {
@@ -16,7 +16,9 @@ type wasd = {
 	forward: boolean,
 	backward: boolean,
 	left: boolean,
-	right: boolean
+	right: boolean,
+	armup: boolean,
+	armdown: boolean
 }
 
 const movement = [
@@ -24,19 +26,21 @@ const movement = [
 	{ command: 'backward', character: 's'},
 	{ command: 'left', character: 'a'},
 	{ command: 'right', character: 'd'},
+	{ command: 'armup', character: 'arrowup'},
+	{ command: 'armdown', character: 'arrowdown'},
 	{ command: 'stop', character: ' '}
 ]
 
-const direction_buttons: direction_content[] = [
+const direction_buttons: DirectionContent[] = [
 	{ grid: '1 / 2', command: 'forward', character: 'W' },
 	{ grid: '2 / 1', command: 'left', character: 'A' },
 	{ grid: '2 / 2', command: 'backward', character: 'S' },
 	{ grid: '2 / 3', command: 'right', character: 'D' },
-	{ grid: '1 / 4', direction: 'up', character: '↑' }, // added up button
-	{ grid: '3 / 4', direction: 'down', character: '↓' } // added down button
+	{ grid: '1 / 4', command: 'armup', character: '↑' }, // added up button
+	{ grid: '3 / 4', command: 'armdown', character: '↓' } // added down button
 ]
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
-const wasd_default: wasd = {forward: false, backward: false, left: false, right: false}
+const wasd_default: wasd = {forward: false, backward: false, left: false, right: false, armdown: false, armup: false}
 
 const VIDEO_WS_URL = `wss://ryanhodge.net/ws/video`
 const COMMANDS_WS_URL = `wss://ryanhodge.net/ws/commands`
@@ -69,6 +73,7 @@ const Control = (): React.ReactElement => {
 		const data: MsgData = {
 			direction: '',
 			turn: '',
+			arm_command: ''
 		}
 
 		movement.forEach(direction => {
@@ -77,6 +82,10 @@ const Control = (): React.ReactElement => {
 		})
 
 		setActiveMovement(active)
+
+		if (active.armup) { data.arm_command = 'up' }
+		else if (active.armdown) { data.arm_command = 'down' }
+		else { data.arm_command = 'no' }
 
 		if (active.forward) { data.direction = 'forward' }
 		else if (active.backward) { data.direction = 'backward' }
@@ -96,6 +105,7 @@ const Control = (): React.ReactElement => {
 			if (loggedIn && !event.repeat) {
 				movement.forEach((direction) => {
 					if (event.key.toLowerCase() === direction.character) {
+						event.preventDefault()
 						sendMessage(direction.command)
 					}
 				})
@@ -103,7 +113,13 @@ const Control = (): React.ReactElement => {
 		};
 
 		const handleKeyUp = (event: KeyboardEvent) => {
-			if (loggedIn && 'wasd '.includes(event.key.toLowerCase())) sendMessage('stop', event.key.toLocaleLowerCase());
+			if (loggedIn) {
+				movement.forEach((direction) => {
+					if (event.key.toLowerCase() === direction.character) {
+						sendMessage('stop', event.key.toLocaleLowerCase())
+					}
+				})
+			}
 		};
 
 		window.addEventListener('keydown', handleKeyDown);

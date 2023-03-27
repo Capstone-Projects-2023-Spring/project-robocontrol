@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../tools/Constants';
-import { SignupContainer, InputContainer, ErrorMessage  } from './SignupStyles';
+import { SignupContainer, InputContainer } from './SignupStyles';
 
 const Signup = (): React.ReactElement => {
   const [username, setUsername] = useState('');
