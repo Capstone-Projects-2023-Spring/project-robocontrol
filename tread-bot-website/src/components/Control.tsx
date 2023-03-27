@@ -6,12 +6,9 @@ import { COLORS } from '../tools/Constants'
 import Styles from './ControlStyles'
 import Login from './Login'
 
-type MsgData = {
-	direction: string
-	turn: string
-}
-
+type MsgData = { direction: string, turn: string}
 type VideoData = { image: string, cv2_image: string }
+type direction_content = { grid: string, command: string, character: string }
 
 // Type to use for robot movement
 type wasd = {
@@ -22,19 +19,21 @@ type wasd = {
 	right: boolean
 }
 
-type dir_content = {
-	grid: string,
-	direction: string,
-	character: string
-}
-
-const direction_buttons: dir_content[] = [
-	{ grid: '1 / 2', direction: 'backward', character: 'W' },
-	{ grid: '2 / 1', direction: 'left', character: 'A' },
-	{ grid: '2 / 2', direction: 'forward', character: 'S' },
-	{ grid: '2 / 3', direction: 'right', character: 'D' }
+const movement = [
+	{ command: 'forward', character: 'w'},
+	{ command: 'backward', character: 's'},
+	{ command: 'left', character: 'a'},
+	{ command: 'right', character: 'd'},
+	{ command: 'stop', character: ' '}
 ]
-const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px' };
+
+const direction_buttons: direction_content[] = [
+	{ grid: '1 / 2', command: 'forward', character: 'W' },
+	{ grid: '2 / 1', command: 'left', character: 'A' },
+	{ grid: '2 / 2', command: 'backward', character: 'S' },
+	{ grid: '2 / 3', command: 'right', character: 'D' }
+]
+const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
 const wasd_default: wasd = {forward: false, backward: false, left: false, right: false}
 
 const VIDEO_WS_URL = `wss://ryanhodge.net/ws/video`
@@ -45,14 +44,13 @@ const commands_ws = new WebSocket(COMMANDS_WS_URL) // A websocket for the robot 
 const Control = (): React.ReactElement => {
 	const [img, setImg] = useState('');
 	const [cv2Img, setCv2Img] = useState('');
-	const [loggedIn, login] = useState(false);
+	const [loggedIn, login] = useState(true);
 
 	// Activity states to make buttons change color when activated
 	const [activeMovement, setActiveMovement] = useState<wasd>(wasd_default);
 
 	useEffect(() => {
 		const interval = setInterval(() => {video_ws.send('')}, 50);
-	
 		return () => clearInterval(interval);
 	}, []);
 
@@ -64,51 +62,46 @@ const Control = (): React.ReactElement => {
 		setCv2Img(json_data.cv2_image)
 	}
 
-	const sendMessage = (command: string) => {
-		let direction, turn;
-		let active = {...wasd_default};
-
-		command !== 'no' ? active[command] = true : active = wasd_default
-		setActiveMovement(active)
-		
-		// Messy because two commands are needed, a turn command and forward/backward
-		direction = 
-			command === 'right' ? 'no' :
-			command === 'left' ? 'no' :
-			command === 'forward' ? command :
-			command === 'backward' ? command : command
-		turn = 
-			command === 'right' ? command :
-			command === 'left' ? command :
-			command === 'forward' ? 'no' :
-			command === 'backward' ? 'no' : 'no'
-
+	const sendMessage = (command: string, key?: string) => {
+		let active = activeMovement;
 		const data: MsgData = {
-			direction: direction,
-			turn: turn,
+			direction: '',
+			turn: '',
 		}
-		
-		console.log(data.direction);
 
+		movement.forEach(direction => {
+			if (command !== 'stop' && command === direction.command) active[direction.command] = true 
+			else if (key === direction.character) active[direction.command] = false 
+		})
+
+		setActiveMovement(active)
+
+		if (active.forward) { data.direction = 'forward' }
+		else if (active.backward) { data.direction = 'backward' }
+		else { data.direction = 'no' }
+
+		if (active.left) { data.turn = 'left' }
+		else if (active.right) { data.turn = 'right' }
+		else { data.turn = 'no' }
+		
+		console.log(data);
 		commands_ws.send(JSON.stringify(data))
 	}
 
 	// Allow bot to be controlled by WASD keys on keyboard
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
-			if (loggedIn) {
-				switch (event.key.toLowerCase()) {
-					case 'w': sendMessage('backward'); break;
-					case 'a': sendMessage('left'); break;
-					case 's': sendMessage('forward'); break;
-					case 'd': sendMessage('right'); break;
-					case ' ': sendMessage('no'); break;
-				}
+			if (loggedIn && !event.repeat) {
+				movement.forEach((direction) => {
+					if (event.key.toLowerCase() === direction.character) {
+						sendMessage(direction.command)
+					}
+				})
 			}
 		};
 
 		const handleKeyUp = (event: KeyboardEvent) => {
-			if (loggedIn && 'wasd '.includes(event.key.toLowerCase())) sendMessage('no');
+			if (loggedIn && 'wasd '.includes(event.key.toLowerCase())) sendMessage('stop', event.key.toLocaleLowerCase());
 		};
 
 		window.addEventListener('keydown', handleKeyDown);
@@ -127,11 +120,11 @@ const Control = (): React.ReactElement => {
 				<Styles.DirectionButton
 					style={{
 						gridArea: direction.grid,
-						backgroundColor: activeMovement[direction.direction] ? COLORS.PRESSBUTTON : COLORS.UNPRESSBUTTON,
-						...(activeMovement[direction.direction] ? activeStyle : {}),
+						backgroundColor: COLORS.UNPRESSBUTTON,
+						...(activeMovement[direction.command] ? activeStyle : {}),
 					}}
-					onMouseDown={() => sendMessage(direction.direction)}
-					onMouseUp={() => sendMessage('no')}
+					onMouseDown={() => sendMessage(direction.command)}
+					onMouseUp={() => sendMessage('stop')}
 					key={i} >{direction.character}</Styles.DirectionButton>
 			)
 		})
@@ -157,7 +150,7 @@ const Control = (): React.ReactElement => {
 
 					<Styles.StopButton
 						style={{ gridArea: "3 / 2" }}
-						onClick={() => sendMessage('no')}>Stop
+						onClick={() => sendMessage('stop')}>Stop
 					</Styles.StopButton>
 
 				</Styles.ControlContainer>
