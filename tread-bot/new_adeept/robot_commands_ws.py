@@ -19,15 +19,18 @@ class RobotCommandWS():
 	async def connect(self):
 		print('Commands listening to ' + RobotCommandWS.HOST_PATH)
 		# Connect to the server
-		try:
-			async with websockets.connect(RobotCommandWS.HOST_PATH, ping_timeout=None) as ws:
-				print('Commands connected to ' + RobotCommandWS.HOST_PATH)
-				# Stay alive forever, listening to incoming msgs
-				await ws.send('robot')
-				while True:
-					msg = await ws.recv()
-					message_data = json.loads(msg)
-					print(message_data)
-					move.move(100, message_data['direction'], message_data['turn'], 0.5)
-		except websockets.exceptions.ConnectionClosed as e:
-			print(e)
+		while True:
+			try:
+				async with websockets.connect(RobotCommandWS.HOST_PATH, ping_timeout=None) as ws:
+					print('Commands connected to ' + RobotCommandWS.HOST_PATH)
+					# Stay alive forever, listening to incoming msgs
+					await ws.send('robot')
+					while True:
+						msg = await ws.recv()
+						message_data = json.loads(msg)
+						print(message_data)
+						move.move(100, message_data['direction'], message_data['turn'], 0.5)
+			except websockets.exceptions.ConnectionClosed as e:
+				print('Command websocket closed, retrying connection...')
+			except ConnectionRefusedError:
+				print('Command connection refused, retrying...')
