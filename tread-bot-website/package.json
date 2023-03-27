@@ -32,7 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "nginx": "react-scripts build && sudo cp -r ./build/* /var/www/ryanhodge/html"
+    "nginx": "react-scripts build && cp -r ./build/* /var/www/ryanhodge/html"
   },
   "eslintConfig": {
     "extends": [
