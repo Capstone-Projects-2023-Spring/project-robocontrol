@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { COLORS } from '../tools/Constants';
 import controlsImage from '../assets/images/controlsimage.png';
 import aboutImage from '../assets/images/aboutimage.png';
-import { Link } from 'react-router-dom';
-
 
 export default class HomeStyles {
   static readonly HomeContainer = styled.div`

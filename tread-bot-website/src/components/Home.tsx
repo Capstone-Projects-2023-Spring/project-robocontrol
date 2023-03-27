@@ -1,6 +1,5 @@
 import React from 'react';
 import HomeStyles from './HomeStyles';
-import controlsImage from '../assets/images/controlsimage.png';
 import { PATHS } from '../tools/Constants';
 import { useNavigate } from 'react-router-dom';
 
