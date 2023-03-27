@@ -28,6 +28,8 @@ const movement = [
 	{ command: 'right', character: 'd'},
 	{ command: 'armup', character: 'arrowup'},
 	{ command: 'armdown', character: 'arrowdown'},
+	{ command: 'armleft', character: 'arrowleft'},
+	{ command: 'armright', character: 'arrowright'},
 	{ command: 'stop', character: ' '}
 ]
 
@@ -38,6 +40,8 @@ const direction_buttons: DirectionContent[] = [
 	{ grid: '2 / 3', command: 'right', character: 'D' },
 	{ grid: '1 / 4', command: 'armup', character: '↑' }, // added up button
 	{ grid: '3 / 4', command: 'armdown', character: '↓' } // added down button
+	{ grid: '2 / 6', direction: 'armleft', character: '←' }, // added left button  
+	{ grid: '2 / 9', direction: 'armright', character: '→' } // added right button
 ]
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
 const wasd_default: wasd = {forward: false, backward: false, left: false, right: false, armdown: false, armup: false}
@@ -68,6 +72,42 @@ const Control = (): React.ReactElement => {
 		setCv2Img(json_data.cv2_image)
 	}
 
+	const sendMessage = (command: string) => {
+		let direction, turn;
+		let active = {...wasd_default};
+
+		if (command === 'up') {
+			direction = 'up';
+			turn = 'no';
+		  } else if (command === 'down') {
+			direction = 'down';
+			turn = 'no';
+		  } 
+		  else if (command === 'left') {
+			direction = 'left';
+			turn = 'no';
+		  }
+		  else if (command === 'right') {
+			direction = 'right';
+			turn = 'no';
+		  }else {
+
+		command !== 'no' ? active[command] = true : active = wasd_default
+		setActiveMovement(active)
+		
+		// Messy because two commands are needed, a turn command and forward/backward
+		direction = 
+			command === 'right' ? 'no' :
+			command === 'left' ? 'no' :
+			command === 'forward' ? command :
+			command === 'backward' ? command : COMMANDS_WS_URL
+			
+		turn = 
+			command === 'right' ? command :
+			command === 'left' ? command :
+			command === 'forward' ? 'no' :
+			command === 'backward' ? 'no' : 'no'
+		  }
 	const sendMessage = (command: string, key?: string) => {
 		let active = activeMovement;
 		const data: MsgData = {
