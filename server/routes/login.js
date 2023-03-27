@@ -6,18 +6,18 @@ const users = Array.isArray(usersJson) ? usersJson : [];
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+	res.send('respond with a resource');
 });
 
 router.post('/', async (req, res) => {
-  const { username, password } = req.body;
-  const user = users.find((user) => user.username === username);
+	const { username, password } = req.body;
+	const user = users.find((user) => user.username === username);
 
-  if (user && await bcrypt.compare(password, user.password)) {
-    res.status(200).send('Login successful');
-  } else {
-    res.status(401).json({ error: 'Invalid credentials' });
-  }
+	if (user && await bcrypt.compare(password, user.password)) {
+		res.status(200).send('Login successful');
+	} else {
+		res.status(401).json({ error: 'Invalid credentials' });
+	}
 });
 
 module.exports = router;

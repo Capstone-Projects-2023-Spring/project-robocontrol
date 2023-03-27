@@ -148,9 +148,3 @@ const Signup = (): React.ReactElement => {
 };
 
 export default Signup;
-
-
-
-
-
-
