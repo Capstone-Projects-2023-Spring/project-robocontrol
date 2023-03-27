@@ -5,8 +5,8 @@ const cors = require('cors');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var loginRouter = require('./routes/login').default;
-var signupRouter = require('./routes/signup').default;
+var loginRouter = require('./routes/login');
+var signupRouter = require('./routes/signup');
 
 var app = express();
 app.use(cors());
