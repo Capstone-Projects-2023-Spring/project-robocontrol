@@ -11,7 +11,7 @@ while(True):
     # by frame
     ret, frame = vid.read()
     
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     hsvFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     # Set range for red color and 
@@ -88,7 +88,7 @@ while(True):
                         1.0, (0, 255, 0))
   
     # Creating contour to track blue color
-    contours, hierarchy = cv2.findContours(blue_mask,
+    contours, image = cv2.findContours(blue_mask,
                                            cv2.RETR_TREE,
                                            cv2.CHAIN_APPROX_SIMPLE)
     for pic, contour in enumerate(contours):
