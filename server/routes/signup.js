@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import { writeFile } from 'fs';
-import usersJson from './users.json';
+var express = require('express');
+const fs = require('fs');
+const usersJson = require('./users.json');
 
-var router = Router();
+var router = express.Router();
 const users = Array.isArray(usersJson) ? usersJson : [];
 
 router.post('/', (req, res) => {

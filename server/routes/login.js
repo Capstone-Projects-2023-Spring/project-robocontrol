@@ -1,7 +1,7 @@
-import { Router } from 'express';
-var router = Router();
+var express = require('express');
+var router = express.Router();
 const bcrypt = require('bcrypt');
-import usersJson from './users.json';
+const usersJson = require('./users.json');
 const users = Array.isArray(usersJson) ? usersJson : [];
 
 /* GET users listing. */
@@ -20,4 +20,4 @@ router.post('/', async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
