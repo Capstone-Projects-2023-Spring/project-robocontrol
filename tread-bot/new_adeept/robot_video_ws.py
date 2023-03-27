@@ -1,6 +1,5 @@
 # Importing the relevant libraries
 import os
-import cv2
 
 class RobotVideoWS():
 	def run(self):
