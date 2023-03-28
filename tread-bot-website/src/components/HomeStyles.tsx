@@ -7,7 +7,7 @@ export default class HomeStyles {
   static readonly HomeContainer = styled.div`
     display: grid;
     grid-template-rows: repeat(8, 1fr);
-    height: 100vh;
+    min-height: 100vh;
   `;
 
   static readonly RoboControlBox = styled.div`
