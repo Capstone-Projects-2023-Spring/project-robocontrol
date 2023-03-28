@@ -7,7 +7,6 @@ import Styles from './ControlStyles'
 import Login from './Login'
 
 type MsgData = { direction: string, turn: string, arm_command: string }
-type VideoData = { image: string, cv2_image: string }
 type DirectionContent = { grid: string, command: string, character: string }
 
 // Type to use for robot movement
@@ -43,34 +42,18 @@ const direction_buttons: DirectionContent[] = [
 	{ grid: '2 / 4', command: 'armleft', character: '←' }, // added left button
     { grid: '2 / 6', command: 'armright', character: '→' } // added right button
 ]
+
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
 const wasd_default: wasd = {forward: false, backward: false, left: false, right: false, armdown: false, armup: false}
 
-const VIDEO_WS_URL = `wss://ryanhodge.net/ws/video`
 const COMMANDS_WS_URL = `wss://ryanhodge.net/ws/commands`
-const video_ws = new WebSocket(VIDEO_WS_URL) // A websocket for the video
 const commands_ws = new WebSocket(COMMANDS_WS_URL) // A websocket for the robot commands
 
 const Control = (): React.ReactElement => {
-	const [img, setImg] = useState('');
-	const [cv2Img, setCv2Img] = useState('');
 	const [loggedIn, login] = useState(false);
 
 	// Activity states to make buttons change color when activated
 	const [activeMovement, setActiveMovement] = useState<wasd>(wasd_default);
-
-	useEffect(() => {
-		const interval = setInterval(() => {video_ws.send('')}, 50);
-		return () => clearInterval(interval);
-	}, []);
-
-	video_ws.onmessage = async (event: MessageEvent<any>) => {
-		// event.data is given as a blob (since it is an unrecognized data type)
-		// Convert this blob to UTF-8 text for display purposes
-		const json_data: VideoData = JSON.parse(await new Response(event.data).text())
-		setImg(json_data.image)
-		setCv2Img(json_data.cv2_image)
-	}
 
 	const sendMessage = useCallback((command: string, key?: string) => {
 		let active = activeMovement;
@@ -163,8 +146,8 @@ const Control = (): React.ReactElement => {
 		<Styles.FlexContainer>
 			{/* Display the Base64 image string sent from the robot */}
 			<Styles.VideoFeedContainer>
-				{img ? <img src={`data:image/jpg;base64,${img}`} alt='Stream from robot'/> : ''}
-				{cv2Img ? <img src={`data:image/jpg;base64,${cv2Img}`} alt='Stream from robot'/> : ''}
+				<img src={'http://127.0.0.1:10338/original'} alt='Stream from robot'/>
+				<img src={'http://127.0.0.1:10338/color_detection'} alt='Stream from robot'/>
 			</Styles.VideoFeedContainer>
 
 			{
