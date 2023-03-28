@@ -10,13 +10,16 @@ export default class ControlStyles {
 		justify-content: center;
 		align-content: center;
 		width: 100%;
+		margin-bottom: 200px;
 	`
 
 	static readonly VideoFeedContainer = styled.div`
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 100%;
+		/* width: 100%; */
+		width: 500px;
+		height: 500px;
 		padding: 50px;
 
 		img {
