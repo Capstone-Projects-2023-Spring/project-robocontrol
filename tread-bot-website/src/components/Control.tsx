@@ -1,5 +1,5 @@
 // Third party imports
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { COLORS } from '../tools/Constants'
 
 // Custom styles
@@ -72,7 +72,7 @@ const Control = (): React.ReactElement => {
 		setCv2Img(json_data.cv2_image)
 	}
 
-	const sendMessage = (command: string, key?: string) => {
+	const sendMessage = useCallback((command: string, key?: string) => {
 		let active = activeMovement;
 		const data: MsgData = {
 			direction: '',
@@ -105,7 +105,7 @@ const Control = (): React.ReactElement => {
 		
 		console.log(data);
 		commands_ws.send(JSON.stringify(data))
-	}
+	}, [activeMovement])
 
 	// Allow bot to be controlled by WASD keys on keyboard
 	useEffect(() => {
@@ -137,7 +137,7 @@ const Control = (): React.ReactElement => {
 			window.removeEventListener('keydown', handleKeyDown);
 			window.removeEventListener('keyup', handleKeyUp);
 		};
-	}, [loggedIn]);
+	}, [loggedIn, sendMessage]);
 
 	const renderDirections = (): React.ReactElement[] => {
 		const directionButtons: React.ReactElement[] = []
