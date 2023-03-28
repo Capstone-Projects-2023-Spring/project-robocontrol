@@ -17,9 +17,7 @@ export default class ControlStyles {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		/* width: 100%; */
-		width: 500px;
-		height: 500px;
+		width: 100%;
 		padding: 50px;
 
 		img {
