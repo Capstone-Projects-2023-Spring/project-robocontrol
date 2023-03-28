@@ -2,15 +2,16 @@ import styled from 'styled-components'
 import { COLORS } from '../tools/Constants' 	
 
 export default class ControlStyles {
-	static readonly ControlContainer = styled.div`
-		display: grid;
-		grid-template-columns: repeat(3, 100px);
-		grid-template-rows: repeat(3, 100px);
-		gap: 15px;
-		justify-content: center;
-		align-content: center;
-		width: 100%;
-	`
+static readonly ControlContainer = styled.div`
+    display: grid;
+    grid-template-columns: repeat(7, 100px);
+    grid-template-rows: repeat(4, 100px);
+    gap: 15px;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+`;
+
 
 	static readonly VideoFeedContainer = styled.div`
 		display: flex;
