@@ -21,15 +21,15 @@ type wasd = {
 }
 
 const movement = [
-	{ command: 'forward', character: 'w'},
-	{ command: 'backward', character: 's'},
-	{ command: 'left', character: 'a'},
-	{ command: 'right', character: 'd'},
-	{ command: 'armup', character: 'arrowup'},
-	{ command: 'armdown', character: 'arrowdown'},
-	{ command: 'armleft', character: 'arrowleft'},
-    { command: 'armright', character: 'arrowright'},
-	{ command: 'stop', character: ' '}
+	{ command: 'forward', character: 'w' },
+	{ command: 'backward', character: 's' },
+	{ command: 'left', character: 'a' },
+	{ command: 'right', character: 'd' },
+	{ command: 'armup', character: 'arrowup' },
+	{ command: 'armdown', character: 'arrowdown' },
+	{ command: 'armleft', character: 'arrowleft' },
+	{ command: 'armright', character: 'arrowright' },
+	{ command: 'stop', character: ' ' }
 ]
 
 const direction_buttons: DirectionContent[] = [
@@ -37,14 +37,16 @@ const direction_buttons: DirectionContent[] = [
 	{ grid: '2 / 1', command: 'left', character: 'A' },
 	{ grid: '2 / 2', command: 'backward', character: 'S' },
 	{ grid: '2 / 3', command: 'right', character: 'D' },
-	{ grid: '1 / 5', command: 'armup', character: '↑' }, // added up button
-	{ grid: '3 / 5', command: 'armdown', character: '↓' }, // added down button
-	{ grid: '2 / 4', command: 'armleft', character: '←' }, // added left button
-    { grid: '2 / 6', command: 'armright', character: '→' } // added right button
+	{ grid: '1 / 6', command: 'armup', character: 'UP\n↑' }, // added up button
+	{ grid: '3 / 6', command: 'armdown', character: 'DOWN\n↓' }, // added down button
+	{ grid: '2 / 5', command: 'armleft', character: 'OPEN\n←' }, // added left button
+	{ grid: '2 / 7', command: 'armright', character: 'CLOSE\n→' }, // added right button
+
+
 ]
 
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
-const wasd_default: wasd = {forward: false, backward: false, left: false, right: false, armdown: false, armup: false}
+const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, armdown: false, armup: false }
 
 const COMMANDS_WS_URL = `wss://ryanhodge.net/ws/commands`
 const commands_ws = new WebSocket(COMMANDS_WS_URL) // A websocket for the robot commands
@@ -64,8 +66,8 @@ const Control = (): React.ReactElement => {
 		}
 
 		movement.forEach(direction => {
-			if (command !== 'stop' && command === direction.command) active[direction.command] = true 
-			else if (key === direction.character) active[direction.command] = false 
+			if (command !== 'stop' && command === direction.command) active[direction.command] = true
+			else if (key === direction.character) active[direction.command] = false
 		})
 
 		setActiveMovement(active)
@@ -85,7 +87,7 @@ const Control = (): React.ReactElement => {
 		if (active.left) { data.turn = 'left' }
 		else if (active.right) { data.turn = 'right' }
 		else { data.turn = 'no' }
-		
+
 		console.log(data);
 		commands_ws.send(JSON.stringify(data))
 	}, [activeMovement])
@@ -146,23 +148,25 @@ const Control = (): React.ReactElement => {
 		<Styles.FlexContainer>
 			{/* Display the Base64 image string sent from the robot */}
 			<Styles.VideoFeedContainer>
-				<img src={'http://127.0.0.1:10338/original'} alt='Stream from robot'/>
-				<img src={'http://127.0.0.1:10338/color_detection'} alt='Stream from robot'/>
+				<img src={'http://127.0.0.1:10338/original'} alt='Stream from robot' />
+				<img src={'http://127.0.0.1:10338/color_detection'} alt='Stream from robot' />
 			</Styles.VideoFeedContainer>
 
 			{
 				!loggedIn ?
-				<Login loginSuccessful={login}/> :
-				<Styles.ControlContainer>
-					{/* Send a message to the robot */}
-					{renderDirections()}
+					<Login loginSuccessful={login} /> :
+					<Styles.ControlContainer>
+						{/* Send a message to the robot */}
+						{renderDirections()}
 
-					<Styles.StopButton
-						style={{ gridArea: "3 / 2" }}
-						onClick={() => sendMessage('stop')}>Stop
-					</Styles.StopButton>
-
-				</Styles.ControlContainer>
+						<Styles.StopButton
+							style={{ gridArea: "3 / 2" }}
+							onClick={() => sendMessage('stop')}>Stop
+						</Styles.StopButton>
+						<Styles.Labels style={{ gridArea: "4 / 1" }}>TREADS</Styles.Labels>
+						{/* Add the "ARM/CLAW" text container */}
+						<Styles.Labels style={{ gridArea: "4 / 5" }}>ARM/CLAW</Styles.Labels>
+					</Styles.ControlContainer>
 			}
 
 		</Styles.FlexContainer>
