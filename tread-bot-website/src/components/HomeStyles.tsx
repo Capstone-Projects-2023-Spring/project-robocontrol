@@ -98,6 +98,7 @@ static readonly ControlButton = styled.button`
   width: 150px;
   height: 49px;
   margin-left: 150px;
+  margin-top: 50px;
 
   &:active {
     box-shadow: 0px 0px 0px 0px;
@@ -164,6 +165,7 @@ static readonly AboutButton = styled.button`
   width: 150px;
   height: 49px;
   margin-left: 150px;
+  margin-top: 50px;
 
   &:active {
     box-shadow: 0px 0px 0px 0px;
