@@ -34,3 +34,5 @@ class RobotCommandWS():
 				print('Command websocket closed, retrying connection...')
 			except ConnectionRefusedError:
 				print('Command connection refused, retrying...')
+			except TimeoutError:
+				print('Command connection refused, retrying...')

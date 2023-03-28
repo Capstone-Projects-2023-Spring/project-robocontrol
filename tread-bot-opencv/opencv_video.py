@@ -1,10 +1,12 @@
 # Importing the relevant libraries
 import cv2
-import websockets
-import asyncio
-import json
 import base64
 from queue import Queue
+from flask import Flask, Response
+import threading
+
+original_lock = threading.Lock()
+color_detection_lock = threading.Lock()
 
 # Convert an OpenCV image to Base64 bytes for transmission
 def cv2_to_base64(img):
@@ -14,14 +16,15 @@ def cv2_to_base64(img):
 
 class VideoWS():
 
-	PORT = 10333
-	HOST = '192.168.2.1'
+	PORT = 10338
+	HOST = '127.0.0.1'
 
 	def __init__(self) -> None:
 		self.vid = None
 		self.clients = set()
 		self.img_proc_q = Queue()
 		self.websocket_q = Queue()
+		self.app = Flask(__name__)
 
 	async def start(self, img_proc_q, websocket_q):
 		self.img_proc_q = img_proc_q
@@ -32,22 +35,54 @@ class VideoWS():
 		self.vid = cv2.VideoCapture(gstreamer_str, cv2.CAP_GSTREAMER)
 
 		# Start the servers
-		async with websockets.serve(self.serve, VideoWS.HOST, VideoWS.PORT, ping_timeout=None):
-			await asyncio.Future()
+		self.app.add_url_rule('/original', 'original', self.original_stream)
+		self.app.add_url_rule('/color_detection', 'color_detection', self.color_detection_stream)
+		self.app.run(VideoWS.HOST, VideoWS.PORT, False, None)
 
-	async def serve(self, websocket, path):
-		msg = {'image': ''}
-		print("Video client connected")
+	def original_stream(self):
+		return Response(self.original(), mimetype = "multipart/x-mixed-replace; boundary=frame")
 
-		try:
-			async for message in websocket:
-				ret, img = self.vid.read()
-				msg['image'] = cv2_to_base64(img).decode('utf-8')
-				self.img_proc_q.put(img)
-				if not self.websocket_q.empty():
-					msg['cv2_image'] = cv2_to_base64(self.websocket_q.get()).decode('utf-8')
-				await websocket.send(json.dumps(msg))
-				# websockets.broadcast(self.clients, json.dumps(msg))
-		except websockets.exceptions.ConnectionClosed as e:
-			print("The video client disconnected")
+	def color_detection_stream(self):
+		return Response(self.color_detection(), mimetype = "multipart/x-mixed-replace; boundary=frame")
+	
+	def original(self):
+		print('Video connecting...')
+		global original_lock
+		
+		# while streaming
+		while True:
+			with original_lock:
+				# read next frame
+				_, img = self.vid.read()
+				self.img_proc_q.put(img.copy())
+			# if blank frame
+			if img is None: continue
 
+			# encode the frame in JPEG format
+			(flag, encodedImage) = cv2.imencode(".jpg", img)
+
+			# ensure the frame was successfully encoded
+			if not flag: continue
+
+			# yield the output frame in the byte format
+			yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
+
+	def color_detection(self):
+		print('Color detection connecting...')
+		global color_detection_lock
+		
+		# while streaming
+		while True:
+			with color_detection_lock:
+				img = self.websocket_q.get()
+			
+			# If frame is empty
+			if img is None: continue
+
+			# encode the frame in JPEG format
+			(flag, encodedImage) = cv2.imencode(".jpg", img)
+			# ensure the frame was successfully encoded
+			if not flag: continue
+
+			# yield the output frame in the byte format
+			yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
