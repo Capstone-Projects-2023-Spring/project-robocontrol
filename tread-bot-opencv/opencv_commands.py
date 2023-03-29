@@ -2,6 +2,7 @@ import websockets
 import asyncio
 from waiting_queue import WaitingQueue  
 
+
 class CommandWS():
 
     PORT = 10334

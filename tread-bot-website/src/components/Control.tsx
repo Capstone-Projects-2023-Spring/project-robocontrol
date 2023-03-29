@@ -48,7 +48,7 @@ const direction_buttons: DirectionContent[] = [
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
 const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, armdown: false, armup: false }
 
-const COMMANDS_WS_URL = `wss://ryanhodge.net/ws/commands`
+const COMMANDS_WS_URL = `ws://localhost:10334/`
 const commands_ws = new WebSocket(COMMANDS_WS_URL) // A websocket for the robot commands
 
 const Control = (): React.ReactElement => {
