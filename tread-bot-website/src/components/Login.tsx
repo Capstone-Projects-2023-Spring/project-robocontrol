@@ -60,7 +60,6 @@ const Login = (props: LoginProps): React.ReactElement => {
 				)}
 				<input
 					type="text"
-					id="username"
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
 					style={{ paddingTop: '0.25rem' }}
@@ -75,7 +74,6 @@ const Login = (props: LoginProps): React.ReactElement => {
 				)}
 				<input
 					type="password"
-					id="password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 					style={{ paddingTop: '0.25rem' }}
