@@ -2,7 +2,8 @@
 import cv2
 import numpy as np
 
-vid = cv2.VideoCapture(1)
+gstreamer_str = 'udpsrc port=8888 ! queue ! h264parse ! avdec_h264 ! videoconvert ! appsink drop=1'
+vid = cv2.VideoCapture(gstreamer_str, cv2.CAP_GSTREAMER)
 
 def nothing(x):
     pass
