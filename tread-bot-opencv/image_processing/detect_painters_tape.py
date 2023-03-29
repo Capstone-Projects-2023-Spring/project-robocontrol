@@ -4,8 +4,12 @@ import numpy as np
 
 vid = cv2.VideoCapture(1)
 
+# Ryan's mac values
 painters_tape_lower = np.array([100, 80, 74], np.uint8)
 painters_tape_upper = np.array([114, 185, 255], np.uint8)
+
+painters_tape_lower = np.array([80, 167, 0], np.uint8)
+painters_tape_upper = np.array([114, 255, 255], np.uint8)
 kernal = np.ones((5, 5), "uint8")
 
 def make_contours(mask, text, img):
