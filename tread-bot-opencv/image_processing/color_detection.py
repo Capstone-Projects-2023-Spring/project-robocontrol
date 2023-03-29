@@ -10,6 +10,9 @@ green_upper = np.array([102, 255, 255], np.uint8)
 blue_lower = np.array([94, 80, 2], np.uint8)
 blue_upper = np.array([120, 255, 255], np.uint8)
 
+# painters_tape_lower = np.array([100, 80, 74], np.uint8)
+# painters_tape_upper = np.array([114, 185, 255], np.uint8)
+
 kernal = np.ones((5, 5), "uint8")
 
 def make_contours(mask, text, img):

@@ -10,17 +10,17 @@ export default class BannerStyles {
         animation: gradient 5s ease infinite;
         height: 100vh;
 
-    @keyframes gradient {
-        0% {
-            background-position: 0% 50%;
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
-    }
 	`
 
     static readonly OffcanvasBody = styled(Offcanvas.Body)`
@@ -84,7 +84,5 @@ export default class BannerStyles {
         padding: 0.25em 0.5em;
         box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px, 15px 15px 13px rgba(0, 0, 0, 0.3);
         position: relative;
-`;
-
-    
+    `;
 }

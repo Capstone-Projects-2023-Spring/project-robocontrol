@@ -148,8 +148,8 @@ const Control = (): React.ReactElement => {
 		<Styles.FlexContainer>
 			{/* Display the Base64 image string sent from the robot */}
 			<Styles.VideoFeedContainer>
-				<img src={'http://127.0.0.1:10338/original'} alt='Stream from robot' />
-				<img src={'http://127.0.0.1:10338/color_detection'} alt='Stream from robot' />
+				<img src={'https://ryanhodge.net/stream/original'} alt='Stream from robot'/>
+				<img src={'https://ryanhodge.net/stream/color_detection'} alt='Stream from robot'/>
 			</Styles.VideoFeedContainer>
 
 			{
