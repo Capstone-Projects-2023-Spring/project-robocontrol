@@ -2,6 +2,8 @@ import React from 'react';
 import HomeStyles from './HomeStyles';
 import { PATHS } from '../tools/Constants';
 import { useNavigate } from 'react-router-dom';
+import WaitingQueue from './WaitingQueue';
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -33,6 +35,7 @@ const Home = () => {
           </HomeStyles.AboutButton>
         </HomeStyles.RightNavigationColumn>
       </HomeStyles.NavigationContainer>
+      <WaitingQueue /> {/* Waiting Queue component added */}
       <HomeStyles.FooterContainer>
         {/* Your footer here */}
       </HomeStyles.FooterContainer>
