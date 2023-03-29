@@ -17,7 +17,9 @@ type wasd = {
 	left: boolean,
 	right: boolean,
 	armup: boolean,
-	armdown: boolean
+	armdown: boolean,
+	armleft: boolean,
+	armright: boolean
 }
 
 const movement = [
@@ -37,16 +39,14 @@ const direction_buttons: DirectionContent[] = [
 	{ grid: '2 / 1', command: 'left', character: 'A' },
 	{ grid: '2 / 2', command: 'backward', character: 'S' },
 	{ grid: '2 / 3', command: 'right', character: 'D' },
-	{ grid: '1 / 6', command: 'armup', character: 'UP\n↑' }, // added up button
+	{ grid: '1 / 6', command: 'armup', character: '↑\nUP' }, // added up button
 	{ grid: '3 / 6', command: 'armdown', character: 'DOWN\n↓' }, // added down button
 	{ grid: '2 / 5', command: 'armleft', character: 'OPEN\n←' }, // added left button
 	{ grid: '2 / 7', command: 'armright', character: 'CLOSE\n→' }, // added right button
-
-
 ]
 
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
-const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, armdown: false, armup: false }
+const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, armdown: false, armup: false, armleft: false, armright: false }
 
 const COMMANDS_WS_URL = `wss://ryanhodge.net/ws/commands`
 const commands_ws = new WebSocket(COMMANDS_WS_URL) // A websocket for the robot commands
@@ -68,6 +68,7 @@ const Control = (): React.ReactElement => {
 		movement.forEach(direction => {
 			if (command !== 'stop' && command === direction.command) active[direction.command] = true
 			else if (key === direction.character) active[direction.command] = false
+			else if (!key) {active[direction.command] = false}
 		})
 
 		setActiveMovement(active)
@@ -88,7 +89,7 @@ const Control = (): React.ReactElement => {
 		else if (active.right) { data.turn = 'right' }
 		else { data.turn = 'no' }
 
-		console.log(data);
+		// console.log(activeMovement)
 		commands_ws.send(JSON.stringify(data))
 	}, [activeMovement])
 
@@ -109,6 +110,7 @@ const Control = (): React.ReactElement => {
 			if (loggedIn) {
 				movement.forEach((direction) => {
 					if (event.key.toLowerCase() === direction.character) {
+						event.preventDefault()
 						sendMessage('stop', event.key.toLocaleLowerCase())
 					}
 				})
@@ -126,16 +128,17 @@ const Control = (): React.ReactElement => {
 
 	const renderDirections = (): React.ReactElement[] => {
 		const directionButtons: React.ReactElement[] = []
+		// console.log(activeMovement)
 		direction_buttons.forEach((direction, i) => {
 			directionButtons.push(
 				<Styles.DirectionButton
 					style={{
 						gridArea: direction.grid,
 						backgroundColor: COLORS.UNPRESSBUTTON,
-						...(activeMovement[direction.command] ? activeStyle : {}),
+						...(activeMovement[direction.command] ? activeStyle : {})
 					}}
-					onMouseDown={() => sendMessage(direction.command)}
-					onMouseUp={() => sendMessage('stop')}
+					onMouseDown={() => {sendMessage(direction.command); console.log(activeMovement[direction.command])}}
+					onMouseUp={() => {sendMessage('stop'); console.log(activeMovement[direction.command])}}
 					key={i} >{direction.character}</Styles.DirectionButton>
 			)
 		})
