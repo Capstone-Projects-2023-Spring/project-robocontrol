@@ -4,12 +4,16 @@ export default class AboutStyles {
   static readonly AboutContainer = styled.div`
     display: grid;
     text-align: left;
-    height: 100vh;
+    min-height: 100vh; // Change height to min-height
   `;
+
 
   static readonly AboutTextContainer = styled.div`
     background-color: #101414;
-    margin: 200px;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 100px;
+    margin-bottom: 100px;
     padding: 100px;
     display: flex;
     justify-content: center;
