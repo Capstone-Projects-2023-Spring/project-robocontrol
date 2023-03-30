@@ -1,11 +1,11 @@
 import Styles from "./AppStyles";
 import Banner from "./components/Banner";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Control from "./components/Control";
+import Control from "./components/control/Control";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { PATHS } from "./tools/Constants";
-import Home from "./components/Home";
-import About from "./components/About";
+import Home from "./components/home/Home";
+import About from "./components/about/About";
 
 
 

@@ -2,7 +2,7 @@
 import bcrypt from 'bcryptjs';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PATHS } from '../tools/Constants';
+import { PATHS } from '../../tools/Constants';
 import { SignupContainer, InputContainer } from './SignupStyles';
 
 const Signup = (): React.ReactElement => {
