@@ -30,27 +30,30 @@ const direction_buttons: DirectionContent[] = [
 
 const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, armdown: false, armup: false, armleft: false, armright: false }
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
+
 const COMMANDS_WS_URL = `wss://ryanhodge.net/ws/commands`
 const commands_ws = new WebSocket(COMMANDS_WS_URL) // A websocket for the robot commands
 
 export default class ButtonGrid extends React.Component<{keyPress: KeyPress}, {activeMovement: wasd}> {
 	constructor(props: {keyPress: KeyPress}) {
 		super(props)
-		this.state = { activeMovement: this.getActiveMovementFromChar() }
+		this.state = { activeMovement: wasd_default }
 	}
 
-	getActiveMovementFromChar = (): wasd => {
+	/**
+	 * Get the current wasd value based on the current state of the button pressing
+	 */
+	getActiveMovementFromChar = (key?: KeyPress): wasd => {
 		let activity = this.state?.activeMovement ?? wasd_default
 		direction_buttons.forEach(direction => {
-			if (direction.character === this.props.keyPress.char){
-				activity[direction.command] = this.props.keyPress.keyDown
+			if (direction.character === (key?.char ?? this.props.keyPress.char)){
+				activity[direction.command] = (key?.keyDown ?? this.props.keyPress.keyDown)
 			}
 		})
 		return activity
 	}
 
-	componentDidUpdate(prevProps: Readonly<{ keyPress: KeyPress; }>, prevState: Readonly<{ activeMovement: wasd; }>, snapshot?: any): void {
-		console.log(this.props.keyPress)
+	componentDidUpdate(): void {
 		this.sendMessage(this.getActiveMovementFromChar())
 	}
 
@@ -83,7 +86,6 @@ export default class ButtonGrid extends React.Component<{keyPress: KeyPress}, {a
 
 	renderDirections = (): React.ReactElement[] => {
 		const directionButtons: React.ReactElement[] = []
-		// console.log(this.state.activeMovement)
 		direction_buttons.forEach((direction, i) => {
 			directionButtons.push(
 				<Styles.DirectionButton
@@ -92,8 +94,8 @@ export default class ButtonGrid extends React.Component<{keyPress: KeyPress}, {a
 						backgroundColor: COLORS.UNPRESSBUTTON,
 						...(this.getActiveMovementFromChar()[direction.command] ? activeStyle : {})
 					}}
-					// onMouseDown={() => {this.sendMessage(direction.command)}}
-					// onMouseUp={() => {this.sendMessage('stop')}}
+					onMouseDown={() => {this.sendMessage(this.getActiveMovementFromChar({char: direction.character, keyDown: true}))}}
+					onMouseUp={() => {this.sendMessage(this.getActiveMovementFromChar({char: direction.character, keyDown: false}))}}
 					key={i} >{direction.text}</Styles.DirectionButton>
 			)
 		})
