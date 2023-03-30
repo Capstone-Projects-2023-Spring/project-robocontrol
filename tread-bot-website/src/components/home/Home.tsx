@@ -1,6 +1,6 @@
 import React from 'react';
 import HomeStyles from './HomeStyles';
-import { PATHS } from '../tools/Constants';
+import { PATHS } from '../../tools/Constants';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
