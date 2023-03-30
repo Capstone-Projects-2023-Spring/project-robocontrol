@@ -31,11 +31,8 @@ const direction_buttons: DirectionContent[] = [
 const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, armdown: false, armup: false, armleft: false, armright: false }
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
 
-const COMMANDS_WS_URL = `wss://ryanhodge.net/ws/commands`
-const commands_ws = new WebSocket(COMMANDS_WS_URL) // A websocket for the robot commands
-
-export default class ButtonGrid extends React.Component<{keyPress: KeyPress}, {activeMovement: wasd}> {
-	constructor(props: {keyPress: KeyPress}) {
+export default class ButtonGrid extends React.Component<{keyPress: KeyPress, commands_ws: WebSocket}, {activeMovement: wasd}> {
+	constructor(props: {keyPress: KeyPress, commands_ws: WebSocket}) {
 		super(props)
 		this.state = { activeMovement: wasd_default }
 	}
@@ -85,7 +82,7 @@ export default class ButtonGrid extends React.Component<{keyPress: KeyPress}, {a
 		else if (active.right) { data.turn = 'right' }
 		else { data.turn = 'no' }
 
-		commands_ws.send(JSON.stringify(data))
+		this.props.commands_ws.send(JSON.stringify(data))
 	}
 
 	renderDirections = (): React.ReactElement[] => {

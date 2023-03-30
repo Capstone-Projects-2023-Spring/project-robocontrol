@@ -1,4 +1,5 @@
 # Importing the relevant libraries
+from typing import List
 import cv2
 import base64
 from queue import Queue
@@ -25,13 +26,15 @@ class VideoWS():
 		self.img_proc_q = Queue()
 		self.websocket_q = Queue()
 		self.app = Flask(__name__)
+		self.autonomous = [False]
 
-	async def start(self, img_proc_q, websocket_q):
+	async def start(self, img_proc_q, websocket_q, autonomous: List[bool]):
+		self.autonomous = autonomous
 		self.img_proc_q = img_proc_q
 		self.websocket_q = websocket_q
 
+		# gstreamer_str = 'v4l2src device=/dev/video0 ! queue ! videoconvert ! appsink drop=1'
 		gstreamer_str = 'udpsrc port=8888 ! queue ! h264parse ! avdec_h264 ! videoconvert ! appsink drop=1'
-		# gstreamer_str = 'udpsrc port=8888 ! tee name=t ! queue ! h264parse ! avdec_h264 ! videoconvert ! appsink drop=1 t. ! h264parse ! mpegtsmux ! hlssink playlist-root=https://www.ryanhodge.net/stream location=/var/www/media/segment_%05d.ts playlist-location=/var/www/media/playlist.m3u8 target-duration=5 max-files=5'
 		self.vid = cv2.VideoCapture(gstreamer_str, cv2.CAP_GSTREAMER)
 
 		# Start the servers
@@ -73,6 +76,8 @@ class VideoWS():
 		
 		# while streaming
 		while True:
+			# Only display image if in autonomous mode
+			if not self.autonomous[0]: continue
 			with color_detection_lock:
 				img = self.websocket_q.get()
 			

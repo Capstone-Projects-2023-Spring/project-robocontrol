@@ -6,6 +6,9 @@ import Styles from './ControlStyles'
 import Login from '../login/Login'
 import ButtonGrid from './ButtonGrid'
 
+const COMMANDS_WS_URL = `wss://ryanhodge.net/ws/commands`
+const commands_ws = new WebSocket(COMMANDS_WS_URL) // A websocket for the robot commands
+
 const Control = (): React.ReactElement => {
 	const [loggedIn, login] = useState<boolean>(false);
 	const [key, setKey] = useState({char: '', keyDown: false})
@@ -40,10 +43,11 @@ const Control = (): React.ReactElement => {
 			{/* Display the Base64 image string sent from the robot */}
 			<Styles.VideoFeedContainer>
 				<img src={'https://ryanhodge.net/stream/original'} alt='Video stream from robot'/>
-				<img src={'https://ryanhodge.net/stream/color_detection'} alt='Color detection stream'/>
+				{/* <img src={'https://ryanhodge.net/stream/color_detection'} alt='Color detection stream'/> */}
+				<button onClick={() => commands_ws.send('autonomous')}>Autonomous</button>
 			</Styles.VideoFeedContainer>
 
-			{ !loggedIn ? <Login loginSuccessful={login} /> : <ButtonGrid keyPress={key}/> }
+			{ !loggedIn ? <Login loginSuccessful={login} /> : <ButtonGrid keyPress={key} commands_ws={commands_ws}/> }
 
 		</Styles.FlexContainer>
 	)
