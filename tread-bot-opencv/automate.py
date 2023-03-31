@@ -41,7 +41,8 @@ def automated_Movement(){
         continueMovement = within_Bounds(image)
         isAtEnd = reached_End()
         while (isAtEnd != True):
-            while (continueMovement != False):
+            while (continueMovement != False): 
+                continue
                 #Move forward
             
             #when not within bounds, move treadbot to get back within bounds(Or show boundary lines on camera to confirm)
