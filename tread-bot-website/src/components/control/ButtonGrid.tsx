@@ -57,7 +57,11 @@ export default class ButtonGrid extends React.Component<{keyPress: KeyPress}, {a
 		this.sendMessage(this.getActiveMovementFromChar())
 	}
 
-	sendMessage = (active: wasd) => {
+	sendMessage = (active: wasd, cmd?: string) => {
+		if (cmd) {
+			commands_ws.send(cmd)
+			return
+		}
 		console.log(active)
 		const data: MsgData = {
 			direction: '',
@@ -112,6 +116,16 @@ export default class ButtonGrid extends React.Component<{keyPress: KeyPress}, {a
 					style={{ gridArea: "3 / 2" }}
 					>Stop
 				</Styles.StopButton>
+
+				<Styles.Modes
+					style={{ gridArea: "5 / 3" }}
+					onClick={() => this.sendMessage(wasd_default, 'autonomous')}>Autonomous
+				</Styles.Modes>
+				<Styles.Modes
+					style={{ gridArea: "6 / 3" }}
+					onClick={() => this.sendMessage(wasd_default, 'manual')}>Manual
+				</Styles.Modes>
+
 				<Styles.Labels style={{ gridArea: "4 / 1" }}>TREADS</Styles.Labels>
 				{/* Add the "ARM/CLAW" text container */}
 				<Styles.Labels style={{ gridArea: "4 / 5" }}>ARM/CLAW</Styles.Labels>
