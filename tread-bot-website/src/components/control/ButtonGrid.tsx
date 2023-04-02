@@ -56,7 +56,7 @@ export default class ButtonGrid extends React.Component<{keyPress: KeyPress, com
 
 	sendMessage = (active: wasd, cmd?: string) => {
 		if (cmd) {
-			commands_ws.send(cmd)
+			this.props.commands_ws.send(cmd)
 			return
 		}
 		console.log(active)
