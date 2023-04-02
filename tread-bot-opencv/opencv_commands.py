@@ -21,7 +21,7 @@ class CommandWS():
 		self.command_q = command_q
 		self.autonomous = autonomous
 		# Start the servers
-		async with websockets.serve(self.receive, CommandWS.HOST, CommandWS.PORT, ping_timeout=None):
+		async with websockets.serve(self.serve, CommandWS.HOST, CommandWS.PORT, ping_timeout=None):
 			await asyncio.Future()
 
 	async def serve(self, websocket):
@@ -42,7 +42,7 @@ class CommandWS():
 						await asyncio.sleep(0)
 					if msg:
 						await websocket.send(json.dumps(msg))
-				await asyncio.sleep(.5)
+				await asyncio.sleep(.05)
 		except websockets.exceptions.ConnectionClosed as e:
 			print("Command client disconnected")
 	
