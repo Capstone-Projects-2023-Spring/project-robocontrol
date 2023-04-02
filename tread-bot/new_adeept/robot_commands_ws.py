@@ -29,11 +29,11 @@ class RobotCommandWS():
 						msg = await ws.recv()
 						message_data = json.loads(msg)
 						print(message_data)
-						move.move(100, message_data['direction'], message_data['turn'], 0.5)
+						move.move(50, message_data['direction'], message_data['turn'], 0.5)
 			except websockets.exceptions.ConnectionClosed as e:
 				print('Command websocket closed, retrying connection...')
 			except ConnectionRefusedError:
 				print('Command connection refused, retrying...')
 			except Exception as e:
-				print('Error: ' + e)
+				print('Error: ' + str(e))
 				print('Command connection refused, retrying...')

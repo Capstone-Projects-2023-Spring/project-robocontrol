@@ -35,7 +35,7 @@ def direction_to_center(img):
 	mask = cv2.dilate(mask, kernel)
 
 	# Pixel tolerance for centering
-	tolerance = 60
+	tolerance = 80
 	# The two largest contours (should be left tape and right)
 	largest_contours: List[Contour] = [Contour(0, 0), Contour(0, 0)]
 	img_width = img.shape[1]
