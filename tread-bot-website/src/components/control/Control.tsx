@@ -43,7 +43,7 @@ const Control = (): React.ReactElement => {
 			{/* Display the Base64 image string sent from the robot */}
 			<Styles.VideoFeedContainer>
 				<img src={'https://ryanhodge.net/stream/original'} alt='Video stream from robot'/>
-				{/* <img src={'https://ryanhodge.net/stream/color_detection'} alt='Color detection stream'/> */}
+				<img src={'https://ryanhodge.net/stream/color_detection'} alt='Color detection stream'/>
 				<button onClick={() => commands_ws.send('autonomous')}>Autonomous</button>
 			</Styles.VideoFeedContainer>
 

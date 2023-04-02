@@ -21,7 +21,7 @@ class CommandWS():
 		self.command_q = command_q
 		self.autonomous = autonomous
 		# Start the servers
-		async with websockets.serve(self.serve, CommandWS.HOST, CommandWS.PORT, ping_timeout=None):
+		async with websockets.serve(self.receive, CommandWS.HOST, CommandWS.PORT, ping_timeout=None):
 			await asyncio.Future()
 
 	async def serve(self, websocket):

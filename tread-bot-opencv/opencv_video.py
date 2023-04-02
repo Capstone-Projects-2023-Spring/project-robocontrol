@@ -21,12 +21,13 @@ class VideoWS():
 	HOST = '127.0.0.1'
 
 	def __init__(self) -> None:
+		self.dummy_img = cv2.imread("/home/robot/Ryan/project-robocontrol/tread-bot-opencv/dummy_image.jpeg")
 		self.vid = None
 		self.clients = set()
 		self.img_proc_q = Queue()
 		self.websocket_q = Queue()
 		self.app = Flask(__name__)
-		self.autonomous = [False]
+		self.autonomous = [False] # This is a list so that it gets passed by reference, not value
 
 	async def start(self, img_proc_q, websocket_q, autonomous: List[bool]):
 		self.autonomous = autonomous
@@ -57,9 +58,8 @@ class VideoWS():
 			with original_lock:
 				# read next frame
 				_, img = self.vid.read()
-				self.img_proc_q.put(img.copy())
+				if self.autonomous[0]: self.img_proc_q.put(img.copy())
 			# if blank frame
-			if img is None: continue
 
 			# encode the frame in JPEG format
 			(flag, encodedImage) = cv2.imencode(".jpg", img)
@@ -77,9 +77,9 @@ class VideoWS():
 		# while streaming
 		while True:
 			# Only display image if in autonomous mode
-			if not self.autonomous[0]: continue
 			with color_detection_lock:
-				img = self.websocket_q.get()
+				if self.autonomous[0]: img = self.websocket_q.get()
+				else: img = self.dummy_img
 			
 			# If frame is empty
 			if img is None: continue
