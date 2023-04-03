@@ -14,8 +14,12 @@ import RPi.GPIO as GPIO
 import RPIservo
 
 #claw open/close
-G_sc = RPIservo.ServoCtrl()
-G_sc.start()
+claw_servo = RPIservo.ServoCtrl()
+claw_servo.start()
+
+#arm up/down
+arm_servo = RPIservo.ServoCtrl()
+arm_servo.start()
 
 
 
@@ -144,9 +148,11 @@ def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1
 
 def arm_claw_control(arm_command):
 	if arm_command == 'close':
-		G_sc.singleServo(15, 1, 3)
+		claw_servo.singleServo(15, 1, 3)
 	elif arm_command == 'open':
-		G_sc.singleServo(15, -1, 3)
+		claw_servo.singleServo(15, -1, 3)
+	else:
+		pass
 
 
 		
