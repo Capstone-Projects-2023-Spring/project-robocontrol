@@ -14,9 +14,6 @@ class Contour:
 yellow_tape_lower = np.array([12, 46, 98], np.uint8)
 yellow_tape_upper = np.array([57, 255, 255], np.uint8)
 
-# painters_tape_lower = np.array([80, 167, 0], np.uint8)
-# painters_tape_upper = np.array([114, 255, 255], np.uint8)
-
 kernel = np.ones((5, 5), "uint8")
 
 def make_contours(mask, text, img):
@@ -29,6 +26,7 @@ def make_contours(mask, text, img):
 			cv2.putText(img, text, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255))
 	return img
 
+# Determine which direction the robot should turn to center between tape lines
 def direction_to_center(img):
 	hsvFrame = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 	mask = cv2.inRange(hsvFrame, yellow_tape_lower, yellow_tape_upper)
@@ -39,32 +37,26 @@ def direction_to_center(img):
 	# The two largest contours (should be left tape and right)
 	largest_contours: List[Contour] = [Contour(0, 0), Contour(0, 0)]
 	img_width = img.shape[1]
-	print(img_width)
+
+	# Get all the contours, sort them by area size, and only take the largest 2
 	contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 	contour_list = [x for x in contours]
 	contour_list.sort(key=lambda x: cv2.contourArea(x), reverse=True)
-	# largest_contours = [Contour(cv2.contourArea(x), x) for x in contour_list[-2:]]
 	if len(contour_list) >= 2:
 		largest_contours[1] = Contour(cv2.contourArea(contour_list[-1]), contour_list[-1])
 		largest_contours[0] = Contour(cv2.contourArea(contour_list[-2]), contour_list[-2])
-
-	# for contour in contour_list:
-	# 	area = cv2.contourArea(contour)
-	# 	print('Area: ' + str(area))
-			
-	# 	for i, c in enumerate(largest_contours):
-	# 		if (area > c.area):
-	# 			largest_contours[i] = Contour(area, contour)
-	# print('Done')
 	
-	# Get the left tape line and right tape line
+		# Get the left tape line and right tape line, as long as there are 2 in the list
 		if largest_contours[0].area != 0 and largest_contours[1].area != 0:
+			# Draw the rectangles on the image for the contours
 			x, y, w, h = cv2.boundingRect(largest_contours[0].contour)
 			img = cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
 			cv2.putText(img, 'Left Contour', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255))
 			x, y, w, h = cv2.boundingRect(largest_contours[1].contour)
 			img = cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
 			cv2.putText(img, 'Right Contour', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255))
+
+			# Separate the contours, getting the left tape vs the right tape
 			x1, _, w1, _ = cv2.boundingRect(largest_contours[0].contour)
 			x2, _, w2, _ = cv2.boundingRect(largest_contours[1].contour)
 			if x1 + w1 < x2 + w2:
@@ -74,11 +66,11 @@ def direction_to_center(img):
 				left_contour = largest_contours[1].contour
 				right_contour = largest_contours[0].contour
 
-			# Calculate direction based on tape lines
-			left = cv2.boundingRect(left_contour)
-			right = cv2.boundingRect(right_contour)
-			l1 = left[0] + left[2]
-			l2 = img_width - right[0]
+			# Get the position of the tape lines based on the bounding box x-direction and width
+			left_x, _, left_w, _ = cv2.boundingRect(left_contour)
+			right_x, _, _, _ = cv2.boundingRect(right_contour)
+			l1 = left_x + left_w # Bottom right corner of the left tape line
+			l2 = img_width - right_x # Bottom left corner of the right tape line
 			print('l1: ' + str(l1))
 			print('l2: ' + str(l2))
 			if (l1 - l2) > tolerance: return 'right'

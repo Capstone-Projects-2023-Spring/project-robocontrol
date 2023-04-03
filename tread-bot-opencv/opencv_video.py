@@ -53,41 +53,47 @@ class VideoWS():
 		print('Video connecting...')
 		global original_lock
 		
-		# while streaming
+		# Main loop for displaying the original image
 		while True:
 			with original_lock:
-				# read next frame
+				# Read next frame
 				_, img = self.vid.read()
+				# If in autonomous mode, put the image into the image processing queue
 				if self.autonomous[0]: self.img_proc_q.put(img.copy())
-			# if blank frame
 
-			# encode the frame in JPEG format
+			# If frame is empty
+			if img is None: continue
+
+			# Encode the frame in JPEG format
 			(flag, encodedImage) = cv2.imencode(".jpg", img)
 
-			# ensure the frame was successfully encoded
+			# Ensure the frame was successfully encoded
 			if not flag: continue
 
-			# yield the output frame in the byte format
+			# Yield the output frame in the byte format
 			yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
 
 	def color_detection(self):
 		print('Color detection connecting...')
 		global color_detection_lock
 		
-		# while streaming
+		# Main loop for displaying the autonomous image
 		while True:
-			# Only display image if in autonomous mode
 			with color_detection_lock:
+				# Only display image if in autonomous mode
 				if self.autonomous[0]: img = self.websocket_q.get()
+				# TODO: Should not need a dummy image. Maybe figure out how to 
+				# not connect to this URL on the website when not in autonomous mode or smth
 				else: img = self.dummy_img
 			
 			# If frame is empty
 			if img is None: continue
 
-			# encode the frame in JPEG format
+			# Encode the frame in JPEG format
 			(flag, encodedImage) = cv2.imencode(".jpg", img)
-			# ensure the frame was successfully encoded
+
+			# Ensure the frame was successfully encoded
 			if not flag: continue
 
-			# yield the output frame in the byte format
+			# Yield the output frame in the byte format
 			yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
