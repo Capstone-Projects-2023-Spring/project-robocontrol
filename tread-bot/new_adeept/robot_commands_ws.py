@@ -36,7 +36,7 @@ class RobotCommandWS():
 							if arm_command in ['close', 'open', 'up', 'down']:
 								arm_claw_control(arm_command)
 							else:
-								print(f"Unknown arm_command: {arm_command}")
+								pass
 			except websockets.exceptions.ConnectionClosed as e:
 				print('Command websocket closed, retrying connection...')
 			except ConnectionRefusedError:
