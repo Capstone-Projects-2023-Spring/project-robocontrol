@@ -31,8 +31,8 @@ const direction_buttons: DirectionContent[] = [
 const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, armdown: false, armup: false, clawopen: false, clawclose: false }
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
 
-export default class ButtonGrid extends React.Component<{keyPress: KeyPress, commands_ws: WebSocket}, {activeMovement: wasd}> {
-	constructor(props: {keyPress: KeyPress, commands_ws: WebSocket}) {
+export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, commands_ws: WebSocket }, { activeMovement: wasd }> {
+	constructor(props: { keyPress: KeyPress, commands_ws: WebSocket }) {
 		super(props)
 		this.state = { activeMovement: wasd_default }
 	}
@@ -43,7 +43,7 @@ export default class ButtonGrid extends React.Component<{keyPress: KeyPress, com
 	getActiveMovementFromChar = (key?: KeyPress): wasd => {
 		let activity = this.state?.activeMovement ?? wasd_default
 		direction_buttons.forEach(direction => {
-			if (direction.character === (key?.char ?? this.props.keyPress.char)){
+			if (direction.character === (key?.char ?? this.props.keyPress.char)) {
 				activity[direction.command] = (key?.keyDown ?? this.props.keyPress.keyDown)
 			}
 		})
@@ -68,11 +68,10 @@ export default class ButtonGrid extends React.Component<{keyPress: KeyPress, com
 
 		if (active.armup) { data.arm_command = 'up' }
 		else if (active.armdown) { data.arm_command = 'down' }
+		else if (active.clawopen) { data.arm_command = 'open' }
+		else if (active.clawclose) { data.arm_command = 'close' }
 		else { data.arm_command = 'no' }
 
-		if (active.clawopen) { data.arm_command = 'clawopen' }
-		else if (active.clawclose) { data.arm_command = 'clawclose' }
-		else { data.arm_command = 'no' }
 
 		if (active.forward) { data.direction = 'forward' }
 		else if (active.backward) { data.direction = 'backward' }
@@ -95,15 +94,15 @@ export default class ButtonGrid extends React.Component<{keyPress: KeyPress, com
 						backgroundColor: COLORS.UNPRESSBUTTON,
 						...(this.getActiveMovementFromChar()[direction.command] ? activeStyle : {})
 					}}
-					onMouseDown={() => {this.sendMessage(this.getActiveMovementFromChar({char: direction.character, keyDown: true}))}}
-					onMouseUp={() => {this.sendMessage(this.getActiveMovementFromChar({char: direction.character, keyDown: false}))}}
+					onMouseDown={() => { this.sendMessage(this.getActiveMovementFromChar({ char: direction.character, keyDown: true })) }}
+					onMouseUp={() => { this.sendMessage(this.getActiveMovementFromChar({ char: direction.character, keyDown: false })) }}
 					key={i} >{direction.text}</Styles.DirectionButton>
 			)
 		})
 		return directionButtons
 	}
 
-	render (): React.ReactElement {
+	render(): React.ReactElement {
 		return (
 			<Styles.ButtonGridContainer>
 				{/* Send a message to the robot */}
@@ -111,7 +110,7 @@ export default class ButtonGrid extends React.Component<{keyPress: KeyPress, com
 
 				<Styles.StopButton
 					style={{ gridArea: "3 / 2" }}
-					>Stop
+				>Stop
 				</Styles.StopButton>
 
 				<Styles.Modes
