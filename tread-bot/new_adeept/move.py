@@ -5,8 +5,24 @@
 # Website     : www.gewbot.com
 # Author      : William
 # Date        : 2019/07/24
+
 import time
 import RPi.GPIO as GPIO
+
+
+#for arm / claw
+import RPIservo
+
+#claw open/close
+claw_servo = RPIservo.ServoCtrl()
+claw_servo.start()
+
+#arm up/down
+arm_servo = RPIservo.ServoCtrl()
+arm_servo.start()
+
+
+
 
 # motor_EN_A: Pin7  |  motor_EN_B: Pin11
 # motor_A:  Pin8,Pin10    |  motor_B: Pin13,Pin12
@@ -97,7 +113,7 @@ def motor_right(status, direction, speed):#Motor 1 positive and negative rotatio
 
 
 def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1  
-	#speed = 100
+	# speed = 100
 	if direction == 'forward':
 		if turn == 'right':
 			motor_left(0, left_backward, int(speed*radius))
@@ -130,6 +146,21 @@ def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1
 	else:
 		pass
 
+def arm_claw_control(arm_command):
+	if arm_command == 'close':
+		claw_servo.singleServo(15, 1, 3)
+	elif arm_command == 'open':
+		claw_servo.singleServo(15, -1, 3)
+	elif arm_command == 'up':
+		arm_servo.singleServo(12, 1, 7)
+	elif arm_command == 'down':
+		arm_servo.singleServo(12, -1, 7)
+	else:
+		pass
+
+
+		
+
 
 
 
@@ -145,7 +176,17 @@ if __name__ == '__main__':
 		move(speed_set, 'forward', 'no', 0.8)
 		time.sleep(1.3)
 		motorStop()
+		arm_claw_control('close')
+		time.sleep(2)
+		arm_claw_control('open')
+		arm_claw_control('up')
+		time.sleep(2)
+		arm_claw_control('down')
+
 		destroy()
 	except KeyboardInterrupt:
 		destroy()
+
+
+	
 
