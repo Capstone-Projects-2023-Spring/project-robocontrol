@@ -3,6 +3,7 @@ import websockets
 import functions
 import move
 import json
+from move import arm_claw_control
 
 class RobotCommandWS():
 	
@@ -30,6 +31,12 @@ class RobotCommandWS():
 						message_data = json.loads(msg)
 						print(message_data)
 						move.move(50, message_data['direction'], message_data['turn'], 0.5)
+						arm_command = message_data.get('arm_command', None)
+						if arm_command:
+							if arm_command in ['close', 'open']:
+								arm_claw_control(arm_command)
+							else:
+								print(f"Unknown arm_command: {arm_command}")
 			except websockets.exceptions.ConnectionClosed as e:
 				print('Command websocket closed, retrying connection...')
 			except ConnectionRefusedError:
