@@ -151,6 +151,10 @@ def arm_claw_control(arm_command):
 		claw_servo.singleServo(15, 1, 3)
 	elif arm_command == 'open':
 		claw_servo.singleServo(15, -1, 3)
+	elif arm_command == 'up':
+		arm_servo.singleServo(12, 1, 7)
+	elif arm_command == 'down':
+		arm_servo.singleServo(12, -1, 7)
 	else:
 		pass
 
@@ -175,6 +179,10 @@ if __name__ == '__main__':
 		arm_claw_control('close')
 		time.sleep(2)
 		arm_claw_control('open')
+		arm_claw_control('up')
+		time.sleep(2)
+		arm_claw_control('down')
+
 		destroy()
 	except KeyboardInterrupt:
 		destroy()
