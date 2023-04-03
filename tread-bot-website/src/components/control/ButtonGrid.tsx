@@ -18,14 +18,14 @@ type wasd = {
 }
 
 const direction_buttons: DirectionContent[] = [
-	{ grid: '1 / 2', command: 'forward', text: 'W', character: 'w' },
-	{ grid: '2 / 1', command: 'left', text: 'A', character: 'a' },
-	{ grid: '2 / 2', command: 'backward', text: 'S', character: 's' },
-	{ grid: '2 / 3', command: 'right', text: 'D', character: 'd' },
-	{ grid: '1 / 6', command: 'armup', text: '↑\nUP', character: 'arrowup' }, // added up button
-	{ grid: '3 / 6', command: 'armdown', text: 'DOWN\n↓', character: 'arrowdown' }, // added down button
-	{ grid: '2 / 5', command: 'clawopen', text: 'OPEN\n←', character: 'arrowleft' }, // added left button
-	{ grid: '2 / 7', command: 'clawclose', text: 'CLOSE\n→', character: 'arrowright' }, // added right button
+	{ grid: '2 / 2', command: 'forward', text: '↑', character: 'arrowup' },
+	{ grid: '3 / 1', command: 'left', text: '←', character: 'arrowleft' },
+	{ grid: '3 / 2', command: 'backward', text: '↓', character: 'arrowdown' },
+	{ grid: '3 / 3', command: 'right', text: '→', character: 'arrowright' },
+	{ grid: '2 / 6', command: 'armup', text: 'UP\nW', character: 'w' }, // added up button
+	{ grid: '3 / 6', command: 'armdown', text: 'DOWN\nS', character: 's' }, // added down button
+	{ grid: '3 / 5', command: 'clawopen', text: 'OPEN\nA', character: 'a' }, // added left button
+	{ grid: '3 / 7', command: 'clawclose', text: 'CLOSE\nD', character: 'd' }, // added right button
 ]
 
 const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, armdown: false, armup: false, clawopen: false, clawclose: false }
@@ -109,7 +109,7 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 				{this.renderDirections()}
 
 				<Styles.StopButton
-					style={{ gridArea: "3 / 2" }}
+					style={{ gridArea: "2 / 3" }}
 				>Stop
 				</Styles.StopButton>
 
