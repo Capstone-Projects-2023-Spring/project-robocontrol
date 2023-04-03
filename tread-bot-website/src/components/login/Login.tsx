@@ -17,29 +17,27 @@ const Login = (props: LoginProps): React.ReactElement => {
 
 	const handleLogin = async () => {
 		setError('');
-		const endpoint = 'https://ryanhodge.net/login'
-		let response;
+		const endpoint = 'https://ryanhodge.net/login';
+	  
 		try {
-			if (window.location.hostname !== 'localhost') {
-				response = await fetch(endpoint, {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ username, password })
-				});
-			}
-
-			if (window.location.hostname === 'localhost' || response?.ok) {
-				console.log('Login successful');
-				props.loginSuccessful(true)
-			} else {
-				const data = await response?.json();
-				setError(data.error);
-			}
+		  const response = await fetch(endpoint, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ username, password }),
+		  });
+	  
+		  if (response.ok) {
+			console.log('Login successful');
+			props.loginSuccessful(true);
+		  } else {
+			setError('Username or Password is not correct, please try again.');
+		  }
 		} catch (error) {
-			console.error('Error:', error);
+		  console.error('Error:', error);
+		  setError('An error occurred during the login process. Please try again later.');
 		}
 		console.log('Login button clicked');
-	};
+	  };
 
 	//to handle enter keypress as login
 	const handleEnterKeyPress = (event: React.KeyboardEvent) => {
