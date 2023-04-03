@@ -47,7 +47,7 @@ const Control = (): React.ReactElement => {
 				<button onClick={() => commands_ws.send('autonomous')}>Autonomous</button>
 			</Styles.VideoFeedContainer>
 
-			{ loggedIn ? <Login loginSuccessful={login} /> : <ButtonGrid keyPress={key} commands_ws={commands_ws}/> }
+			{ !loggedIn ? <Login loginSuccessful={login} /> : <ButtonGrid keyPress={key} commands_ws={commands_ws}/> }
 
 		</Styles.FlexContainer>
 	)
