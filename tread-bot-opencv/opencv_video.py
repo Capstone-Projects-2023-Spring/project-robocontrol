@@ -1,4 +1,5 @@
 # Importing the relevant libraries
+from typing import List
 import cv2
 import base64
 from queue import Queue
@@ -20,18 +21,21 @@ class VideoWS():
 	HOST = '127.0.0.1'
 
 	def __init__(self) -> None:
+		self.dummy_img = cv2.imread("/home/robot/Ryan/project-robocontrol/tread-bot-opencv/dummy_image.jpeg")
 		self.vid = None
 		self.clients = set()
 		self.img_proc_q = Queue()
 		self.websocket_q = Queue()
 		self.app = Flask(__name__)
+		self.autonomous = [False] # This is a list so that it gets passed by reference, not value
 
-	async def start(self, img_proc_q, websocket_q):
+	async def start(self, img_proc_q, websocket_q, autonomous: List[bool]):
+		self.autonomous = autonomous
 		self.img_proc_q = img_proc_q
 		self.websocket_q = websocket_q
 
+		# gstreamer_str = 'v4l2src device=/dev/video0 ! queue ! videoconvert ! appsink drop=1'
 		gstreamer_str = 'udpsrc port=8888 ! queue ! h264parse ! avdec_h264 ! videoconvert ! appsink drop=1'
-		# gstreamer_str = 'udpsrc port=8888 ! tee name=t ! queue ! h264parse ! avdec_h264 ! videoconvert ! appsink drop=1 t. ! h264parse ! mpegtsmux ! hlssink playlist-root=https://www.ryanhodge.net/stream location=/var/www/media/segment_%05d.ts playlist-location=/var/www/media/playlist.m3u8 target-duration=5 max-files=5'
 		self.vid = cv2.VideoCapture(gstreamer_str, cv2.CAP_GSTREAMER)
 
 		# Start the servers
@@ -49,40 +53,47 @@ class VideoWS():
 		print('Video connecting...')
 		global original_lock
 		
-		# while streaming
+		# Main loop for displaying the original image
 		while True:
 			with original_lock:
-				# read next frame
+				# Read next frame
 				_, img = self.vid.read()
-				self.img_proc_q.put(img.copy())
-			# if blank frame
+				# If in autonomous mode, put the image into the image processing queue
+				if self.autonomous[0]: self.img_proc_q.put(img.copy())
+
+			# If frame is empty
 			if img is None: continue
 
-			# encode the frame in JPEG format
+			# Encode the frame in JPEG format
 			(flag, encodedImage) = cv2.imencode(".jpg", img)
 
-			# ensure the frame was successfully encoded
+			# Ensure the frame was successfully encoded
 			if not flag: continue
 
-			# yield the output frame in the byte format
+			# Yield the output frame in the byte format
 			yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
 
 	def color_detection(self):
 		print('Color detection connecting...')
 		global color_detection_lock
 		
-		# while streaming
+		# Main loop for displaying the autonomous image
 		while True:
 			with color_detection_lock:
-				img = self.websocket_q.get()
+				# Only display image if in autonomous mode
+				if self.autonomous[0]: img = self.websocket_q.get()
+				# TODO: Should not need a dummy image. Maybe figure out how to 
+				# not connect to this URL on the website when not in autonomous mode or smth
+				else: img = self.dummy_img
 			
 			# If frame is empty
 			if img is None: continue
 
-			# encode the frame in JPEG format
+			# Encode the frame in JPEG format
 			(flag, encodedImage) = cv2.imencode(".jpg", img)
-			# ensure the frame was successfully encoded
+
+			# Ensure the frame was successfully encoded
 			if not flag: continue
 
-			# yield the output frame in the byte format
+			# Yield the output frame in the byte format
 			yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
