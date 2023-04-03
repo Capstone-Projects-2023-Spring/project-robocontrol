@@ -13,8 +13,8 @@ type wasd = {
 	right: boolean,
 	armup: boolean,
 	armdown: boolean,
-	armleft: boolean,
-	armright: boolean
+	clawopen: boolean,
+	clawclose: boolean
 }
 
 const direction_buttons: DirectionContent[] = [
@@ -24,11 +24,11 @@ const direction_buttons: DirectionContent[] = [
 	{ grid: '2 / 3', command: 'right', text: 'D', character: 'd' },
 	{ grid: '1 / 6', command: 'armup', text: '↑\nUP', character: 'arrowup' }, // added up button
 	{ grid: '3 / 6', command: 'armdown', text: 'DOWN\n↓', character: 'arrowdown' }, // added down button
-	{ grid: '2 / 5', command: 'armleft', text: 'OPEN\n←', character: 'arrowleft' }, // added left button
-	{ grid: '2 / 7', command: 'armright', text: 'CLOSE\n→', character: 'arrowright' }, // added right button
+	{ grid: '2 / 5', command: 'clawopen', text: 'OPEN\n←', character: 'arrowleft' }, // added left button
+	{ grid: '2 / 7', command: 'clawclose', text: 'CLOSE\n→', character: 'arrowright' }, // added right button
 ]
 
-const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, armdown: false, armup: false, armleft: false, armright: false }
+const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, armdown: false, armup: false, clawopen: false, clawclose: false }
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
 
 export default class ButtonGrid extends React.Component<{keyPress: KeyPress, commands_ws: WebSocket}, {activeMovement: wasd}> {
@@ -70,8 +70,8 @@ export default class ButtonGrid extends React.Component<{keyPress: KeyPress, com
 		else if (active.armdown) { data.arm_command = 'down' }
 		else { data.arm_command = 'no' }
 
-		if (active.armleft) { data.arm_command = 'armleft' }
-		else if (active.armright) { data.arm_command = 'armright' }
+		if (active.clawopen) { data.arm_command = 'clawopen' }
+		else if (active.clawclose) { data.arm_command = 'clawclose' }
 		else { data.arm_command = 'no' }
 
 		if (active.forward) { data.direction = 'forward' }
