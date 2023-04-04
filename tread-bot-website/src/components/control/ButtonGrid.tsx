@@ -114,11 +114,11 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 				</Styles.StopButton>
 
 				<Styles.Modes
-					style={{ gridArea: "1 / 3" }}
+					style={{ gridArea: "1 / 4" }}
 					onClick={() => this.sendMessage(wasd_default, 'autonomous')}>Autonomous
 				</Styles.Modes>
 				<Styles.Modes
-					style={{ gridArea: "2 / 3" }}
+					style={{ gridArea: "2 / 4" }}
 					onClick={() => this.sendMessage(wasd_default, 'manual')}>Manual
 				</Styles.Modes>
 

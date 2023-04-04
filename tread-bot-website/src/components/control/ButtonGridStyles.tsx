@@ -28,6 +28,7 @@ export default class ButtonGridStyles {
 		user-select: none;
 		-webkit-user-select: none;
 		touch-action: manipulation;
+		white-space: pre;
 
 		&:active {
 			box-shadow: 0px 0px 0px 0px;
@@ -103,16 +104,23 @@ export default class ButtonGridStyles {
 		text-decoration: none;
 		text-transform: uppercase;
 		color: ${COLORS.TEXT};
-		margin-top: 30px;
-		margin-left: 90px;
-		height: 40px;
-		width: 150px;
 		border: 3px solid;
+		//got rid of margins and borders because they wren't playing nice with flexible sizing
 		padding: 0.25em 0.5em;
 		box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;	
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		grid-area: auto;
+
+		&:active {
+			box-shadow: 0px 0px 0px 0px;
+			top: 5px;
+			left: 5px;
+		}
+
+		@media (min-width: 768px) {
+			padding: 0.25em 0.75em;
+		}
 	`;
 }
