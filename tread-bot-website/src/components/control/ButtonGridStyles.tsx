@@ -4,8 +4,8 @@ import { COLORS } from '../../tools/Constants'
 export default class ButtonGridStyles {
 	static readonly ButtonGridContainer = styled.div`
 		display: grid;
-		grid-template-columns: repeat(7, 100px);
-		grid-template-rows: repeat(6, 100px);
+		grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+		grid-template-rows: repeat(auto-fit, minmax(100px, 2fr));
 		gap: 15px;
 		justify-content: center;
 		align-content: center;
