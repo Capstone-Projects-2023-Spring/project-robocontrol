@@ -17,7 +17,7 @@ const Login = (props: LoginProps): React.ReactElement => {
   // Initialize socket and connect to the robot_commands_ws server
   const [socket, setSocket] = useState<Socket | null>(null);
   useEffect(() => {
-    const newSocket = io('ws://100.14.184.218:10334'); //websocket address to robot
+    const newSocket = io('ws://192.168.2.1:10334'); //websocket address to robot
     setSocket(newSocket);
 
     return () => {

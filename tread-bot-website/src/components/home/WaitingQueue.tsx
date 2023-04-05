@@ -25,6 +25,7 @@ const WaitingQueue: React.FC<WaitingQueueProps> = ({ onQueuePositionChange }) =>
         setIsTurn(true);
       }
     });
+    
     ws.addEventListener('message', (event) => {
       const message = JSON.parse(event.data);
 
