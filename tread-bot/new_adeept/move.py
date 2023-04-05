@@ -114,21 +114,21 @@ def motor_right(status, direction, speed):#Motor 1 positive and negative rotatio
 
 def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1  
 	# speed = 100
-	if direction == 'forward':
-		if turn == 'right':
+	if direction == 'backward':
+		if turn == 'left':
 			motor_left(0, left_backward, int(speed*radius))
 			motor_right(1, right_forward, speed)
-		elif turn == 'left':
+		elif turn == 'right':
 			motor_left(1, left_forward, speed)
 			motor_right(0, right_backward, int(speed*radius))
 		else:
 			motor_left(1, left_forward, speed)
 			motor_right(1, right_forward, speed)
-	elif direction == 'backward':
-		if turn == 'right':
+	elif direction == 'forward':
+		if turn == 'left':
 			motor_left(0, left_forward, int(speed*radius))
 			motor_right(1, right_backward, speed)
-		elif turn == 'left':
+		elif turn == 'right':
 			motor_left(1, left_backward, speed)
 			motor_right(0, right_forward, int(speed*radius))
 		else:
@@ -148,8 +148,8 @@ def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1
 
 # Control the servos in the robot
 def arm_claw_control(claw_command, shoulder_command, elbow_command):
-	if shoulder_command == 'up': arm_servo.singleServo(12, 1, 7)
-	elif shoulder_command == 'down': arm_servo.singleServo(12, -1, 7)
+	if shoulder_command == 'up': arm_servo.singleServo(12, 1, 5)
+	elif shoulder_command == 'down': arm_servo.singleServo(12, -1, 5)
 	else: arm_servo.singleServo(12, -1, 0)
 	if claw_command == 'open': claw_servo.singleServo(15, -1, 3)
 	elif claw_command == 'close': claw_servo.singleServo(15, 1, 3)
