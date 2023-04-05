@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
+interface WaitingQueueProps {
+  onQueuePositionChange: (position: number | null) => void;
+}
 
-const WaitingQueue = () => {
+const WaitingQueue: React.FC<WaitingQueueProps> = ({ onQueuePositionChange }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [isTurn, setIsTurn] = useState(false);
   const [socket, setSocket] = useState<WebSocket | null>(null);
+  const [queuePosition, setQueuePosition] = useState<number | null>(null);
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:10334');
+    const ws = new WebSocket('ws://192.168.2.1:10334'); // websocket address here
 
     ws.addEventListener('open', () => {
       console.log('Connected to WebSocket server');
@@ -19,6 +23,16 @@ const WaitingQueue = () => {
 
       if (message.type === 'your_turn') {
         setIsTurn(true);
+      }
+    });
+    ws.addEventListener('message', (event) => {
+      const message = JSON.parse(event.data);
+
+      if (message.type === 'your_turn') {
+        setIsTurn(true);
+      } else if (message.type === 'queue_position') {
+        setQueuePosition(message.position);
+        onQueuePositionChange(message.position);
       }
     });
 
@@ -33,7 +47,7 @@ const WaitingQueue = () => {
     return () => {
       ws.close();
     };
-  }, []);
+  }, [onQueuePositionChange]);
 
   return (
     <div>
@@ -48,7 +62,10 @@ const WaitingQueue = () => {
           <p>You can use now!</p>
         </div>
       ) : (
-        <p>Waiting for your turn...</p>
+        <p>
+          Waiting for your turn...{' '}
+          {queuePosition !== null && `You are at position ${queuePosition} in the queue.`}
+        </p>
       )}
     </div>
   );

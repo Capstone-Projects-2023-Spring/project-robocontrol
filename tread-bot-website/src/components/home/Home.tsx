@@ -34,7 +34,7 @@ const Home = () => {
           </HomeStyles.AboutButton>
         </HomeStyles.RightNavigationColumn>
       </HomeStyles.NavigationContainer>
-      <WaitingQueue /> {/* Waiting Queue component added */}
+      <WaitingQueue onQueuePositionChange={() => {}} /> {/* Waiting Queue component added */}
       <HomeStyles.FooterContainer>
         {/* Your footer here */}
       </HomeStyles.FooterContainer>
