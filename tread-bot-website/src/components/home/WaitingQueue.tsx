@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import waitingIcon from './assets/waitingIcon.gif'; // add waiting logo
 
 interface WaitingQueueProps {
   onQueuePositionChange: (position: number | null) => void;
@@ -18,14 +19,6 @@ const WaitingQueue: React.FC<WaitingQueueProps> = ({ onQueuePositionChange }) =>
       setIsConnected(true);
     });
 
-    ws.addEventListener('message', (event) => {
-      const message = JSON.parse(event.data);
-
-      if (message.type === 'your_turn') {
-        setIsTurn(true);
-      }
-    });
-    
     ws.addEventListener('message', (event) => {
       const message = JSON.parse(event.data);
 
@@ -63,10 +56,15 @@ const WaitingQueue: React.FC<WaitingQueueProps> = ({ onQueuePositionChange }) =>
           <p>You can use now!</p>
         </div>
       ) : (
-        <p>
-          Waiting for your turn...{' '}
-          {queuePosition !== null && `You are at position ${queuePosition} in the queue.`}
-        </p>
+        <div>
+          <p>
+            Waiting for your turn...{' '}
+            {queuePosition !== null && `You are at position ${queuePosition} in the queue.`}
+          </p>
+          {queuePosition !== null && (
+            <img src={waitingIcon} alt="Waiting icon" style={{ width: '50px' }} /> // add waiting logo
+          )}
+        </div>
       )}
     </div>
   );
