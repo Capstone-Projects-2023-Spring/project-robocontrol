@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import waitingIcon from './assets/waitingIcon.gif'; // add waiting logo
+import waitingIcon from '../../assets/waitingLogo.gif';// add waiting logo
 
 interface WaitingQueueProps {
   onQueuePositionChange: (position: number | null) => void;
