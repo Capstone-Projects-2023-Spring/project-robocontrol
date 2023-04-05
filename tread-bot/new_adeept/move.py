@@ -146,23 +146,14 @@ def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1
 	else:
 		pass
 
-def arm_claw_control(arm_command):
-	if arm_command == 'close':
-		claw_servo.singleServo(15, 1, 3)
-	elif arm_command == 'open':
-		claw_servo.singleServo(15, -1, 3)
-	elif arm_command == 'up':
-		arm_servo.singleServo(12, 1, 7)
-	elif arm_command == 'down':
-		arm_servo.singleServo(12, -1, 7)
-	else:
-		pass
-
-
-		
-
-
-
+# Control the servos in the robot
+def arm_claw_control(claw_command, shoulder_command, elbow_command):
+	if shoulder_command == 'up': arm_servo.singleServo(12, 1, 7)
+	elif shoulder_command == 'down': arm_servo.singleServo(12, -1, 7)
+	else: arm_servo.singleServo(12, -1, 0)
+	if claw_command == 'open': claw_servo.singleServo(15, -1, 3)
+	elif claw_command == 'close': claw_servo.singleServo(15, 1, 3)
+	else: claw_servo.singleServo(15, -1, 0)
 
 def destroy():
 	motorStop()

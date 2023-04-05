@@ -30,13 +30,13 @@ class RobotCommandWS():
 						msg = await ws.recv()
 						message_data = json.loads(msg)
 						print(message_data)
-						move.move(50, message_data['direction'], message_data['turn'], 0.5)
-						arm_command = message_data.get('arm_command', None)
-						if arm_command:
-							if arm_command in ['close', 'open', 'up', 'down']:
-								arm_claw_control(arm_command)
-							else:
-								pass
+						# Speed of 50, turn radius of 0.5
+						move.move(50, message_data.get('direction', 'no'), message_data.get('turn', 'no'), 0.5)
+						claw_command = message_data.get('claw', 'no')
+						shoulder_command = message_data.get('shoulder', 'no')
+						elbow_command = message_data.get('elbow', 'no')
+						arm_claw_control(claw_command, shoulder_command, elbow_command)
+
 			except websockets.exceptions.ConnectionClosed as e:
 				print('Command websocket closed, retrying connection...')
 			except ConnectionRefusedError:
