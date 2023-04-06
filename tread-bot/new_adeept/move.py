@@ -16,14 +16,15 @@ import RPIservo
 # Claw open/close
 claw_servo = RPIservo.ServoCtrl()
 claw_servo.start()
-
 # Arm up/down
 arm_servo = RPIservo.ServoCtrl()
 arm_servo.start()
-
 # Elbow up/down
 elbow_servo = RPIservo.ServoCtrl()
 elbow_servo.start()
+# Elbow up/down
+camera_servo = RPIservo.ServoCtrl()
+camera_servo.start()
 
 # motor_EN_A: Pin7  |  motor_EN_B: Pin11
 # motor_A:  Pin8,Pin10    |  motor_B: Pin13,Pin12
@@ -148,7 +149,7 @@ def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1
 		pass
 
 # Control the servos in the robot
-def arm_claw_control(claw_command, shoulder_command, elbow_command):
+def arm_claw_control(claw_command, shoulder_command, elbow_command, camera_command):
 	if shoulder_command == 'up': arm_servo.singleServo(12, 1, 5)
 	elif shoulder_command == 'down': arm_servo.singleServo(12, -1, 5)
 	else: arm_servo.stopWiggle()
@@ -158,6 +159,9 @@ def arm_claw_control(claw_command, shoulder_command, elbow_command):
 	if claw_command == 'open': claw_servo.singleServo(15, -1, 3)
 	elif claw_command == 'close': claw_servo.singleServo(15, 1, 3)
 	else: claw_servo.stopWiggle()
+	if camera_command == 'up': camera_servo.singleServo(11, -1, 3)
+	elif camera_command == 'down': camera_servo.singleServo(11, 1, 3)
+	else: camera_servo.stopWiggle()
 
 def destroy():
 	motorStop()

@@ -38,7 +38,8 @@ class RobotCommandWS():
 						claw_command = message_data.get('claw', 'no')
 						shoulder_command = message_data.get('shoulder', 'no')
 						elbow_command = message_data.get('elbow', 'no')
-						arm_claw_control(claw_command, shoulder_command, elbow_command)
+						camera_command = message_data.get('camera', 'no')
+						arm_claw_control(claw_command, shoulder_command, elbow_command, camera_command)
 
 			except websockets.exceptions.ConnectionClosed as e:
 				print('Command websocket closed, retrying connection...')
