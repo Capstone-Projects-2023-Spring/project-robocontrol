@@ -86,9 +86,9 @@ export default class ButtonGridStyles {
 		margin-left: 90px;
 		height: 40px;
 		width: 150px;
-		border: 3px solid;
+		/* border: 3px solid; */
 		padding: 0.25em 0.5em;
-		box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;	
+		/* box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;	 */
 		display: flex;
 		justify-content: center;
 		align-items: center;
