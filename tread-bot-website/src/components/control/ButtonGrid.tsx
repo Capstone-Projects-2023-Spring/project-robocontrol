@@ -32,8 +32,8 @@ const direction_buttons: DirectionContent[] = [
 	{ grid: '2 / 7', command: 'elbowDown', text: 'ELBOW DOWN\n(E)', character: 'e' }, // added down button
 	{ grid: '3 / 5', command: 'clawOpen', text: 'OPEN\n(A)', character: 'a' }, // added left button
 	{ grid: '3 / 7', command: 'clawClose', text: 'CLOSE\n(D)', character: 'd' }, // added right button
-	{ grid: '2 / 4', command: 'cameraUp', text: 'CAM UP\n(R)', character: 'r' }, // added right button
-	{ grid: '3 / 4', command: 'cameraDown', text: 'CAM DOWN\n(F)', character: 'f' }, // added right button
+	{ grid: '2 / 9', command: 'cameraUp', text: 'CAM UP\n(R)', character: 'r' }, // added right button
+	{ grid: '3 / 9', command: 'cameraDown', text: 'CAM DOWN\n(F)', character: 'f' }, // added right button
 ]
 
 const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, shoulderDown: false, shoulderUp: false, elbowDown: false, elbowUp: false, clawOpen: false, clawClose: false, cameraDown: false, cameraUp: false }
@@ -134,17 +134,14 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 				</Styles.StopButton>
 
 				<Styles.Modes
-					style={{ 
-						gridArea: "1 / 4",
-						backgroundColor: this.state.autonomousMode ? 'green' : 'transparent'
-					}}
-					onClick={() => {
-						this.toggleAutonomousMode();
-						this.sendMessage(wasd_default, 'autonomous');
-					}}>Autonomous
+					style={{ gridArea: "1 / 4" }}
+					onClick={() => this.sendMessage(wasd_default, 'autonomous')}>Autonomous
 				</Styles.Modes>
 
-				{/* ... (Labels remain unchanged) */}
+				<Styles.Labels style={{ gridArea: "4 / 1" }}>TREADS</Styles.Labels>
+				{/* Add the "ARM/CLAW" text container */}
+				<Styles.Labels style={{ gridArea: "4 / 5" }}>ARM/CLAW</Styles.Labels>
+				<Styles.Labels style={{ gridArea: "4 / 8" }}>CAMERA</Styles.Labels>
 			</Styles.ButtonGridContainer>
 		)
 	}
