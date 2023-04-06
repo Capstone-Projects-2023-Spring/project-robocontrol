@@ -13,16 +13,17 @@ import RPi.GPIO as GPIO
 #for arm / claw
 import RPIservo
 
-#claw open/close
+# Claw open/close
 claw_servo = RPIservo.ServoCtrl()
 claw_servo.start()
 
-#arm up/down
+# Arm up/down
 arm_servo = RPIservo.ServoCtrl()
 arm_servo.start()
 
-
-
+# Elbow up/down
+elbow_servo = RPIservo.ServoCtrl()
+elbow_servo.start()
 
 # motor_EN_A: Pin7  |  motor_EN_B: Pin11
 # motor_A:  Pin8,Pin10    |  motor_B: Pin13,Pin12
@@ -150,10 +151,13 @@ def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1
 def arm_claw_control(claw_command, shoulder_command, elbow_command):
 	if shoulder_command == 'up': arm_servo.singleServo(12, 1, 5)
 	elif shoulder_command == 'down': arm_servo.singleServo(12, -1, 5)
-	else: arm_servo.singleServo(12, -1, 0)
+	else: arm_servo.stopWiggle()
+	if elbow_command == 'up': elbow_servo.singleServo(13, -1, 5)
+	elif elbow_command == 'down': elbow_servo.singleServo(13, 1, 5)
+	else: elbow_servo.stopWiggle()
 	if claw_command == 'open': claw_servo.singleServo(15, -1, 3)
 	elif claw_command == 'close': claw_servo.singleServo(15, 1, 3)
-	else: claw_servo.singleServo(15, -1, 0)
+	else: claw_servo.stopWiggle()
 
 def destroy():
 	motorStop()

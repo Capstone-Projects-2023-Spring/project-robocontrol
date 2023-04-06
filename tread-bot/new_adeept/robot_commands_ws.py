@@ -30,8 +30,11 @@ class RobotCommandWS():
 						msg = await ws.recv()
 						message_data = json.loads(msg)
 						print(message_data)
+						if (message_data.get('autonomous', False)): speed = 70
+						else: speed = 100
+
 						# Speed of 50, turn radius of 0.5
-						move.move(50, message_data.get('direction', 'no'), message_data.get('turn', 'no'), 0.5)
+						move.move(speed, message_data.get('direction', 'no'), message_data.get('turn', 'no'), 0.5)
 						claw_command = message_data.get('claw', 'no')
 						shoulder_command = message_data.get('shoulder', 'no')
 						elbow_command = message_data.get('elbow', 'no')
