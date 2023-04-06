@@ -13,6 +13,8 @@ type wasd = {
 	right: boolean,
 	shoulderUp: boolean,
 	shoulderDown: boolean,
+	elbowUp: boolean,
+	elbowDown: boolean,
 	clawOpen: boolean,
 	clawClose: boolean
 }
@@ -22,13 +24,15 @@ const direction_buttons: DirectionContent[] = [
 	{ grid: '3 / 1', command: 'left', text: '←', character: 'arrowleft' },
 	{ grid: '3 / 2', command: 'backward', text: '↓', character: 'arrowdown' },
 	{ grid: '3 / 3', command: 'right', text: '→', character: 'arrowright' },
-	{ grid: '2 / 6', command: 'shoulderUp', text: 'UP\nW', character: 'w' }, // added up button
-	{ grid: '3 / 6', command: 'shoulderDown', text: 'DOWN\nS', character: 's' }, // added down button
-	{ grid: '3 / 5', command: 'clawOpen', text: 'OPEN\nA', character: 'a' }, // added left button
-	{ grid: '3 / 7', command: 'clawClose', text: 'CLOSE\nD', character: 'd' }, // added right button
+	{ grid: '2 / 6', command: 'shoulderUp', text: 'ARM UP\n(W)', character: 'w' }, // added up button
+	{ grid: '3 / 6', command: 'shoulderDown', text: 'ARM DOWN\n(S)', character: 's' }, // added down button
+	{ grid: '2 / 5', command: 'elbowUp', text: 'ELBOW UP\n(Q)', character: 'q' }, // added up button
+	{ grid: '2 / 7', command: 'elbowDown', text: 'ELBOW DOWN\n(E)', character: 'e' }, // added down button
+	{ grid: '3 / 5', command: 'clawOpen', text: 'OPEN\n(A)', character: 'a' }, // added left button
+	{ grid: '3 / 7', command: 'clawClose', text: 'CLOSE\n(D)', character: 'd' }, // added right button
 ]
 
-const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, shoulderDown: false, shoulderUp: false, clawOpen: false, clawClose: false }
+const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, shoulderDown: false, shoulderUp: false, elbowDown: false, elbowUp: false, clawOpen: false, clawClose: false }
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
 
 export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, commands_ws: WebSocket }, { activeMovement: wasd }> {
@@ -45,9 +49,6 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 		direction_buttons.forEach(direction => {
 			if (direction.character === (key?.char ?? this.props.keyPress.char)) {
 				activity[direction.command] = (key?.keyDown ?? this.props.keyPress.keyDown)
-				// console.log(activity)
-				// console.log(direction.command)
-				// console.log(activity[direction.command])
 			}
 		})
 		return activity
@@ -67,6 +68,10 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 		if (active.shoulderUp) { data.shoulder = 'up' }
 		else if (active.shoulderDown) { data.shoulder = 'down' }
 		else { data.shoulder = 'no' }
+
+		if (active.elbowUp) { data.elbow = 'up' }
+		else if (active.elbowDown) { data.elbow = 'down' }
+		else { data.elbow = 'no' }
 
 		if (active.clawOpen) { data.claw = 'open' }
 		else if (active.clawClose) { data.claw = 'close' }
@@ -116,10 +121,6 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 				<Styles.Modes
 					style={{ gridArea: "1 / 3" }}
 					onClick={() => this.sendMessage(wasd_default, 'autonomous')}>Autonomous
-				</Styles.Modes>
-				<Styles.Modes
-					style={{ gridArea: "2 / 3" }}
-					onClick={() => this.sendMessage(wasd_default, 'manual')}>Manual
 				</Styles.Modes>
 
 				<Styles.Labels style={{ gridArea: "4 / 1" }}>TREADS</Styles.Labels>
