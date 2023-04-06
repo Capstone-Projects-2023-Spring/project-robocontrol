@@ -139,7 +139,7 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 				<Styles.Modes
 					style={{ 
 						gridArea: "1 / 4",
-						backgroundColor: this.state.autonomousMode ? '#00FF00' : 'transparent'
+						backgroundColor: this.state.autonomousMode ? '#50C878' : '#f0ecec'
 					}}
 					onClick={() => {
 						this.toggleAutonomousMode();
