@@ -135,17 +135,18 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 					style={{ gridArea: "5 / 5" }}
 				>Stop
 				</Styles.StopButton>
-
-				<Styles.Modes
-					style={{ 
-						gridArea: "1 / 4",
-						backgroundColor: this.state.autonomousMode ? '#50C878' : '#f0ecec'
-					}}
-					onClick={() => {
-						this.toggleAutonomousMode();
-						this.sendMessage(wasd_default, 'autonomous');
-					}}>Autonomous
-				</Styles.Modes>
+				<Styles.ControlsContainer>
+					<Styles.Modes
+						style={{ 
+							// gridArea: "1 / 5",
+							backgroundColor: this.state.autonomousMode ? '#50C878' : '#f0ecec'
+						}}
+						onClick={() => {
+							this.toggleAutonomousMode();
+							this.sendMessage(wasd_default, 'autonomous');
+						}}>AUTONOMOUS
+					</Styles.Modes>
+				</Styles.ControlsContainer>
 
 				<Styles.Labels style={{ gridArea: "4 / 1" }}>TREADS</Styles.Labels>
 				{/* Add the "ARM/CLAW" text container */}

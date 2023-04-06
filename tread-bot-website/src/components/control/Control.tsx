@@ -52,7 +52,7 @@ const Control = (): React.ReactElement => {
 				<img src={'https://ryanhodge.net/stream/color_detection'} alt='Color detection stream'/>
 			</Styles.VideoFeedContainer>
 
-			{ loggedIn ? <Login loginSuccessful={login} /> : <ButtonGrid keyPress={key} commands_ws={commands_ws}/> }
+			{ !loggedIn ? <Login loginSuccessful={login} /> : <ButtonGrid keyPress={key} commands_ws={commands_ws}/> }
 
 		</Styles.FlexContainer>
 	)
