@@ -13,16 +13,18 @@ import RPi.GPIO as GPIO
 #for arm / claw
 import RPIservo
 
-#claw open/close
+# Claw open/close
 claw_servo = RPIservo.ServoCtrl()
 claw_servo.start()
-
-#arm up/down
+# Arm up/down
 arm_servo = RPIservo.ServoCtrl()
 arm_servo.start()
-
-
-
+# Elbow up/down
+elbow_servo = RPIservo.ServoCtrl()
+elbow_servo.start()
+# Elbow up/down
+camera_servo = RPIservo.ServoCtrl()
+camera_servo.start()
 
 # motor_EN_A: Pin7  |  motor_EN_B: Pin11
 # motor_A:  Pin8,Pin10    |  motor_B: Pin13,Pin12
@@ -114,21 +116,21 @@ def motor_right(status, direction, speed):#Motor 1 positive and negative rotatio
 
 def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1  
 	# speed = 100
-	if direction == 'forward':
-		if turn == 'right':
+	if direction == 'backward':
+		if turn == 'left':
 			motor_left(0, left_backward, int(speed*radius))
 			motor_right(1, right_forward, speed)
-		elif turn == 'left':
+		elif turn == 'right':
 			motor_left(1, left_forward, speed)
 			motor_right(0, right_backward, int(speed*radius))
 		else:
 			motor_left(1, left_forward, speed)
 			motor_right(1, right_forward, speed)
-	elif direction == 'backward':
-		if turn == 'right':
+	elif direction == 'forward':
+		if turn == 'left':
 			motor_left(0, left_forward, int(speed*radius))
 			motor_right(1, right_backward, speed)
-		elif turn == 'left':
+		elif turn == 'right':
 			motor_left(1, left_backward, speed)
 			motor_right(0, right_forward, int(speed*radius))
 		else:
@@ -146,23 +148,20 @@ def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1
 	else:
 		pass
 
-def arm_claw_control(arm_command):
-	if arm_command == 'close':
-		claw_servo.singleServo(15, 1, 3)
-	elif arm_command == 'open':
-		claw_servo.singleServo(15, -1, 3)
-	elif arm_command == 'up':
-		arm_servo.singleServo(12, 1, 7)
-	elif arm_command == 'down':
-		arm_servo.singleServo(12, -1, 7)
-	else:
-		pass
-
-
-		
-
-
-
+# Control the servos in the robot
+def arm_claw_control(claw_command, shoulder_command, elbow_command, camera_command):
+	if shoulder_command == 'up': arm_servo.singleServo(12, 1, 5)
+	elif shoulder_command == 'down': arm_servo.singleServo(12, -1, 5)
+	else: arm_servo.stopWiggle()
+	if elbow_command == 'up': elbow_servo.singleServo(13, -1, 5)
+	elif elbow_command == 'down': elbow_servo.singleServo(13, 1, 5)
+	else: elbow_servo.stopWiggle()
+	if claw_command == 'open': claw_servo.singleServo(15, -1, 3)
+	elif claw_command == 'close': claw_servo.singleServo(15, 1, 3)
+	else: claw_servo.stopWiggle()
+	if camera_command == 'up': camera_servo.singleServo(11, -1, 3)
+	elif camera_command == 'down': camera_servo.singleServo(11, 1, 3)
+	else: camera_servo.stopWiggle()
 
 def destroy():
 	motorStop()
