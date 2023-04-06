@@ -109,10 +109,20 @@ export default class ButtonGridStyles {
 		width: 150px;
 		border: 3px solid;
 		padding: 0.25em 0.5em;
-		box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;	
+		box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		grid-area: auto;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+
+		&:hover {
+	
+		}
+
+		&:active {
+			
+		}
 	`;
 }
