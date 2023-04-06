@@ -30,7 +30,7 @@ class RobotCommandWS():
 						msg = await ws.recv()
 						message_data = json.loads(msg)
 						print(message_data)
-						if (message_data.get('autonomous', False)): speed = 70
+						if (message_data.get('autonomous', False)): speed = 50
 						else: speed = 100
 
 						# Speed of 50, turn radius of 0.5
