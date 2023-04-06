@@ -122,18 +122,19 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 				{this.renderDirections()}
 
 				<Styles.StopButton
-					style={{ gridArea: "5 / 4" }}
+					style={{ gridArea: "5 / 5" }}
 				>Stop
 				</Styles.StopButton>
 
 				<Styles.Modes
-					style={{ gridArea: "1 / 3" }}
+					style={{ gridArea: "1 / 4" }}
 					onClick={() => this.sendMessage(wasd_default, 'autonomous')}>Autonomous
 				</Styles.Modes>
 
 				<Styles.Labels style={{ gridArea: "4 / 1" }}>TREADS</Styles.Labels>
 				{/* Add the "ARM/CLAW" text container */}
 				<Styles.Labels style={{ gridArea: "4 / 5" }}>ARM/CLAW</Styles.Labels>
+				<Styles.Labels style={{ gridArea: "4 / 8" }}>CAMERA</Styles.Labels>
 			</Styles.ButtonGridContainer>
 		)
 	}
