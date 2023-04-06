@@ -15,7 +15,7 @@ export default class ButtonGridStyles {
 	static readonly DirectionButton = styled.button`
 		font-family: "Open Sans", sans-serif;
 		font-weight: bold;
-		font-size: 16px;
+		font-size: 12px;
 		letter-spacing: 2px;
 		text-decoration: none;
 		text-transform: uppercase;

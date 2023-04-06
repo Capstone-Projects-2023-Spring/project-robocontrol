@@ -16,5 +16,5 @@ def process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, autonom
 			else:
 				# print('Centered!!')
 				if direction_to_center(img) != 'no': automation.isCentered = False
-				# command_q.put({'direction': 'backward', 'turn': 'no'})
+				command_q.put({'direction': 'forward', 'turn': 'no'})
 			websocket_q.put(img)
