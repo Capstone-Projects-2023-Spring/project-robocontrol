@@ -8,7 +8,6 @@ interface WaitingQueueProps {
 const WaitingQueue: React.FC<WaitingQueueProps> = ({ onQueuePositionChange }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [isTurn, setIsTurn] = useState(false);
-  const [socket, setSocket] = useState<WebSocket | null>(null);
   const [queuePosition, setQueuePosition] = useState<number | null>(null);
 
   useEffect(() => {
@@ -35,8 +34,6 @@ const WaitingQueue: React.FC<WaitingQueueProps> = ({ onQueuePositionChange }) =>
       setIsConnected(false);
       setIsTurn(false);
     });
-
-    setSocket(ws);
 
     return () => {
       ws.close();

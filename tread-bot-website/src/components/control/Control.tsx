@@ -17,7 +17,25 @@ const Control = (): React.ReactElement => {
 
 	// Allow bot to be controlled by WASD keys on keyboard
 	useEffect(() => {
-		/* ... */
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (loggedIn && !event.repeat) {
+				setKey({char: event.key.toLowerCase(), keyDown: true})
+			}
+		};
+
+		const handleKeyUp = (event: KeyboardEvent) => {
+			if (loggedIn) {
+				setKey({char: event.key.toLowerCase(), keyDown: false})
+			}
+		};
+
+		window.addEventListener('keydown', handleKeyDown);
+		window.addEventListener('keyup', handleKeyUp);
+
+		return () => {
+			window.removeEventListener('keydown', handleKeyDown);
+			window.removeEventListener('keyup', handleKeyUp);
+		};
 	}, [loggedIn]);
 
 	return (
@@ -38,3 +56,5 @@ const Control = (): React.ReactElement => {
 		</Styles.FlexContainer>
 	);
 };
+
+export default Control
