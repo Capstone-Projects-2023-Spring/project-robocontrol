@@ -4,7 +4,7 @@ import { COLORS } from '../../tools/Constants'
 export default class ButtonGridStyles {
 	static readonly ButtonGridContainer = styled.div`
 		display: grid;
-		grid-template-columns: repeat(7, 100px);
+		grid-template-columns: repeat(9, 100px);
 		grid-template-rows: repeat(6, 100px);
 		gap: 15px;
 		justify-content: center;
