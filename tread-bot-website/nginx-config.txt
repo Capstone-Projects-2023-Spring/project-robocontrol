@@ -33,13 +33,13 @@ server {
     location /stream/original/ {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
-        proxy_pass http://localhost:10333/original;
+        proxy_pass http://127.0.0.1:10333/original;
     }
 
     location /stream/color_detection/ {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
-        proxy_pass http://localhost:10333/color_detection;
+        proxy_pass http://127.0.0.1:10333/color_detection;
     }
 
     location /login {
@@ -53,4 +53,3 @@ server {
 	    try_files $uri /index.html;
     }
 }
-
