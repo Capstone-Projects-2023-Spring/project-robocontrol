@@ -5,7 +5,6 @@ import About from './About';
 
 
 // test to check if the About component renders without any issues
-
 describe('About component', () => {
     test('renders About component', () => {
       render(<About />);
