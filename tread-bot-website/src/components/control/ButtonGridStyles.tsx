@@ -112,15 +112,7 @@ export default class ButtonGridStyles {
 		justify-content: center;
 		align-items: center;
 		grid-area: auto;
+		min-width: min-content; //currently won't let button go smaller than word, is this how we want to go?
 
-		&:active {
-			box-shadow: 0px 0px 0px 0px;
-			top: 5px;
-			left: 5px;
-		}
-
-		@media (min-width: 768px) {
-			padding: 0.25em 0.75em;
-		}
 	`;
 }
