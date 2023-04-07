@@ -39,11 +39,21 @@ const direction_buttons: DirectionContent[] = [
 const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, shoulderDown: false, shoulderUp: false, elbowDown: false, elbowUp: false, clawOpen: false, clawClose: false, cameraDown: false, cameraUp: false }
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
 
-export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, commands_ws: WebSocket }, { activeMovement: wasd }> {
+export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, commands_ws: WebSocket }, { activeMovement: wasd, autonomousMode: boolean }> {
 	constructor(props: { keyPress: KeyPress, commands_ws: WebSocket }) {
 		super(props)
-		this.state = { activeMovement: wasd_default }
+		this.state = { activeMovement: wasd_default, autonomousMode: false }
 	}
+
+	
+	// for changing background color of autonomous button when active
+	toggleAutonomousMode = () => {
+		this.setState(prevState => ({
+			autonomousMode: !prevState.autonomousMode
+		}));
+	}
+
+	
 
 	/**
 	 * Get the current wasd value based on the current state of the button pressing
@@ -125,11 +135,18 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 					style={{ gridArea: "5 / 5" }}
 				>Stop
 				</Styles.StopButton>
-
-				<Styles.Modes
-					style={{ gridArea: "1 / 4" }}
-					onClick={() => this.sendMessage(wasd_default, 'autonomous')}>Autonomous
-				</Styles.Modes>
+				<Styles.ControlsContainer>
+					<Styles.Modes
+						style={{ 
+							// gridArea: "1 / 5",
+							backgroundColor: this.state.autonomousMode ? '#50C878' : '#f0ecec'
+						}}
+						onClick={() => {
+							this.toggleAutonomousMode();
+							this.sendMessage(wasd_default, 'autonomous');
+						}}>AUTONOMOUS
+					</Styles.Modes>
+				</Styles.ControlsContainer>
 
 				<Styles.Labels style={{ gridArea: "4 / 1" }}>TREADS</Styles.Labels>
 				{/* Add the "ARM/CLAW" text container */}

@@ -86,9 +86,9 @@ export default class ButtonGridStyles {
 		margin-left: 90px;
 		height: 40px;
 		width: 150px;
-		border: 3px solid;
+		/* border: 3px solid; */
 		padding: 0.25em 0.5em;
-		box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;	
+		/* box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;	 */
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -98,21 +98,46 @@ export default class ButtonGridStyles {
 	static readonly Modes = styled.button`
 		font-family: "Open Sans", sans-serif;
 		font-weight: bold;
-		font-size: 16px;
+		font-size: 14px;
 		letter-spacing: 2px;
+		height: 40px;
+		width: 150px;
 		text-decoration: none;
 		text-transform: uppercase;
 		color: ${COLORS.TEXT};
-		margin-top: 30px;
-		margin-left: 90px;
-		height: 40px;
-		width: 150px;
+		cursor: pointer;
 		border: 3px solid;
 		padding: 0.25em 0.5em;
 		box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;	
+		position: relative;
+		user-select: none;
+		-webkit-user-select: none;
+		touch-action: manipulation;
+
+		&:active {
+			box-shadow: 0px 0px 0px 0px;
+			top: 5px;
+			left: 5px;
+		}
+		
+		@media (min-width: 768px) {
+			padding: 0.25em 0.75em;
+		}
+	`
+
+
+
+	static readonly ControlsContainer = styled.div`
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		grid-area: auto;
+		width: 190px;
+		height: 80px;
+		margin-left: 70px;
+		grid-row: 1 / 4;
+		background-color: ${COLORS.OFFWHITE};
+		border-radius: 5px;
+		box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
 	`;
+
 }
