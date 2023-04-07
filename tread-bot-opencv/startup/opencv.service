@@ -1,0 +1,13 @@
+[Unit]
+Description=OpenCV Startup
+After=multi-user.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/screen -dmS opencv bash -c '/home/robot/project-robocontrol/tread-bot-opencv/startup/p>
+ExecStop=/usr/bin/screen -S opencv -X quit
+WorkingDirectory=/home/robot
+User=robot
+
+[Install]
+WantedBy=multi-user.target

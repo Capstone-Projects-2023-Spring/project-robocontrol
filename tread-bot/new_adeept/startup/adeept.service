@@ -1,0 +1,13 @@
+[Unit]
+Description=Adeept RaspTank Startup
+After=multi-user.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/screen -dmS adeept bash -c '/home/robot/project-robocontrol/tread-bot/new_adeept/start>
+ExecStop=/usr/bin/screen -S adeept -X quit
+WorkingDirectory=/home/robot
+User=robot
+
+[Install]
+WantedBy=multi-user.target
