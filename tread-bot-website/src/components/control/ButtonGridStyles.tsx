@@ -78,15 +78,15 @@ export default class ButtonGridStyles {
     static readonly Labels = styled.div`
         font-family: "Open Sans", sans-serif;
         font-weight: bold;
-        font-size: 16px;
-        letter-spacing: 2px;
+        font-size: 3vw;
+        letter-spacing: .2vw;
         text-decoration: none;
         text-transform: uppercase;
         color: ${COLORS.TEXT};
         margin-top: 30px;
         margin-left: 90px;
-        height: 40px;
-        width: 150px;
+        height: 8vw; //changed this
+        width: 16vw;
         border: 3px solid;
         padding: 0.25em 0.5em;
         box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;    
@@ -94,13 +94,14 @@ export default class ButtonGridStyles {
         justify-content: center;
         align-items: center;
         grid-area: auto;
+        min-width: min-content; 
     `;
 
     static readonly Modes = styled.button`
         font-family: "Open Sans", sans-serif;
         font-weight: bold;
-        font-size: 16px;
-        letter-spacing: 2px;
+        font-size: 2vw;
+        letter-spacing: .2vw;
         text-decoration: none;
         text-transform: uppercase;
         color: ${COLORS.TEXT};
