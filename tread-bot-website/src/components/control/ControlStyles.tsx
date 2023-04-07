@@ -19,8 +19,8 @@ export default class ControlStyles {
         justify-content: center;
         margin-top: 100px;
         align-items: center;
-        width: 100%;
-        padding: 50px;
+        width: 95%;
+        padding: 5vw;
 
         img:first-child {
             grid-column: 1;
