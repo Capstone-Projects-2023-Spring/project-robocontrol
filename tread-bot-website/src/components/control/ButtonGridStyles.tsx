@@ -60,7 +60,9 @@ export default class ButtonGridStyles {
         touch-action: manipulation;
 
         background: linear-gradient(-45deg, #F894A4, #F9D1B7);
-        background-size: 400% 400%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
         animation: gradient 5s ease infinite;
 
         &:active {

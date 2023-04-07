@@ -16,8 +16,8 @@ export default class ControlStyles {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 100%;
-		padding: 50px;
+		width: 95%;
+		padding: 5vw;
 
 		img {
 			color: ${COLORS.TEXT};
