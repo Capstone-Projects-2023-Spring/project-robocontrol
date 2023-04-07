@@ -11,8 +11,8 @@ class Contour:
 	def set_area(self, area): self.area = area
 	def set_contour(self, contour): self.contour = contour
 
-yellow_tape_lower = np.array([20, 76, 77], np.uint8)
-yellow_tape_upper = np.array([255, 255, 255], np.uint8)
+yellow_tape_lower = np.array([20, 100, 100], np.uint8)
+yellow_tape_upper = np.array([60, 255, 255], np.uint8)
 
 kernel = np.ones((5, 5), "uint8")
 
@@ -33,7 +33,7 @@ def direction_to_center(img):
 	mask = cv2.dilate(mask, kernel)
 
 	# Pixel tolerance for centering
-	tolerance = 80
+	tolerance = 120
 	# The two largest contours (should be left tape and right)
 	largest_contours: List[Contour] = [Contour(0, 0), Contour(0, 0)]
 	img_width = img.shape[1]
