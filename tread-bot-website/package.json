@@ -52,6 +52,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.21.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/bcryptjs": "^2.4.2",
@@ -63,6 +67,8 @@
     "@types/react-bootstrap": "^0.32.32",
     "@types/styled-components": "^5.1.26",
     "@types/websocket": "^1.0.5",
+    "babel-jest": "^29.5.0",
+    "babel-plugin-transform-require-extensions": "^2.0.1",
     "gh-pages": "^5.0.0",
     "http": "^0.0.1-security",
     "jest": "^29.5.0",

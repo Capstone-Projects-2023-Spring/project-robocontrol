@@ -3,11 +3,17 @@ module.exports = {
     testEnvironment: 'jsdom',
     transform: {
       '^.+\\.(ts|tsx)$': 'ts-jest',
+      '^.+\\.(js|jsx)$': 'babel-jest',
     },
     moduleNameMapper: {
       '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-      '\\.(jpg|jpeg|png|gif)$': '<rootDir>/src/__mocks__/fileMock.js',
+      '\\.(jpg|jpeg|png|gif)$': '<rootDir>/src/mocks/fileMock.js',
+      'react-markdown': '<rootDir>/node_modules/react-markdown/react-markdown.min.js'
     },
     setupFilesAfterEnv: ['./src/setupTests.ts'],
+    transformIgnorePatterns: [
+      'node_modules/(?!(react-markdown)/)',
+      "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)",
+    ],
   };
   
