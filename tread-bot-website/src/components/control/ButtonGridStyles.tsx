@@ -48,6 +48,7 @@ export default class ButtonGridStyles {
         letter-spacing: .2vw;
         text-decoration: none;
         text-transform: uppercase;
+        text-align: center;
         color: ${COLORS.TEXT};
         cursor: pointer;
         border: 3px solid;
@@ -69,7 +70,7 @@ export default class ButtonGridStyles {
         }
 
         @media (min-width: 768px) {
-            padding: 0.25em 0.75em;
+            padding: 0.25vw 0.75vh;
         }
     `
 
