@@ -39,11 +39,16 @@ const direction_buttons: DirectionContent[] = [
 const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, shoulderDown: false, shoulderUp: false, elbowDown: false, elbowUp: false, clawOpen: false, clawClose: false, cameraDown: false, cameraUp: false }
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
 
-export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, commands_ws: WebSocket }, { activeMovement: wasd, autonomousMode: boolean }> {
-	constructor(props: { keyPress: KeyPress, commands_ws: WebSocket }) {
-		super(props)
-		this.state = { activeMovement: wasd_default, autonomousMode: false }
-	}
+interface ButtonGridProps {
+	keyPress: KeyPress;
+	commands_ws: WebSocket;
+	queuePosition?: number | null;
+  }
+export default class ButtonGrid extends React.Component<ButtonGridProps, { activeMovement: wasd, autonomousMode: boolean }> {
+    constructor(props: ButtonGridProps) {
+        super(props)
+        this.state = { activeMovement: wasd_default, autonomousMode: false }
+    }
 
 	
 	// for changing background color of autonomous button when active
@@ -108,22 +113,32 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 	}
 
 	renderDirections = (): React.ReactElement[] => {
-		const directionButtons: React.ReactElement[] = []
-		direction_buttons.forEach((direction, i) => {
-			directionButtons.push(
-				<Styles.DirectionButton
-					style={{
-						gridArea: direction.grid,
-						backgroundColor: COLORS.UNPRESSBUTTON,
-						...(this.getActiveMovementFromChar()[direction.command] ? activeStyle : {})
-					}}
-					onMouseDown={() => { this.sendMessage(this.getActiveMovementFromChar({ char: direction.character, keyDown: true })) }}
-					onMouseUp={() => { this.sendMessage(this.getActiveMovementFromChar({ char: direction.character, keyDown: false })) }}
-					key={i} >{direction.text}</Styles.DirectionButton>
-			)
-		})
-		return directionButtons
-	}
+        const directionButtons: React.ReactElement[] = []
+        const { queuePosition } = this.props;
+        direction_buttons.forEach((direction, i) => {
+            directionButtons.push(
+                <Styles.DirectionButton
+                    disabled={queuePosition !== 1}
+                    style={{
+                        gridArea: direction.grid,
+                        backgroundColor: COLORS.UNPRESSBUTTON,
+                        ...(queuePosition === 1 && this.getActiveMovementFromChar()[direction.command] ? activeStyle : {})
+                    }}
+                    onMouseDown={() => {
+                        if (queuePosition === 1) {
+                            this.sendMessage(this.getActiveMovementFromChar({ char: direction.character, keyDown: true }));
+                        }
+                    }}
+                    onMouseUp={() => {
+                        if (queuePosition === 1) {
+                            this.sendMessage(this.getActiveMovementFromChar({ char: direction.character, keyDown: false }));
+                        }
+                    }}
+                    key={i}>{direction.text}</Styles.DirectionButton>
+            )
+        })
+        return directionButtons
+    }
 
 	render(): React.ReactElement {
 		return (
