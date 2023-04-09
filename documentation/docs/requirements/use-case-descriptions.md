@@ -1,7 +1,7 @@
 ---
 sidebar_position: 5
 ---
-
+<!-- TODO: Change from user stories into use cases. Examples found here: https://capstone-projects-2022-fall.github.io/project-collabybot/docs/requirements/use-case-descriptions -->
 # Use-case descriptions
 Three use cases are described in detail below. Each use case represents a different method of using the application. These scenarios outline the edge of the device’s capabilities showcasing the possibilities of the project.
 
