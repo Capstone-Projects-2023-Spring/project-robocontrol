@@ -6,7 +6,7 @@ sidebar_position: 2
 ## Raspberry Pi Peripherals
 <!-- TODO: New input for server commands and output for autonomous data -->
 ![](assets/RaspberryPiDiagram.png)
-<p style="text-align: center;"><em>Figure 1: Raspberry Pi communication with peripherals</em></p></br>
+<p style="text-align: center;"><em>Figure 1: Raspberry Pi communication with peripherals</em></p>
 
 The design diagram of RoboControl Robot's external components are shown in Figure 1. The Raspberry Pi acts as the mechanical controller for the system, managing the connections to other components and peripherals. It is connected to geared motors, which are connected to tank treads, providing the robot with mobility and tankdrive. The Raspberry Pi is also connected to the five servos, which are responsible for providing precise control over the position and movement of the robotic arm. The servos receive a control signal from the Raspberry Pi, specifying the direction to power the specified servo, and then move the robot arm in that direction for precise control. 
 
@@ -17,7 +17,7 @@ To communicate with the website, the Raspberry Pi sends and receives JSON messag
 ## System Architecture
 <!-- TODO: Replace with updated image. Commands should go back to server. There is no communication between robot and website. Also include the ExpressJS server in updated image -->
 ![](assets/CommandFlowDiagram.png)
-<p style="text-align: center;"><em>Figure 2: Robot, server, website block diagram</em></p></br>
+<p style="text-align: center;"><em>Figure 2: Robot, server, website block diagram</em></p>
 
 <!-- TODO: Update content when image is updated -->
 Figure 2 showcases the communication pathway between the Raspberry Pi and the server. The server comprises of the OpenCV python code and a graphical user interface (GUI) website and will be hosted using an Amazon Web Services EC2 instance. These blocks will not be running on the Raspberry Pi to save resources when controlling the motors and servos. The Raspberry Pi acts as the interface between the robot's physical components, including the camera module and ultrasonic sensor module, and the server. It receives environmental data from the camera and ultrasonic modules in the form of images and distances respectively. This data is then transmitted to the OpenCV software for analysis with algorithms. The OpenCV algorithms process the data to determine appropriate motor speeds, which are subsequently sent back to the Raspberry Pi. A visualization of the algorithms being used in the OpenCV code will be sent to the GUI and displayed to the user for more information.
