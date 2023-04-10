@@ -1,30 +1,34 @@
 # Importing the relevant libraries
 import asyncio
+from queue_ws import QueueWS
 from opencv_video import VideoWS
 from opencv_commands import CommandWS
 from queue import Queue
 import threading
 from image_processing.process_images import process_img
-
 async def main():
-	img_proc_q = Queue()
-	websocket_q = Queue()
-	command_q = Queue()
-	autonomous = [False]
+    img_proc_q = Queue()
+    websocket_q = Queue()
+    command_q = Queue()
+    autonomous = [False]
 
-	commands = CommandWS()
-	video = VideoWS()
+    commands = CommandWS()
+    video = VideoWS()
+    queue_ws = QueueWS()
 
-	commands_thread = threading.Thread(target=asyncio.run, args=(commands.start_server(command_q, autonomous),))
-	video_thread = threading.Thread(target=asyncio.run, args=(video.start(img_proc_q, websocket_q, autonomous),))
-	img_processing_thread = threading.Thread(target=process_img, args=(img_proc_q, websocket_q, command_q, autonomous,))
-	
-	img_processing_thread.start()
-	commands_thread.start()
-	video_thread.start()
-	img_processing_thread.join()
-	commands_thread.join()
-	video_thread.join()
+    commands_thread = threading.Thread(target=asyncio.run, args=(commands.start_server(command_q, autonomous),))
+    video_thread = threading.Thread(target=asyncio.run, args=(video.start(img_proc_q, websocket_q, autonomous),))
+    queue_ws_thread = threading.Thread(target=asyncio.run, args=(queue_ws.start(),))
+    img_processing_thread = threading.Thread(target=process_img, args=(img_proc_q, websocket_q, command_q, autonomous,))
+    
+    img_processing_thread.start()
+    commands_thread.start()
+    video_thread.start()
+    queue_ws_thread.start()
+    img_processing_thread.join()
+    commands_thread.join()
+    video_thread.join()
+    queue_ws_thread.join()
 
 if __name__ == '__main__':
-	asyncio.run(main())
+    asyncio.run(main())

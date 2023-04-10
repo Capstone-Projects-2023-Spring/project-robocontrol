@@ -17,7 +17,7 @@ def cv2_to_base64(img):
 
 class VideoWS():
 
-	PORT = 10333
+	PORT = 10332
 	HOST = '127.0.0.1'
 
 	def __init__(self) -> None:

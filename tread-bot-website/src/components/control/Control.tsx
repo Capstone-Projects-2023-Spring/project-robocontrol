@@ -15,6 +15,19 @@ const Control = (): React.ReactElement => {
   const [key, setKey] = useState({ char: '', keyDown: false });
   const [queuePosition, setQueuePosition] = useState<number | null>(null); // Add queuePosition state
 
+  useEffect(() => {
+    commands_ws.addEventListener('open', () => {
+      commands_ws.send(JSON.stringify({ type: 'join_queue' }));
+    });
+
+    return () => {
+      commands_ws.removeEventListener('open', () => {
+        commands_ws.send(JSON.stringify({ type: 'join_queue' }));
+      });
+    };
+  }, []);
+
+
   // Allow bot to be controlled by WASD keys on keyboard
   useEffect(() => {
 	const handleKeyDown = (event: KeyboardEvent) => {
@@ -58,7 +71,10 @@ const Control = (): React.ReactElement => {
 
     // Update queuePosition
     if (data.queue_position !== undefined) {
+      console.log('Received queue_position:', data.queue_position);
       setQueuePosition(data.queue_position);
+    } else {
+      console.log('Received WebSocket message without queue_position:', data);
     }
   };
 
@@ -69,17 +85,20 @@ const Control = (): React.ReactElement => {
       {/* ... */}
 
       {!loggedIn ? (
-        <Login loginSuccessful={login} />
+        <Login loginSuccessful={login} commands_ws={commands_ws} setQueuePosition={setQueuePosition} />
       ) : (
         <ButtonGrid keyPress={key} commands_ws={commands_ws} queuePosition={queuePosition} />
       )}
 
-      <Styles.WaitingQueueContainer>
-        <WaitingQueue onQueuePositionChange={setQueuePosition} />
-{queuePosition !== null && (
-<p>Your position in the waiting queue: {queuePosition}</p>
-)}
-</Styles.WaitingQueueContainer>
+    <Styles.WaitingQueueContainer>
+      <WaitingQueue onQueuePositionChange={setQueuePosition} />
+      {queuePosition === null ? (
+        <p>YOUR waiting position is unknown</p>
+      ) : (
+        <p>Your position in the waiting queue: {queuePosition}</p>
+      )}
+    </Styles.WaitingQueueContainer>
+
 </Styles.FlexContainer>
 );
 };

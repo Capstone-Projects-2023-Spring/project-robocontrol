@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import Styles from './LoginStyles';
 
 type LoginProps = {
-	loginSuccessful: Function
-}
+	loginSuccessful: Function;
+	commands_ws: WebSocket;
+	setQueuePosition: Function;
+  };
+  
+  
 
 const Login = (props: LoginProps): React.ReactElement => {
 	const [username, setUsername] = useState('');
@@ -28,10 +32,24 @@ const Login = (props: LoginProps): React.ReactElement => {
 			  headers: { 'Content-Type': 'application/json' },
 			  body: JSON.stringify({ username, password }),
 			});
+			
+			if (response.ok) {
+			  console.log('Login successful');
+			  props.commands_ws.send(JSON.stringify({ type: 'join_queue' }));
+			  props.loginSuccessful(true);
+			} else {
+			  const data = await response.json();
+			  setError(data.error);
+			}
+		  } else {
+			console.log('Login successful (localhost)');
+			props.commands_ws.send(JSON.stringify({ type: 'join_queue' }));
+			props.loginSuccessful(true);
 		  }
-	  
+		  
 		  if (window.location.hostname === 'localhost' || response?.ok) {
 			console.log('Login successful');
+			props.commands_ws.send(JSON.stringify({ type: 'join_queue' }));
 			props.loginSuccessful(true);
 		  } else {
 			const data = await response?.json();

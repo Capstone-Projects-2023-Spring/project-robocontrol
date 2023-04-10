@@ -8,7 +8,7 @@ import copy
 
 class CommandWS():
 	
-	PORT = 10334
+	PORT = 10340
 	HOST = '192.168.2.1'
 
 	def __init__(self) -> None:
