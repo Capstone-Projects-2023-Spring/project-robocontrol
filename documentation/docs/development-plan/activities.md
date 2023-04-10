@@ -4,12 +4,27 @@ sidebar_position: 1
 
 # Activities
 ## Requirements Gathering
-The project requirements will be gathered by analyzing the overall architecture of the RaspTank, which involves using the onboard Raspberry Pi programmed with Python to gather sensor data from camera and ultrasonic sensor modules. The sensor data will be sent to a server running openCV, which will process the data before sending control instructions to a custom website. The Raspberry Pi programming will be based on the OpenCV library to capture the images and will likely use libraries like NumPy and GPIO to gather image and distance data. The project server processing will be done using HoughLines and SciPy libraries (or similar alternatives if changes are deemed necessary during the development phase) to process the data transmitted from the Raspberry Pi. The website will be developed using the React TypeScript framework and will serve as the user interface for controlling the RaspTanks movement and displaying sensor data in real-time. The website will communicate with the project server to receive the processed data that originated from the RaspTank.
+The overall project requirements gathering will begin through research. Documentation will be read for different approaches to specific parts of the project. For streaming the camera feed, the team will research the best way to do this between the robot and the server as well as the server and the website. Regarding the communication of data, research will be conducted on the optimized solution. WebSockets will be considered the most likely candidate with other methods being tested to confirm this hypothesis.
+
+While research is being conducted on communication methods, the original architecture of the Adeept RaspTank and its codebase will be analyzed. The group will be looking for the robot's original method of movement in the code, and they will confirm that this code can be refactored to be used and integrated into the new robot code. This process will also be carried out for the other sensors and motors of the robot including the five servos, the camera, and the ultrasonic distance sensor.
+
+For image processing, OpenCV will be used to detect colors in the robot's environment. The RoboControl team will conduct research focused on this library to determine if color detection can be used for the navigation of the robot. 
+
+After each of these topics have been thoroughly researched, integration of all components will be tested and confirmed. This will involve sending messages through a website interface, having those messages pass through the server, then receive the messages on the robot's Raspberry Pi. 
 
 ## Top Level Design
-The RoboControl Robot consists of a remote server and a robotic device driven by Raspberry Pi. The remote server will process data from input devices such as a camera module and ultrasonic sensor module and transmit control signals to the device's motor drivers and servos. Meanwhile, the robotic device will have a Raspberry Pi microcomputer that will communicate with the server via SSH, acting as the system's controller and managing connections to other components and peripherals. Additionally, the remote server will host a website graphical user interface (GUI) that allows users to give commands to robotic device and access its various features, such as obstacle detection, remote navigation, and other autonomous functionalities. The GUI will also display real-time video provided by the robotic device's camera module, enabling users to see the device's movement and guide it using controls on the GUI. Users can input commands and then receive feedback from the robotic device and performance via the GUI.
-
-For the robotic device, it will be equipped with a camera module and ultrasonic sensor module for collecting environmental data, motor drivers for its tank treads, and a mechanical arm with servos. These components will work together to allow the device to move, obtain visual images, detect obstacle distances, grasp items, and more. These features allow the RoboControl Robot to implement functions including autonomous navigation and complete automated robotic arm operation.
+1. Create a home screen to welcome and direct the user
+2. Create a sliding menu for simple website navigation
+3. Create a controls page for sending messages to the robot
+   - Display the camera feed to the user
+4. Develop password login for single-person robot control
+5. Create an about page for the user to learn how to control the robot
+6. Establish the backend server for processing the images to eventually use color detection for autonomous control
+7. Establish second backend server for password authentication
+8. Flash operating system onto Raspberry Pi
+9. Establish connection between the server and the robot
+10. Incorporate robot code into the robot communication with the backend server
+11. Use video-feed and ultrasonic distance sensor reading to calculate motor speeds using OpenCV
 
 ## Detailed Design
 Overall Architecture: The onboard Raspberry Pi will be coded with Python to gather the sensor data coming from the camera and ultrasonic sensor modules. The data acquired from these sensors will be sent to a server running OpenCV. The processed data will then be sent to a website that will host the controls for the robot. 
