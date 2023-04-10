@@ -74,9 +74,7 @@ export default class ButtonGridStyles {
         @media (min-width: 768px) {
             padding: 0.25vw 0.75vh;
         }
-    `
-
-
+    
     // Add a new styled component called Label
     static readonly Labels = styled.div`
         font-family: "Open Sans", sans-serif;
@@ -118,6 +116,19 @@ export default class ButtonGridStyles {
         grid-area: auto;
         min-width: min-content; //currently won't let button go smaller than word, is this how we want to go?
 
-    `;
+
+//not sure what this is
+	static readonly ControlsContainer = styled.div`
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 190px;
+		height: 80px;
+		margin-left: 70px;
+		grid-row: 1 / 4;
+		background-color: ${COLORS.OFFWHITE};
+		border-radius: 5px;
+		box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
+	`;
 }
 

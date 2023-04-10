@@ -59,7 +59,7 @@ class VideoWS():
 				# Read next frame
 				_, img = self.vid.read()
 				# If in autonomous mode, put the image into the image processing queue
-				if self.autonomous[0]: self.img_proc_q.put(img.copy())
+				self.img_proc_q.put(img.copy())
 
 			# If frame is empty
 			if img is None: continue
@@ -81,10 +81,9 @@ class VideoWS():
 		while True:
 			with color_detection_lock:
 				# Only display image if in autonomous mode
-				if self.autonomous[0]: img = self.websocket_q.get()
+				img = self.websocket_q.get()
 				# TODO: Should not need a dummy image. Maybe figure out how to 
 				# not connect to this URL on the website when not in autonomous mode or smth
-				else: img = self.dummy_img
 			
 			# If frame is empty
 			if img is None: continue

@@ -13,14 +13,13 @@ class Automation:
 		return image[height-h:height, :]
 
 	# Send command to robot to center the robot based on the image
-	def center_robot(self, image) -> None:
-		direction = direction_to_center(image) # Get the direction to turn
+	def center_robot(self, direction) -> None:
 		if direction == 'left':
-			self.commands_q.put({'direction': 'no', 'turn': 'left'})
 			self.isCentered = False
+			return {'direction': 'no', 'turn': 'left'}
 		elif direction == 'right':
-			self.commands_q.put({'direction': 'no', 'turn': 'right'})
 			self.isCentered = False
+			return {'direction': 'no', 'turn': 'right'}
 		else:
-			self.commands_q.put({'direction': 'no', 'turn': 'no'})
 			self.isCentered = True
+			return {'direction': 'no', 'turn': 'no'}
