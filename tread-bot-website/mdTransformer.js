@@ -1,10 +1,11 @@
-const path = require('path');
-
 module.exports = {
-  process(src, filename) {
-    return `
-      const path = require('path');
-      module.exports = path.resolve(__dirname, '${path.basename(filename)}');
-    `;
-  },
-};
+    process(src, filename) {
+      return {
+        code: `
+          const path = require('path');
+          module.exports = path.resolve(__dirname, '${filename}');
+        `,
+      };
+    },
+  };
+  
