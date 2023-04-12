@@ -1,6 +1,8 @@
 import React from 'react';
 import waitingIcon from '../../assets/waitingLogo.gif';
 
+
+
 interface WaitingQueueProps {
   isConnected: boolean;
   isTurn: boolean;

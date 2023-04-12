@@ -113,32 +113,48 @@ export default class ButtonGrid extends React.Component<ButtonGridProps, { activ
 	}
 
 	renderDirections = (): React.ReactElement[] => {
-        const directionButtons: React.ReactElement[] = []
-        const { queuePosition } = this.props;
-        direction_buttons.forEach((direction, i) => {
-            directionButtons.push(
-                <Styles.DirectionButton
-                    disabled={queuePosition !== 1}
-                    style={{
-                        gridArea: direction.grid,
-                        backgroundColor: COLORS.UNPRESSBUTTON,
-                        ...(queuePosition === 1 && this.getActiveMovementFromChar()[direction.command] ? activeStyle : {})
-                    }}
-                    onMouseDown={() => {
-                        if (queuePosition === 1) {
-                            this.sendMessage(this.getActiveMovementFromChar({ char: direction.character, keyDown: true }));
-                        }
-                    }}
-                    onMouseUp={() => {
-                        if (queuePosition === 1) {
-                            this.sendMessage(this.getActiveMovementFromChar({ char: direction.character, keyDown: false }));
-                        }
-                    }}
-                    key={i}>{direction.text}</Styles.DirectionButton>
-            )
-        })
-        return directionButtons
-    }
+		const directionButtons: React.ReactElement[] = [];
+		const { queuePosition } = this.props;
+	  
+		direction_buttons.forEach((direction, i) => {
+		  const isDisabled = queuePosition !== 1;
+	  
+		  directionButtons.push(
+			<Styles.DirectionButton
+			  disabled={isDisabled}
+			  style={{
+				gridArea: direction.grid,
+				backgroundColor: isDisabled
+				  ? COLORS.DISABLED_BUTTON // Set a color for disabled button
+				  : COLORS.UNPRESSBUTTON,
+				...(queuePosition === 1 && this.getActiveMovementFromChar()[direction.command]
+				  ? activeStyle
+				  : {}),
+			  }}
+			  onMouseDown={() => {
+				if (!isDisabled) {
+				  this.sendMessage(
+					this.getActiveMovementFromChar({ char: direction.character, keyDown: true }),
+				  );
+				}
+			  }}
+			  onMouseUp={() => {
+				if (!isDisabled) {
+				  this.sendMessage(
+					this.getActiveMovementFromChar({ char: direction.character, keyDown: false }),
+				  );
+				}
+			  }}
+			  key={i} //key={direction.command}
+			>
+			  {direction.text}
+			</Styles.DirectionButton>,
+		  );
+		});
+	  
+		return directionButtons;
+	  };
+	  
 
 	render(): React.ReactElement {
 		return (

@@ -8,6 +8,7 @@ export class COLORS {
     static readonly UNPRESSBUTTON = '#f0ecec'
     static readonly GRADIENT_START = 'hsla(255, 12%, 94%, 1)'
     static readonly GRADIENT_END = 'hsla(230, 100%, 78%, 1)'
+    static readonly DISABLED_BUTTON: "#CCCCCC"
 }
 
 export class PATHS {

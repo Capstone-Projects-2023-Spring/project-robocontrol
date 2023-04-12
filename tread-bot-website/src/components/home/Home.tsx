@@ -7,7 +7,8 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleClick = (path: string) => {
-    navigate(path);
+    navigate(path); 
+    window.location.reload();
   };
 
   return (

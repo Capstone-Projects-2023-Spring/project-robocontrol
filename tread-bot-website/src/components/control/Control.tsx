@@ -1,6 +1,7 @@
 // Third party imports
 import React, { useEffect, useState } from 'react';
 
+
 // Custom styles
 import Styles from './ControlStyles';
 import Login from '../login/Login';
@@ -12,12 +13,15 @@ const commands_ws = new WebSocket(COMMANDS_WS_URL); // A websocket for the robot
 const doNothing = () => {};
 
 
+
 const Control = (): React.ReactElement => {
   const [loggedIn, login] = useState<boolean>(false);
   const [key, setKey] = useState({ char: '', keyDown: false });
   const [queuePosition, setQueuePosition] = useState<number | null>(null); // Add queuePosition state
   const [isConnected, setIsConnected] = useState(false);
   const [isTurn, setIsTurn] = useState(false);
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+
 
   // Allow bot to be controlled by WASD keys on keyboard
   useEffect(() => {
@@ -37,6 +41,17 @@ const Control = (): React.ReactElement => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!loggedIn) {
+      setTimer(setTimeout(() => removeFromQueue(), 20000));
+    } else {
+      if (timer) {
+        clearTimeout(timer);
+        setTimer(null);
+      }
+    }
+  }, [loggedIn]);
+
   const handleWebSocketOpen = () => {
     setIsConnected(true);
   };
@@ -44,6 +59,11 @@ const Control = (): React.ReactElement => {
   const handleWebSocketClose = () => {
     setIsConnected(false);
   };
+
+  const removeFromQueue = () => {
+    commands_ws.send(JSON.stringify({ type: 'remove_from_queue' }));
+  };
+  
 
   const handleWebSocketMessage = (event: MessageEvent) => {
     const data = JSON.parse(event.data);
@@ -57,6 +77,8 @@ const Control = (): React.ReactElement => {
     }
   };
 
+  
+
   return (
     <Styles.FlexContainer>
       {/* ... */}
@@ -64,7 +86,7 @@ const Control = (): React.ReactElement => {
       {!loggedIn ? (
         <Login loginSuccessful={login} commands_ws={commands_ws} setQueuePosition={doNothing} />
       ) : (
-        <ButtonGrid keyPress={key} commands_ws={commands_ws} />
+        <ButtonGrid keyPress={key} commands_ws={commands_ws} queuePosition={queuePosition} />
       )}
 
       <Styles.WaitingQueueContainer>
