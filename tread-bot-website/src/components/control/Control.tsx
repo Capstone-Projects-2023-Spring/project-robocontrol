@@ -25,8 +25,32 @@ const Control = (): React.ReactElement => {
 
   // Allow bot to be controlled by WASD keys on keyboard
   useEffect(() => {
-    // ... (the existing keydown and keyup event listeners)
-  }, [loggedIn]);
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key.toLowerCase() === 'arrowup' || event.key.toLowerCase() === 'arrowdown') {
+				event.preventDefault()
+			}
+			if (loggedIn && !event.repeat) {
+				setKey({char: event.key.toLowerCase(), keyDown: true})
+			}
+		};
+
+		const handleKeyUp = (event: KeyboardEvent) => {
+			if (event.key.toLowerCase() === 'arrowup' || event.key.toLowerCase() === 'arrowdown') {
+				event.preventDefault()
+			}
+			if (loggedIn) {
+				setKey({char: event.key.toLowerCase(), keyDown: false})
+			}
+		};
+
+		window.addEventListener('keydown', handleKeyDown);
+		window.addEventListener('keyup', handleKeyUp);
+
+		return () => {
+			window.removeEventListener('keydown', handleKeyDown);
+			window.removeEventListener('keyup', handleKeyUp);
+		};
+	}, [loggedIn]);
 
   // Add new useEffect hook for WebSocket message handling
   useEffect(() => {
@@ -81,7 +105,10 @@ const Control = (): React.ReactElement => {
 
   return (
     <Styles.FlexContainer>
-      {/* ... */}
+      <Styles.VideoFeedContainer>
+				<img src={'https://ryanhodge.net/stream/original'} alt='Video stream from robot'/>
+				<img src={'https://ryanhodge.net/stream/color_detection'} alt='Color detection stream'/>
+			</Styles.VideoFeedContainer>
 
       {!loggedIn ? (
         <Login loginSuccessful={login} commands_ws={commands_ws} setQueuePosition={doNothing} />
