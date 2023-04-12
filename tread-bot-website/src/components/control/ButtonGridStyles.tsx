@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { COLORS } from '../../tools/Constants'  
 
 export default class ButtonGridStyles {
+
     static readonly ButtonGridContainer = styled.div`
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
@@ -29,7 +30,7 @@ export default class ButtonGridStyles {
         -webkit-user-select: none;
         touch-action: manipulation;
         white-space: pre;
-	
+
 
         &:active {
             box-shadow: 0px 0px 0px 0px;
@@ -78,6 +79,7 @@ export default class ButtonGridStyles {
     `
 
 
+
     // Add a new styled component called Label
     static readonly Labels = styled.div`
         font-family: "Open Sans", sans-serif;
@@ -119,6 +121,5 @@ export default class ButtonGridStyles {
         grid-area: auto;
         min-width: min-content; //currently won't let button go smaller than word, is this how we want to go?
 
-    `;
 }
 

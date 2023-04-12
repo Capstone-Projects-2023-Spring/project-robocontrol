@@ -16,12 +16,18 @@ const Control = (): React.ReactElement => {
 	// Allow bot to be controlled by WASD keys on keyboard
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key.toLowerCase() === 'arrowup' || event.key.toLowerCase() === 'arrowdown') {
+				event.preventDefault()
+			}
 			if (loggedIn && !event.repeat) {
 				setKey({char: event.key.toLowerCase(), keyDown: true})
 			}
 		};
 
 		const handleKeyUp = (event: KeyboardEvent) => {
+			if (event.key.toLowerCase() === 'arrowup' || event.key.toLowerCase() === 'arrowdown') {
+				event.preventDefault()
+			}
 			if (loggedIn) {
 				setKey({char: event.key.toLowerCase(), keyDown: false})
 			}

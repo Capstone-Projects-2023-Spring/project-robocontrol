@@ -9,7 +9,7 @@ def nothing(x):
     pass
 
 cv2.namedWindow("live transmission", cv2.WINDOW_AUTOSIZE)
- 
+
 cv2.namedWindow("Tracking")
 cv2.createTrackbar("RL", "Tracking", 94, 255, nothing)
 cv2.createTrackbar("GL", "Tracking", 80, 255, nothing)

@@ -23,6 +23,7 @@ type wasd = {
 
 const direction_buttons: DirectionContent[] = [
 	{ grid: '2 / 2', command: 'forward', text: '↑', character: 'arrowup' },
+
 	{ grid: '3 / 1', command: 'left', text: '\n←', character: 'arrowleft' },
 	{ grid: '3 / 2', command: 'backward', text: '\n↓', character: 'arrowdown' },
 	{ grid: '3 / 3', command: 'right', text: '\n→', character: 'arrowright' },
@@ -34,10 +35,11 @@ const direction_buttons: DirectionContent[] = [
 	{ grid: '2 / 7', command: 'elbowDown', text: 'ELBOW\nDOWN\nD', character: 'e' }, 
 	{ grid: '1 / 5', command: 'cameraUp', text: 'CAMERA\nUP\nD', character: 'r' }, 
 	{ grid: '1 / 7', command: 'cameraDown', text: 'CAMERA\nDOWN\nD', character: 'f' },
-]
+
 
 const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, shoulderDown: false, shoulderUp: false, elbowDown: false, elbowUp: false, clawOpen: false, clawClose: false, cameraDown: false, cameraUp: false }
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
+
 export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, commands_ws: WebSocket }, { activeMovement: wasd, autonomousMode: boolean }> {
 	constructor(props: { keyPress: KeyPress, commands_ws: WebSocket }) {
 		super(props)
@@ -51,6 +53,7 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 			autonomousMode: !prevState.autonomousMode
 		}));
 	}
+
 	/**
 	 * Get the current wasd value based on the current state of the button pressing
 	 */
@@ -75,6 +78,7 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 		}
 		const data: MsgData = { direction: '', turn: '', shoulder: '', elbow: '', claw: '', camera: '' }
 
+
 		if (active.shoulderUp) { data.shoulder = 'up' }
 		else if (active.shoulderDown) { data.shoulder = 'down' }
 		else { data.shoulder = 'no' }
@@ -82,6 +86,7 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 		if (active.elbowUp) { data.elbow = 'up' }
 		else if (active.elbowDown) { data.elbow = 'down' }
 		else { data.elbow = 'no' }
+
 
 		if (active.clawOpen) { data.claw = 'open' }
 		else if (active.clawClose) { data.claw = 'close' }
@@ -129,18 +134,21 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 				{this.renderDirections()}
 
 				<Styles.StopButton
-					style={{ gridArea: "5 / 4" }}
+					style={{ gridArea: "5 / 5" }}
 				>Stop
 				</Styles.StopButton>
+
 
 				<Styles.Modes
 					style={{ gridArea: "1 / 2" }}
 					onClick={() => this.sendMessage(wasd_default, 'autonomous')}>Autonomous
 				</Styles.Modes>
 
+
 				<Styles.Labels style={{ gridArea: "4 / 1" }}>TREADS</Styles.Labels>
 				{/* Add the "ARM/CLAW" text container */}
 				<Styles.Labels style={{ gridArea: "4 / 5" }}>ARM/CLAW</Styles.Labels>
+				<Styles.Labels style={{ gridArea: "4 / 8" }}>CAMERA</Styles.Labels>
 			</Styles.ButtonGridContainer>
 		)
 	}

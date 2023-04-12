@@ -41,6 +41,7 @@ class CommandWS():
 						msg = None
 						await asyncio.sleep(0)
 					if msg:
+						msg.update({'autonomous': True})
 						await websocket.send(json.dumps(msg))
 				await asyncio.sleep(.05)
 		except websockets.exceptions.ConnectionClosed as e:
@@ -56,7 +57,7 @@ class CommandWS():
 					self.robot_ws = websocket
 				elif (msg == 'autonomous'):
 					self.autonomous[0] = not self.autonomous[0]
-					await self.robot_ws.send(json.dumps({'direction': 'no', 'turn': 'no'}))
+					await self.robot_ws.send(json.dumps({'direction': 'no', 'turn': 'no', 'autonomous': self.autonomous[0]}))
 					print(self.autonomous)
 				elif(not self.autonomous[0] and self.robot_ws):
 					await self.robot_ws.send(msg)
