@@ -1,56 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import waitingIcon from '../../assets/waitingLogo.gif';// add waiting logo
+import React from 'react';
+import waitingIcon from '../../assets/waitingLogo.gif';
 
 interface WaitingQueueProps {
-  onQueuePositionChange: (position: number | null) => void;
+  isConnected: boolean;
+  isTurn: boolean;
+  queuePosition: number | null;
 }
 
-const WaitingQueue: React.FC<WaitingQueueProps> = ({ onQueuePositionChange }) => {
-  const [isConnected, setIsConnected] = useState(false);
-  const [isTurn, setIsTurn] = useState(false);
-  const [socket, setSocket] = useState<WebSocket | null>(null);
-  const [queuePosition, setQueuePosition] = useState<number | null>(null);
-
-  useEffect(() => {
-    const ws = new WebSocket('wss://ryanhodge.net/ws/commands'); // websocket address here
-
-    ws.addEventListener('open', () => {
-      console.log('CONECTED to WebSocket server');
-      setIsConnected(true);
-      const message = {
-        type: "join_queue",
-      };
-      ws.send(JSON.stringify(message));
-      console.log('Sent join_queue');
-    });
-
-
-
-    ws.addEventListener('message', (event) => {
-      const message = JSON.parse(event.data);
-
-      if (message.type === 'your_turn') {
-        setIsTurn(true);
-      } else if (message.type === 'queue_position') {
-        console.log('Received queue_position:', message.position);// log for debug
-        setQueuePosition(message.position);
-        onQueuePositionChange(message.position);
-      }
-    });
-
-    ws.addEventListener('close', () => {
-      console.log('DISCONECTED from WebSocket server');
-      setIsConnected(false);
-      setIsTurn(false);
-    });
-
-    setSocket(ws);
-
-    return () => {
-      ws.close();
-    };
-  }, [onQueuePositionChange]);
-
+const WaitingQueue: React.FC<WaitingQueueProps> = ({ isConnected, isTurn, queuePosition }) => {
   return (
     <div>
       {isConnected ? (
@@ -70,7 +27,7 @@ const WaitingQueue: React.FC<WaitingQueueProps> = ({ onQueuePositionChange }) =>
             {queuePosition !== null && `You are at position ${queuePosition} in the queue.`}
           </p>
           {queuePosition !== null && (
-            <img src={waitingIcon} alt="Waiting icon" style={{ width: '50px' }} /> // add waiting logo
+            <img src={waitingIcon} alt="Waiting icon" style={{ width: '50px' }} />
           )}
         </div>
       )}

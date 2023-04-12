@@ -29,23 +29,22 @@ class QueueWS:
 
     async def handle_client(self, websocket, path):
         print("Client attempting to connect")
+        await websocket.send(json.dumps({'type': 'server_log', 'message': f"New client connected, waiting queue length: {len(self.waiting_queue)}"}))
         self.clients.add(websocket)
-        self.waiting_queue.append(websocket)  
-        print(f"New client connected, waiting queue length: {len(self.waiting_queue)}") 
+        self.waiting_queue.append(websocket)
+        print(f"New client connected, waiting queue length: {len(self.waiting_queue)}")
         await self.update_queue_positions()
         try:
             async for message in websocket:
                 data = json.loads(message)
-                if data['type'] == 'update_position':
-                    position = data['position']
-                    await self.broadcast_queue_position(position)
-                elif data['type'] == 'join_queue':
+                if data["type"] == "join_queue":
                     self.waiting_queue.append(websocket)
                     await self.update_queue_positions()
+
         finally:
             self.clients.remove(websocket)
-            self.waiting_queue.remove(websocket) 
-            await self.update_queue_positions() 
+            self.waiting_queue.remove(websocket)
+            await self.update_queue_positions()
 
     async def start(self):
         server = await websockets.serve(self.handle_client, '0.0.0.0', 10341)
