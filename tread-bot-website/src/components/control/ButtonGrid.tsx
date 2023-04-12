@@ -19,13 +19,15 @@ type wasd = {
 
 const direction_buttons: DirectionContent[] = [
 	{ grid: '2 / 2', command: 'forward', text: '↑', character: 'arrowup' },
-	{ grid: '3 / 1', command: 'left', text: '←', character: 'arrowleft' },
-	{ grid: '3 / 2', command: 'backward', text: '↓', character: 'arrowdown' },
-	{ grid: '3 / 3', command: 'right', text: '→', character: 'arrowright' },
-	{ grid: '2 / 6', command: 'armup', text: 'UP\nW', character: 'w' }, // added up button
-	{ grid: '3 / 6', command: 'armdown', text: 'DOWN\nS', character: 's' }, // added down button
-	{ grid: '3 / 5', command: 'clawopen', text: 'OPEN\nA', character: 'a' }, // added left button
-	{ grid: '3 / 7', command: 'clawclose', text: 'CLOSE\nD', character: 'd' }, // added right button
+	{ grid: '3 / 1', command: 'left', text: '\n←', character: 'arrowleft' },
+	{ grid: '3 / 2', command: 'backward', text: '\n↓', character: 'arrowdown' },
+	{ grid: '3 / 3', command: 'right', text: '\n→', character: 'arrowright' },
+	{ grid: '2 / 6', command: 'armup', text: 'UP\n\nW', character: 'w' }, // added up button
+	{ grid: '3 / 6', command: 'armdown', text: 'DOWN\n\nS', character: 's' }, // added down button
+	{ grid: '3 / 5', command: 'clawopen', text: 'OPEN\n\nA', character: 'a' }, // added left button
+	{ grid: '3 / 7', command: 'clawclose', text: 'CLOSE\n\nD', character: 'd' }, // added right button
+	{ grid: '2 / 5', command: 'elbow up', text: 'ELBOW\nUP\nD', character: 'q' }, 
+	{ grid: '2 / 7', command: 'elbow down', text: 'ELBOW\nDOWN\nD', character: 'e' }, 
 ]
 
 const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, armdown: false, armup: false, clawopen: false, clawclose: false }
@@ -114,12 +116,18 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 				</Styles.StopButton>
 
 				<Styles.Modes
-					style={{ gridArea: "1 / 4" }}
+					style={{ gridArea: "1 / 2" }}
 					onClick={() => this.sendMessage(wasd_default, 'autonomous')}>Autonomous
 				</Styles.Modes>
+
 				<Styles.Modes
-					style={{ gridArea: "2 / 4" }}
-					onClick={() => this.sendMessage(wasd_default, 'manual')}>Manual
+					style={{ gridArea: "1 / 5" }}
+					onClick={() => this.sendMessage(wasd_default, 'Camera up')}>camera up
+				</Styles.Modes>
+
+				<Styles.Modes
+					style={{ gridArea: "1 / 6" }}
+					onClick={() => this.sendMessage(wasd_default, 'Camera down')}>camera down
 				</Styles.Modes>
 
 				<Styles.Labels style={{ gridArea: "4 / 1" }}>TREADS</Styles.Labels>

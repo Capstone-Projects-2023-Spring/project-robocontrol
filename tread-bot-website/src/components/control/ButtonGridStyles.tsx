@@ -29,6 +29,7 @@ export default class ButtonGridStyles {
         -webkit-user-select: none;
         touch-action: manipulation;
         white-space: pre;
+	
 
         &:active {
             box-shadow: 0px 0px 0px 0px;
