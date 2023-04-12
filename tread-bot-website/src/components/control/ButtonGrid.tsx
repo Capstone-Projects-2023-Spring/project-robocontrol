@@ -4,17 +4,21 @@ import Styles from './ButtonGridStyles'
 
 type KeyPress = { char: string, keyDown: boolean }
 type DirectionContent = { grid: string, command: string, character: string, text: string }
-type MsgData = { direction: string, turn: string, arm_command: string }
+type MsgData = { direction: string, turn: string, shoulder: string, claw: string, elbow: string, camera: string }
 type wasd = {
 	[index: string]: boolean,
 	forward: boolean,
 	backward: boolean,
 	left: boolean,
 	right: boolean,
-	armup: boolean,
-	armdown: boolean,
-	clawopen: boolean,
-	clawclose: boolean
+	shoulderUp: boolean,
+	shoulderDown: boolean,
+	elbowUp: boolean,
+	elbowDown: boolean,
+	clawOpen: boolean,
+	clawClose: boolean,
+	cameraUp: boolean,
+	cameraDown: boolean
 }
 
 const direction_buttons: DirectionContent[] = [
@@ -22,19 +26,18 @@ const direction_buttons: DirectionContent[] = [
 	{ grid: '3 / 1', command: 'left', text: '\n←', character: 'arrowleft' },
 	{ grid: '3 / 2', command: 'backward', text: '\n↓', character: 'arrowdown' },
 	{ grid: '3 / 3', command: 'right', text: '\n→', character: 'arrowright' },
-	{ grid: '2 / 6', command: 'armup', text: 'UP\n\nW', character: 'w' }, // added up button
-	{ grid: '3 / 6', command: 'armdown', text: 'DOWN\n\nS', character: 's' }, // added down button
-	{ grid: '3 / 5', command: 'clawopen', text: 'OPEN\n\nA', character: 'a' }, // added left button
-	{ grid: '3 / 7', command: 'clawclose', text: 'CLOSE\n\nD', character: 'd' }, // added right button
-	{ grid: '2 / 5', command: 'elbow up', text: 'ELBOW\nUP\nD', character: 'q' }, 
-	{ grid: '2 / 7', command: 'elbow down', text: 'ELBOW\nDOWN\nD', character: 'e' }, 
-	{ grid: '1 / 5', command: 'camera up', text: 'CAMERA\nUP\nD', character: 'r' }, 
-	{ grid: '1 / 7', command: 'camera down', text: 'CAMERA\nDOWN\nD', character: 'f' },
+	{ grid: '2 / 6', command: 'shoulderUp', text: 'UP\n\nW', character: 'w' }, // added up button
+	{ grid: '3 / 6', command: 'shoulderDown', text: 'DOWN\n\nS', character: 's' }, // added down button
+	{ grid: '3 / 5', command: 'clawOpen', text: 'OPEN\n\nA', character: 'a' }, // added left button
+	{ grid: '3 / 7', command: 'clawClose', text: 'CLOSE\n\nD', character: 'd' }, // added right button
+	{ grid: '2 / 5', command: 'elbowUp', text: 'ELBOW\nUP\nD', character: 'q' }, 
+	{ grid: '2 / 7', command: 'elbowDown', text: 'ELBOW\nDOWN\nD', character: 'e' }, 
+	{ grid: '1 / 5', command: 'cameraUp', text: 'CAMERA\nUP\nD', character: 'r' }, 
+	{ grid: '1 / 7', command: 'cameraDown', text: 'CAMERA\nDOWN\nD', character: 'f' },
 ]
 
-const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, armdown: false, armup: false, clawopen: false, clawclose: false }
+const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, shoulderDown: false, shoulderUp: false, elbowDown: false, elbowUp: false, clawOpen: false, clawClose: false, cameraDown: false, cameraUp: false }
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
-
 export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, commands_ws: WebSocket }, { activeMovement: wasd }> {
 	constructor(props: { keyPress: KeyPress, commands_ws: WebSocket }) {
 		super(props)
@@ -63,19 +66,23 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 			this.props.commands_ws.send(cmd)
 			return
 		}
-		console.log(active)
-		const data: MsgData = {
-			direction: '',
-			turn: '',
-			arm_command: ''
-		}
+		const data: MsgData = { direction: '', turn: '', shoulder: '', elbow: '', claw: '', camera: '' }
 
-		if (active.armup) { data.arm_command = 'up' }
-		else if (active.armdown) { data.arm_command = 'down' }
-		else if (active.clawopen) { data.arm_command = 'open' }
-		else if (active.clawclose) { data.arm_command = 'close' }
-		else { data.arm_command = 'no' }
+		if (active.shoulderUp) { data.shoulder = 'up' }
+		else if (active.shoulderDown) { data.shoulder = 'down' }
+		else { data.shoulder = 'no' }
 
+		if (active.elbowUp) { data.elbow = 'up' }
+		else if (active.elbowDown) { data.elbow = 'down' }
+		else { data.elbow = 'no' }
+
+		if (active.clawOpen) { data.claw = 'open' }
+		else if (active.clawClose) { data.claw = 'close' }
+		else { data.claw = 'no' }
+
+		if (active.cameraUp) { data.camera = 'up' }
+		else if (active.cameraDown) { data.camera = 'down' }
+		else { data.camera = 'no' }
 
 		if (active.forward) { data.direction = 'forward' }
 		else if (active.backward) { data.direction = 'backward' }
@@ -85,8 +92,10 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 		else if (active.right) { data.turn = 'right' }
 		else { data.turn = 'no' }
 
+		console.log(data)
 		this.props.commands_ws.send(JSON.stringify(data))
 	}
+
 
 	renderDirections = (): React.ReactElement[] => {
 		const directionButtons: React.ReactElement[] = []
