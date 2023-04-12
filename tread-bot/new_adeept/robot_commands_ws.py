@@ -80,7 +80,7 @@ class RobotCommandWS():
     async def connect(self):
         print('Commands listening to ' + RobotCommandWS.HOST_PATH)
 
-        async def handle_commands(websocket, path):
+        '''async def handle_commands(websocket, path):
             print('Commands connected to ' + RobotCommandWS.HOST_PATH)
             await websocket.send('robot')
             while True:
@@ -97,7 +97,8 @@ class RobotCommandWS():
                 arm_claw_control(claw_command, shoulder_command, elbow_command, camera_command)
 
         # Serving the WebSocket server for clients to connect
-        server = await websockets.serve(self.handle_client,'0.0.0.0', 10334)
+        server = await websockets.serve(self.handle_client,'0.0.0.0', 10334)'''
+        
         while True:
             try:
                 async with websockets.connect(RobotCommandWS.HOST_PATH, ping_timeout=None) as ws:
