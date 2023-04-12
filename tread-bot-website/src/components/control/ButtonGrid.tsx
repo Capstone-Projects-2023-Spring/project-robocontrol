@@ -28,6 +28,8 @@ const direction_buttons: DirectionContent[] = [
 	{ grid: '3 / 7', command: 'clawclose', text: 'CLOSE\n\nD', character: 'd' }, // added right button
 	{ grid: '2 / 5', command: 'elbow up', text: 'ELBOW\nUP\nD', character: 'q' }, 
 	{ grid: '2 / 7', command: 'elbow down', text: 'ELBOW\nDOWN\nD', character: 'e' }, 
+	{ grid: '1 / 5', command: 'camera up', text: 'CAMERA\nUP\nD', character: 'r' }, 
+	{ grid: '1 / 7', command: 'camera down', text: 'CAMERA\nDOWN\nD', character: 'f' },
 ]
 
 const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, armdown: false, armup: false, clawopen: false, clawclose: false }
@@ -118,16 +120,6 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 				<Styles.Modes
 					style={{ gridArea: "1 / 2" }}
 					onClick={() => this.sendMessage(wasd_default, 'autonomous')}>Autonomous
-				</Styles.Modes>
-
-				<Styles.Modes
-					style={{ gridArea: "1 / 5" }}
-					onClick={() => this.sendMessage(wasd_default, 'Camera up')}>camera up
-				</Styles.Modes>
-
-				<Styles.Modes
-					style={{ gridArea: "1 / 6" }}
-					onClick={() => this.sendMessage(wasd_default, 'Camera down')}>camera down
 				</Styles.Modes>
 
 				<Styles.Labels style={{ gridArea: "4 / 1" }}>TREADS</Styles.Labels>
