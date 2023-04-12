@@ -14,7 +14,8 @@ class RobotCommandWS():
         self.fuc = functions.Functions()
         self.fuc.start()
         self.clients = set()
-        self.robot_ws = None
+
+        """self.robot_ws = None
         self.waiting_queue = []
         self.active_queue = []
 
@@ -30,7 +31,6 @@ class RobotCommandWS():
 
     async def handle_client(self, websocket, path):
         print("Client connected")
-
         await self.send_message(websocket, {
             'type': 'welcome',
             'message': 'Welcome to the WebSocket server!'
@@ -74,7 +74,7 @@ class RobotCommandWS():
                     active_user = self.waiting_queue.pop(0)
                     self.active_queue.append(active_user)
                     await self.send_message(active_user, {'type': 'your_turn'})
-                    self.update_queue_positions()
+                    self.update_queue_positions() """
 
 
     async def connect(self):
@@ -112,5 +112,5 @@ class RobotCommandWS():
             except Exception as e:
                 print(f'Error: {str(e)}')
                 print('Command connection refused, retrying...')
-		
+        
 
