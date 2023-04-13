@@ -120,6 +120,5 @@ export default class ButtonGridStyles {
         align-items: center;
         grid-area: auto;
         min-width: min-content; //currently won't let button go smaller than word, is this how we want to go?
-
+        `
 }
-

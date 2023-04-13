@@ -35,7 +35,7 @@ const direction_buttons: DirectionContent[] = [
 	{ grid: '2 / 7', command: 'elbowDown', text: 'ELBOW\nDOWN\nD', character: 'e' }, 
 	{ grid: '1 / 5', command: 'cameraUp', text: 'CAMERA\nUP\nD', character: 'r' }, 
 	{ grid: '1 / 7', command: 'cameraDown', text: 'CAMERA\nDOWN\nD', character: 'f' },
-
+]
 
 const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, shoulderDown: false, shoulderUp: false, elbowDown: false, elbowUp: false, clawOpen: false, clawClose: false, cameraDown: false, cameraUp: false }
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
