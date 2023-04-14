@@ -45,16 +45,15 @@ const Control = (): React.ReactElement => {
 	return (
 
 		// Give camera feed its own container to avoid overlapping with WASD controls
-		<Styles.FlexContainer>
+		<Styles.ControlContainer>
 			{/* Display the Base64 image string sent from the robot */}
-			<Styles.VideoFeedContainer>
-				<img src={'https://ryanhodge.net/stream/original'} alt='Video stream from robot'/>
-				<img src={'https://ryanhodge.net/stream/color_detection'} alt='Color detection stream'/>
-			</Styles.VideoFeedContainer>
+			<img src={'https://ryanhodge.net/stream/original'} alt='Video stream from robot'/>
+			<img src={'https://ryanhodge.net/stream/color_detection'} alt='Color detection stream'/>
 
-			{ !loggedIn ? <Login loginSuccessful={login} /> : <ButtonGrid keyPress={key} commands_ws={commands_ws}/> }
-
-		</Styles.FlexContainer>
+			<Styles.ButtonContainer>
+				{ !loggedIn ? <Login loginSuccessful={login} /> : <ButtonGrid keyPress={key} commands_ws={commands_ws}/> }
+			</Styles.ButtonContainer>
+		</Styles.ControlContainer>
 	)
 }
 

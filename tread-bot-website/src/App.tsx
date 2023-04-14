@@ -6,12 +6,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { PATHS } from "./tools/Constants";
 import Home from "./components/home/Home";
 import About from "./components/about/About";
-
-
+import GlobalStyles from './OverallStyling';
 
 function App() {
 	return (
 		<Styles.AppContainer>
+			<GlobalStyles />
 			<Styles.Content>
 				<Router>
 					<Banner />
