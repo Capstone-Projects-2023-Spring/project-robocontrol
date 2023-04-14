@@ -1,3 +1,4 @@
+# A mock file that simulating multiple clients, so this file is only for testing.
 import asyncio
 import websockets
 import json

@@ -1,3 +1,5 @@
+# I had Migrated these codes and them combine them into the opencv_commands.py,
+# so we can just chech opencv_commands.py for WaitingQueue codes.
 import asyncio
 import websockets
 import json

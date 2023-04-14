@@ -91,6 +91,7 @@ const Control = (): React.ReactElement => {
 
   const handleWebSocketMessage = (event: MessageEvent) => {
     const data = JSON.parse(event.data);
+    console.log('Test: ' + event.data)
 
     if (data.type === 'queue_position') {
       setQueuePosition(data.position);
