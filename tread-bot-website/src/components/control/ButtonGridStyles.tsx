@@ -1,33 +1,22 @@
 import styled from 'styled-components'
-import { COLORS } from '../../tools/Constants' 	
+import { FONT_FAMILY } from '../../tools/Constants';
 
 export default class ButtonGridStyles {
 	static readonly ButtonGridContainer = styled.div`
+		height: 100%;
 		display: grid;
-		grid-template-columns: repeat(9, 100px);
-		grid-template-rows: repeat(6, 100px);
+		grid-template-columns: repeat(9, minmax(0, 1fr));
+		grid-template-rows: repeat(6, minmax(0, 1fr));
 		gap: 15px;
 		justify-content: center;
 		align-content: center;
-		width: 100%;
+		align-self: start;
+		margin-left: 5%;
+		margin-right: 5%;
 	`;
 
 	static readonly DirectionButton = styled.button`
-		font-family: "Open Sans", sans-serif;
-		font-weight: bold;
-		font-size: 12px;
-		letter-spacing: 2px;
-		text-decoration: none;
-		text-transform: uppercase;
-		color: ${COLORS.TEXT};
-		cursor: pointer;
-		border: 3px solid;
-		padding: 0.25em 0.5em;
-		box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px, 15px 15px 13px rgba(0, 0, 0, 0.3);	
-		position: relative;
-		user-select: none;
-		-webkit-user-select: none;
-		touch-action: manipulation;
+		${FONT_FAMILY.BUTTON}
 
 		&:active {
 			box-shadow: 0px 0px 0px 0px;
@@ -41,22 +30,7 @@ export default class ButtonGridStyles {
 	`
 
 	static readonly StopButton = styled.button`
-		font-family: "Open Sans", sans-serif;
-		font-size: 16px;
-		font-weight: bold;
-		letter-spacing: 2px;
-		text-decoration: none;
-		text-transform: uppercase;
-		color: ${COLORS.TEXT};
-		cursor: pointer;
-		border: 3px solid;
-		padding: 0.25em 0.5em;
-		box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px, 15px 15px 13px rgba(0, 0, 0, 0.3);	
-		position: relative;
-		user-select: none;
-		-webkit-user-select: none;
-		touch-action: manipulation;
-
+		${FONT_FAMILY.BUTTON}
 		background: linear-gradient(-45deg, #F894A4, #F9D1B7);
     	background-size: 400% 400%;
     	animation: gradient 5s ease infinite;
@@ -72,47 +46,21 @@ export default class ButtonGridStyles {
 		}
 	`
 
-
-	// Add a new styled component called Label
 	static readonly Labels = styled.div`
 		font-family: "Open Sans", sans-serif;
 		font-weight: bold;
-		font-size: 16px;
+		font-size: calc(var(--vh) * 0.016);
 		letter-spacing: 2px;
-		text-decoration: none;
-		text-transform: uppercase;
-		color: ${COLORS.TEXT};
-		margin-top: 30px;
-		margin-left: 90px;
-		height: 40px;
-		width: 150px;
-		/* border: 3px solid; */
 		padding: 0.25em 0.5em;
-		/* box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;	 */
 		display: flex;
-		justify-content: center;
 		align-items: center;
-		grid-area: auto;
 	`;
 
 	static readonly Modes = styled.button`
-		font-family: "Open Sans", sans-serif;
-		font-weight: bold;
-		font-size: 14px;
-		letter-spacing: 2px;
-		height: 40px;
-		width: 150px;
-		text-decoration: none;
-		text-transform: uppercase;
-		color: ${COLORS.TEXT};
-		cursor: pointer;
-		border: 3px solid;
-		padding: 0.25em 0.5em;
-		box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;	
-		position: relative;
-		user-select: none;
-		-webkit-user-select: none;
-		touch-action: manipulation;
+		${FONT_FAMILY.BUTTON}
+		justify-self: center;
+		align-self: center;
+		text-align: center;
 
 		&:active {
 			box-shadow: 0px 0px 0px 0px;
@@ -124,20 +72,4 @@ export default class ButtonGridStyles {
 			padding: 0.25em 0.75em;
 		}
 	`
-
-
-
-	static readonly ControlsContainer = styled.div`
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 190px;
-		height: 80px;
-		margin-left: 70px;
-		grid-row: 1 / 4;
-		background-color: ${COLORS.OFFWHITE};
-		border-radius: 5px;
-		box-shadow: 10px 10px 13px rgba(0, 0, 0, 0.2);
-	`;
-
 }

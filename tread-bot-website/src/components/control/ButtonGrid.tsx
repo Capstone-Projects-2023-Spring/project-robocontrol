@@ -135,10 +135,10 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 					style={{ gridArea: "5 / 5" }}
 				>Stop
 				</Styles.StopButton>
-				<Styles.ControlsContainer>
 					<Styles.Modes
 						style={{ 
-							// gridArea: "1 / 5",
+							gridArea: "1 / 5",
+							gridColumnStart: 4, gridColumnEnd: 7,
 							backgroundColor: this.state.autonomousMode ? '#50C878' : '#f0ecec'
 						}}
 						onClick={() => {
@@ -146,12 +146,11 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 							this.sendMessage(wasd_default, 'autonomous');
 						}}>AUTONOMOUS
 					</Styles.Modes>
-				</Styles.ControlsContainer>
 
-				<Styles.Labels style={{ gridArea: "4 / 1" }}>TREADS</Styles.Labels>
+				<Styles.Labels style={{ gridArea: "4 / 2" }}>TREADS</Styles.Labels>
 				{/* Add the "ARM/CLAW" text container */}
-				<Styles.Labels style={{ gridArea: "4 / 5" }}>ARM/CLAW</Styles.Labels>
-				<Styles.Labels style={{ gridArea: "4 / 8" }}>CAMERA</Styles.Labels>
+				<Styles.Labels style={{ gridArea: "4 / 6" }}>ARM/CLAW</Styles.Labels>
+				<Styles.Labels style={{ gridArea: "4 / 9" }}>CAMERA</Styles.Labels>
 			</Styles.ButtonGridContainer>
 		)
 	}
