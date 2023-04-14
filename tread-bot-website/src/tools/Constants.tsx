@@ -20,6 +20,7 @@ export class PATHS {
 
 export class FONT_FAMILY {
     static readonly BUTTON = `
+        color: ${COLORS.TEXT};
         font-family: "Open Sans", sans-serif;
         font-weight: bold;
 		font-size: calc(var(--vh) * .012);
