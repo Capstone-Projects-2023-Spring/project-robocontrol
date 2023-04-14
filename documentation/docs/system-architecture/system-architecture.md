@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 ---
-# Class Diagrams
+# Robocontrol
 
 ## Robot Diagram ##
 ![](assets/ArchitectureROBOT.png)
