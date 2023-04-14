@@ -16,10 +16,12 @@ class CommandWS():
 		self.robot_ws = None
 		self.command_q = Queue()
 		self.autonomous = [False]
+		self.ultrasonic_data_q = None
 
-	async def start_server(self, command_q: Queue, autonomous: List[bool]):
+	async def start_server(self, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):
 		self.command_q = command_q
 		self.autonomous = autonomous
+		self.ultrasonic_data_q = ultrasonic_data_q
 		# Start the servers
 		async with websockets.serve(self.serve, CommandWS.HOST, CommandWS.PORT, ping_timeout=None):
 			await asyncio.Future()
@@ -59,6 +61,9 @@ class CommandWS():
 					self.autonomous[0] = not self.autonomous[0]
 					await self.robot_ws.send(json.dumps({'direction': 'no', 'turn': 'no', 'autonomous': self.autonomous[0]}))
 					print(self.autonomous)
+				elif msg.startswith('{"ultrasonic_data":'):
+					ultrasonic_data = json.loads(msg)
+					self.ultrasonic_data_q.put(ultrasonic_data)
 				elif(not self.autonomous[0] and self.robot_ws):
 					await self.robot_ws.send(msg)
 		except websockets.exceptions.ConnectionClosed as e:
