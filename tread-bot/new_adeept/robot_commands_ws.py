@@ -16,6 +16,7 @@ class RobotCommandWS():
 		fuc.start()
 		self.clients = set()
 		self.robot_ws = None
+		self.ultrasonic_data = 0 # ultrasonic distance saved
 	
 	async def connect(self):
 		print('Commands listening to ' + RobotCommandWS.HOST_PATH)
@@ -30,10 +31,14 @@ class RobotCommandWS():
 						msg = await ws.recv()
 						message_data = json.loads(msg)
 						print(message_data)
-						if (message_data.get('autonomous', False)): speed = 50
-						else: speed = 100
 
-						# Speed of 50, turn radius of 0.5
+						if message_data.get('autonomous', False):
+							speed = 50
+							self.ultrasonic_data = functions.get_ultrasonic_distance()
+							await ws.send(json.dumps({"ultrasonic_data": self.ultrasonic_data}))
+						else:
+							speed = 100
+
 						move.move(speed, message_data.get('direction', 'no'), message_data.get('turn', 'no'), 0.5)
 						claw_command = message_data.get('claw', 'no')
 						shoulder_command = message_data.get('shoulder', 'no')
