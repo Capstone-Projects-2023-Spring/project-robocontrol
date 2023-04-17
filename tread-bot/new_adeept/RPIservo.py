@@ -78,7 +78,7 @@ class ServoCtrl(threading.Thread):
 
 
 	def pause(self):
-		print('......................pause..........................')
+		# print('......................pause..........................')
 		self.__flag.clear()
 
 
