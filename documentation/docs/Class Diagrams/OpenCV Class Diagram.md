@@ -1,6 +1,6 @@
 ```mermaid
 classDiagram
-    Main "1" o-- Robot
+    Main "1" <|-- Robot
     Main "1" o-- Website
     Main "1" *-- ProcessData
 
