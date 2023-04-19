@@ -31,7 +31,7 @@ sidebar_position: 2
 - UX waiting queue design
 - Implement waiting queue (robot)
 - Make passwords secure (hashing)
-- Implement waiting queue (websute)
+- Implement waiting queue (website)
 - Create "password" screen
 
 6. OpenCV Color Detection
@@ -43,13 +43,13 @@ sidebar_position: 2
 
 7. OpenCV Line Navigation
 - Create program outline
-- Create nagivation algorithm for straight path
+- Create navigation algorithm for straight path
 - Update navigation algorithm to account for turns
 
 8. Object Detection
-- Develop disntance detection algorithm
+- Develop distance detection algorithm
 - Create distance labels for objects
-- Edit robot bahavior upon object detection
+- Edit robot behavior upon object detection
 
 9. Styling / frontend
 - Home, about and navigation page restyling
@@ -59,9 +59,9 @@ sidebar_position: 2
 
 10. Documentation
 - Introduction
-- Requirements Speciication
+- Requirements Specification
 - Software Development Plan
 - System Architecture
-- API Spcification
+- API Specification
 - Test Procedures
 
