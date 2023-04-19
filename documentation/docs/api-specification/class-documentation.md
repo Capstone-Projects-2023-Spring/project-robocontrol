@@ -304,6 +304,100 @@ Main Execution:
 
 ## move.py
 
+---
+
+
+A script to control the motors and servos for a robot.
+
+Imports:
+- time
+- RPi.GPIO as GPIO
+- RPIservo
+
+Global Variables:
+
+- `Motor_A_EN, Motor_B_EN`: Enable pins for Motor A and B.
+- `Motor_A_Pin1, Motor_A_Pin2, Motor_B_Pin1, Motor_B_Pin2`: Control pins for Motor A and B.
+- `Dir_forward, Dir_backward, left_forward, left_backward, right_forward, right_backward`: Direction variables.
+- `pwn_A, pwm_B`: PWM variables for Motor A and B.
+- `claw_servo, arm_servo, elbow_servo, camera_servo`: Servo control objects.
+
+Functions:
+
+```motorStop```  
+Stops the motors.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+```setup```  
+Initializes the motors.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+```motor_left```  
+Controls Motor 2 for positive and negative rotation.
+
+Arguments:
+- status: Motor status (0: stop, 1: run).
+- direction: Motor direction (Dir_forward or Dir_backward).
+- speed: Speed of the motor.
+
+Returns:
+- None
+
+``motor_right```  
+Controls Motor 1 for positive and negative rotation.
+
+Arguments:
+- status: Motor status (0: stop, 1: run).
+- direction: Motor direction (Dir_forward or Dir_backward).
+- speed: Speed of the motor.
+
+Returns:
+- None
+
+```move```  
+Controls the movement and turns of the robot.
+
+Arguments:
+- speed: Speed of the robot.
+- direction: Robot direction ('forward', 'backward', or 'no').
+- turn: Robot turn direction ('left', 'right', or 'no').
+- radius (optional): Turning radius (0 < radius <= 1, default: 0.6).
+
+Returns:
+- None
+
+```arm_claw_control```  
+Controls the servos for the robot's arm and claw.
+
+Arguments:
+- claw_command: Claw control command ('open', 'close', or 'no').
+- shoulder_command: Shoulder control command ('up', 'down', or 'no').
+- elbow_command: Elbow control command ('up', 'down', or 'no').
+- camera_command: Camera control command ('up', 'down', or 'no').
+
+Returns:
+- None
+
+```destroy```  
+Stops the motors and releases the resources.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+---
 
 
 
