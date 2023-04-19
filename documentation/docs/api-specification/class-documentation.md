@@ -725,6 +725,70 @@ Returns:
 ---
 
 
+A module for autonomously controlling the robot.
+
+Imports:
+- queue: Queue
+- image_processing.color_detection: direction_to_center
+
+Class:
+
+**`Automation:`**
+
+Attributes:
+- isCentered: Boolean value indicating if the robot is centered.
+- commands_q: Queue for commands.
+- ultrasonic_data: Data received from ultrasonic sensor.
+
+Methods:
+
+**`__init__(self, q: Queue) -> None:`**
+Initializes the Automation class.
+
+Arguments:
+- q: Queue for commands.
+
+Returns:
+- None
+
+**`process_ultrasonic_data(self, data):`**
+Processes the ultrasonic sensor data.
+
+Arguments:
+- data: Data received from the ultrasonic sensor.
+
+Returns:
+- None
+
+**`crop_image(self, image, h):`**
+Crops the image to the desired height.
+
+Arguments:
+- image: Image to be cropped.
+- h: Desired height to crop the image.
+
+Returns:
+- Cropped image.
+
+**`center_robot(self, direction) -> None:`**
+Centers the robot based on the image.
+
+Arguments:
+- direction: Direction in which the robot needs to be centered.
+
+Returns:
+- None
+
+
+**`direction_to_center(image) -> str:`**
+Determines the direction in which the robot needs to be centered based on the image.
+
+Arguments:
+- image: Image to be processed.
+
+Returns:
+- A string indicating the direction in which the robot needs to be centered ('left', 'right', 'center').
+
 
 ---
 ### **automation.py**
