@@ -950,7 +950,103 @@ Returns:
 ### **detect_painters_tape.py**
 ---
 
+A script to manage the command websocket server for the robot using OpenCV.
 
+Imports:
+- json
+- typing: List
+- websockets
+- asyncio
+- queue: Queue
+- copy
+
+Class:
+
+**`CommandWS:`**
+
+Attributes:
+- PORT: Port number for the command websocket server.
+- HOST: IP address for the command websocket server.
+- clients: Set of connected clients.
+- robot_ws: Websocket object for the robot.
+- command_q: Queue for commands.
+- autonomous: List containing a boolean value for autonomous mode status.
+- ultrasonic_data_q: Queue for ultrasonic data.
+
+Methods:
+
+**`start_server(self, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):`**
+Starts the command websocket server.
+
+Arguments:
+- command_q: Queue for commands.
+- autonomous: List containing a boolean value for autonomous mode status.
+- ultrasonic_data_q: Queue for ultrasonic data.
+
+Returns:
+- None
+
+**`serve(self, websocket):`**
+Serves the websocket.
+
+Arguments:
+- websocket: Websocket object for the client.
+
+Returns:
+- None
+
+**`send(self, websocket):`**
+Sends data through the websocket.
+
+Arguments:
+- websocket: Websocket object for the client.
+
+Returns:
+- None
+
+**`receive(self, websocket):`**
+Receives data through the websocket.
+
+Arguments:
+- websocket: Websocket object for the client.
+
+Returns:
+- None
+
+---
+
+**detect_painters_tape.py**
+
+A script to detect painter's tape on a video stream.
+
+Imports:
+- cv2
+- numpy
+
+Global variables:
+- vid: VideoCapture object for video stream.
+- painters_tape_lower: numpy array of lower HSV values for painters tape color.
+- painters_tape_upper: numpy array of upper HSV values for painters tape color.
+- kernel: numpy array for morphological operations.
+
+Functions:
+
+**`make_contours(mask, text, img):`**
+Draws contours around detected objects.
+
+Arguments:
+- mask: binary mask of detected objects.
+- text: text label for detected objects.
+- img: original image frame.
+
+Returns:
+- img: original image frame with contours drawn.
+
+**`detect_colors():`**
+Detects painter's tape color in the video stream.
+
+Returns:
+- None
 
 ---
 ### **process_images.py**
