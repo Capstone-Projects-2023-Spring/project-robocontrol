@@ -495,6 +495,32 @@ Returns:
 
 ### **opencv.py**
 ---
+
+A script to manage the video and command websockets for the robot using OpenCV.
+
+Imports:
+- asyncio
+- opencv_video: VideoWS
+- opencv_commands: CommandWS
+- Queue
+- threading
+- image_processing.process_images: process_img
+
+Async Functions:
+
+```main():```  
+Sets up the necessary websockets and image processing threads for the robot.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+Main Execution:
+
+If the script is run as the main program, it starts the main async function.
+
 ---
 ### **opencv_video.py**
 ---
