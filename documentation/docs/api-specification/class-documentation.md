@@ -621,6 +621,72 @@ Returns:
 ### **opencv_commands.py**
 
 ---
+
+A script to manage the command websocket server for the robot using OpenCV.
+
+Imports:
+- json
+- typing: List
+- websockets
+- asyncio
+- queue: Queue
+- copy
+
+Class:
+
+**`CommandWS:`**
+
+Attributes:
+- PORT: Port number for the command websocket server.
+- HOST: IP address for the command websocket server.
+- clients: Set of connected clients.
+- robot_ws: Websocket object for the robot.
+- command_q: Queue for commands.
+- autonomous: List containing a boolean value for autonomous mode status.
+- ultrasonic_data_q: Queue for ultrasonic data.
+
+Methods:
+
+**`start_server(self, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):`**
+Starts the command websocket server.
+
+Arguments:
+- command_q: Queue for commands.
+- autonomous: List containing a boolean value for autonomous mode status.
+- ultrasonic_data_q: Queue for ultrasonic data.
+
+Returns:
+- None
+
+**`serve(self, websocket):`**
+Serves the websocket.
+
+Arguments:
+- websocket: Websocket object for the client.
+
+Returns:
+- None
+
+**`send(self, websocket):`**
+Sends data through the websocket.
+
+Arguments:
+- websocket: Websocket object for the client.
+
+Returns:
+- None
+
+**`receive(self, websocket):`**
+Receives data through the websocket.
+
+Arguments:
+- websocket: Websocket object for the client.
+
+Returns:
+- None
+
+
+
 ---
 ### **color_tuning.py**
 
