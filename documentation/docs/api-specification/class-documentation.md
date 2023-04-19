@@ -524,6 +524,99 @@ If the script is run as the main program, it starts the main async function.
 ---
 ### **opencv_video.py**
 ---
+
+A script to manage the video streaming for the robot using OpenCV.
+
+Imports:
+- typing: List
+- cv2
+- base64
+- Queue
+- flask: Flask, Response
+- threading
+
+Global Variables:
+
+- `original_lock`: Lock for the original video stream thread.
+- `color_detection_lock`: Lock for the color detection video stream thread.
+
+Functions:
+
+```cv2_to_base64(img):```  
+Converts an OpenCV image to Base64 bytes for transmission.
+
+Arguments:
+- img: An OpenCV image.
+
+Returns:
+- Base64 bytes of the image.
+
+Class:
+
+```VideoWS:```  
+
+Attributes:
+- PORT: Port number for the video websocket server.
+- HOST: IP address for the video websocket server.
+- dummy_img: Dummy image when there's no data to send.
+- vid: OpenCV VideoCapture object.
+- clients: Set of connected clients.
+- img_proc_q: Queue for image processing.
+- websocket_q: Queue for processed images from the websocket.
+- app: Flask app object.
+- autonomous: List containing a boolean value for autonomous mode status.
+
+Methods:
+
+```python
+start(self, img_proc_q, websocket_q, autonomous: List[bool]):
+```  
+Starts the video websocket server.
+
+Arguments:
+- img_proc_q: Queue for image processing.
+- websocket_q: Queue for processed images from the websocket.
+- autonomous: List containing a boolean value for autonomous mode status.
+
+Returns:
+- None
+
+**`original_stream(self):`**
+Creates a Flask response for the original video stream.
+
+Arguments:
+- None
+
+Returns:
+- Flask Response object for the original video stream.
+
+**`color_detection_stream(self):`**
+Creates a Flask response for the color detection video stream.
+
+Arguments:
+- None
+
+Returns:
+- Flask Response object for the color detection video stream.
+
+**`original(self):`**
+Main loop for displaying the original video stream.
+
+Arguments:
+- None
+
+Returns:
+- Generator yielding the original video stream.
+
+**`color_detection(self):`**
+Main loop for displaying the color detection video stream.
+
+Arguments:
+- None
+
+Returns:
+- Generator yielding the color detection video stream.
+
 ---
 ### **opencv_commands.py**
 
