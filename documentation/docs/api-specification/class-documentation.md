@@ -96,4 +96,32 @@ Returns:
 - A React.ReactElement representing the ButtonGrid component.
 
 ---
+### Home Page
+
+---
+**Home.tsx**
+
+Component that renders the home page, including navigation buttons for the "Control" and "About" sections.
+
+Methods:
+
+```handleClick```  
+Navigates to the specified path and scrolls to the top of the page.
+
+Arguments:
+- path: A string representing the path to navigate to.
+
+Returns:
+- None
+
+```Home Component```  
+Renders the Home component, which consists of the home page content and navigation buttons.
+
+Arguments:
+- None
+
+Returns:
+- A React.ReactElement representing the Home component.
+
+---
 
