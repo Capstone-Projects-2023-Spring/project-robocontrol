@@ -1052,7 +1052,28 @@ Returns:
 ### **process_images.py**
 ---
 
+A script to process images from a video stream and send commands to the robot.
 
+Imports:
+- queue: Queue
+- typing: List
+- image_processing.color_detection: detect_colors, direction_to_center
+- autonomy: Automation
+
+Functions:
+
+**`process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):`**
+Processes images from a video stream and sends commands to the robot.
+
+Arguments:
+- img_proc_q: Queue for image processing.
+- websocket_q: Queue for sending images through the websocket.
+- command_q: Queue for sending commands to the robot.
+- autonomous: List containing a boolean value for autonomous mode status.
+- ultrasonic_data_q: Queue for ultrasonic data.
+
+Returns:
+- None
 
 ---
 
