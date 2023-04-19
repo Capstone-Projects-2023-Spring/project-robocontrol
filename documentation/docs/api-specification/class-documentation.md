@@ -9,9 +9,78 @@ description: What should be in this section.
 
 ---
 
+## Home Page
+
+---
+### **Home.tsx**
+
+Component that renders the home page, including navigation buttons for the "Control" and "About" sections.
+
+Methods:
+
+```handleClick```  
+Navigates to the specified path and scrolls to the top of the page.
+
+Arguments:
+- path: A string representing the path to navigate to.
+
+Returns:
+- None
+
+```Home Component```  
+Renders the Home component, which consists of the home page content and navigation buttons.
+
+Arguments:
+- None
+
+Returns:
+- A React.ReactElement representing the Home component.
+
+### **Banner.tsx**
+
+A class component that renders a banner with a hamburger menu for navigation.
+
+Methods:
+
+```handleClose```  
+Sets the state's `show` property to false, closing the Offcanvas menu.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+```handleShow```  
+Sets the state's `show` property to true, opening the Offcanvas menu.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+```handleLink```  
+Closes the Offcanvas menu and scrolls to the top of the page.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+```render```  
+Renders the Banner component, which includes a Hamburger button and the Offcanvas navigation menu.
+
+Arguments:
+- None
+
+Returns:
+- A React.ReactElement representing the Banner component.
+
+---
 ## Control Tab
 ---
-
 ### **Control.tsx**
 
 Component that renders the control interface for the robot. This interface includes a live video stream from the robot's camera, as well as the button grid for controlling the robot's movements, arm and claw
@@ -96,60 +165,26 @@ Arguments:
 Returns:
 - A React.ReactElement representing the ButtonGrid component.
 
----
-## Home Page
 
 ---
-### **Home.tsx**
+## About Tab
+---
 
-Component that renders the home page, including navigation buttons for the "Control" and "About" sections.
+---
+### **About.tsx**
+
+A functional component that displays the content of an About page using ReactMarkdown.
+
+Props:
+- None
+
+State:
+- markdownText: A string that stores the content of the About.md file.
 
 Methods:
 
-```handleClick```  
-Navigates to the specified path and scrolls to the top of the page.
-
-Arguments:
-- path: A string representing the path to navigate to.
-
-Returns:
-- None
-
-```Home Component```  
-Renders the Home component, which consists of the home page content and navigation buttons.
-
-Arguments:
-- None
-
-Returns:
-- A React.ReactElement representing the Home component.
-
-### **Banner.tsx**
-
-A class component that renders a banner with a hamburger menu for navigation.
-
-Methods:
-
-```handleClose```  
-Sets the state's `show` property to false, closing the Offcanvas menu.
-
-Arguments:
-- None
-
-Returns:
-- None
-
-```handleShow```  
-Sets the state's `show` property to true, opening the Offcanvas menu.
-
-Arguments:
-- None
-
-Returns:
-- None
-
-```handleLink```  
-Closes the Offcanvas menu and scrolls to the top of the page.
+```useEffect```  
+A React Hook that fetches the content of the About.md file and sets the markdownText state with the fetched content.
 
 Arguments:
 - None
@@ -158,13 +193,15 @@ Returns:
 - None
 
 ```render```  
-Renders the Banner component, which includes a Hamburger button and the Offcanvas navigation menu.
+Renders the About component, which includes an AboutContainer that contains the AboutTextContainer, which displays the content of the About.md file using ReactMarkdown.
 
 Arguments:
 - None
 
 Returns:
-- A React.ReactElement representing the Banner component.
+- A React.ReactElement representing the About component.
+
+
 
 ---
 
