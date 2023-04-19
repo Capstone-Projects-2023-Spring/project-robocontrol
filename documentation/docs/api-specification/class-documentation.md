@@ -691,25 +691,68 @@ Returns:
 ### **color_tuning.py**
 
 ---
+
+
+A script to tune color detection for a robot using OpenCV.
+
+Imports:
+- cv2
+- numpy as np
+
+Functions:
+
+**`nothing(x):`**
+A dummy function that does nothing. Used as a callback for the trackbar.
+
+Arguments:
+- x: An argument passed by the trackbar.
+
+Returns:
+- None
+
+**`detect_colors():`**
+Detects colors in a video stream, allowing adjustment of the color range using trackbars.
+
+Arguments:
+- None
+
+Returns:
+- None
+
 ---
 ### **autonomy.py**
 
 ---
+
+
+
 ---
 ### **automation.py**
 
 ---
+
+
+
 ---
-Image Processing
+## Image Processing
 ---
 ### **color_detection.py**
 ---
+
+
+
 ---
 ### **detect_painters_tape.py**
 ---
+
+
+
 ---
 ### **process_images.py**
 ---
+
+
+
 ---
 
 
