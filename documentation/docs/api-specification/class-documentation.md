@@ -487,6 +487,46 @@ Returns:
 
 ---
 
+## 3. OpenCV
+
+---
+## Startup
+---
+
+### **opencv.py**
+---
+---
+### **opencv_video.py**
+---
+---
+### **opencv_commands.py**
+
+---
+---
+### **color_tuning.py**
+
+---
+---
+### **autonomy.py**
+
+---
+---
+### **automation.py**
+
+---
+---
+Image Processing
+---
+### **color_detection.py**
+---
+---
+### **detect_painters_tape.py**
+---
+---
+### **process_images.py**
+---
+---
+
 
 
 
