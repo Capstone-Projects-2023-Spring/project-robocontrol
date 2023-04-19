@@ -18,6 +18,7 @@ class RobotCommandWS():
 		self.clients = set()
 		self.robot_ws = None
 		self.autonomous = False
+		self.connected = False
 
 	async def connect(self):
 		print('trying')
@@ -25,6 +26,7 @@ class RobotCommandWS():
 			try:
 				async with websockets.connect(RobotCommandWS.HOST_PATH, ping_timeout=None) as ws:
 					print('Commands connected to ' + RobotCommandWS.HOST_PATH)
+					self.connected = True
 					await ws.send('robot')
 					await asyncio.gather(
 						self.send(ws),
@@ -50,7 +52,7 @@ class RobotCommandWS():
 				message_data = json.loads(msg)
 
 				if 'autonomous' in message_data:
-					speed = 100 if speed == 50 else 50
+					speed = 100 if speed == 30 else 30
 					self.autonomous = not self.autonomous
 
 				move.move(speed, message_data.get('direction', 'no'), message_data.get('turn', 'no'), 0.5)
@@ -62,11 +64,12 @@ class RobotCommandWS():
 				await asyncio.sleep(0.01)
 		except Exception as e:
 			print('error: ' + str(e))
+		self.connected = False
 	
 	async def send(self, ws):
 		print('test2')
 
-		while True:
+		while self.connected:
 			if self.autonomous:
 				ultrasonic_data = functions.get_ultrasonic_distance()
 				print('Sending data')
