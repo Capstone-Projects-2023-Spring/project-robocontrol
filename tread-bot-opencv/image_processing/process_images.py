@@ -1,10 +1,13 @@
+import asyncio
 from queue import Queue
 from typing import List
-from image_processing.color_detection import detect_colors, direction_to_center
+from image_processing.color_detection import ColorDetection
 from autonomy import Automation
+import numpy as np
 
-def process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):
+async def process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):
     automation = Automation(command_q)
+    color_detection = ColorDetection(None)
     while True:
         # Check if there is new ultrasonic data in the queue
         if ultrasonic_data_q.qsize() > 0:
@@ -15,15 +18,23 @@ def process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, autonom
         img = img_proc_q.get()
         if img is None: continue
         
-        img = automation.crop_image(img, 300)
-        direction = direction_to_center(img)
-        websocket_q.put(img)
+        cropped_img_bottom = automation.crop_image(img, 0, 50)
+        cropped_img_top = automation.crop_image(img, 51, img.shape[0])
+        color_detection.set_img(cropped_img_bottom)
+        direction = color_detection.direction_to_center()
+        stitched_img = np.vstack((cropped_img_top, cropped_img_bottom))
+        websocket_q.put(stitched_img)
         if autonomous[0]:
+            if color_detection.turn:
+                cmd = automation.center_robot(color_detection.turn_direction)
+                command_q.put({'direction': 'no', 'turn': color_detection.turn_direction, 'speed': 80})
+                command_q.put({'direction': 'no', 'turn': 'no'})
+                print(color_detection.turn_direction)
             # If the robot is not centered, get the command to send to the robot to turn it
-            if not automation.isCentered:
+            elif not automation.isCentered:
                 cmd = automation.center_robot(direction)
                 command_q.put(cmd)
             # Do nothing or go straight if the robot is centered
             else:
-                if direction_to_center(img) != 'no': automation.isCentered = False
-                # command_q.put({'direction': 'forward', 'turn': 'no'})
+                if direction != 'no': automation.isCentered = False
+                command_q.put({'direction': 'forward', 'turn': 'no', 'speed': 50})
