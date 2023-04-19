@@ -196,7 +196,7 @@ Returns:
 ## About Tab
 ---
 
----
+
 ### **About.tsx**
 
 A functional component that displays the content of an About page using ReactMarkdown.
@@ -778,7 +778,7 @@ Returns:
 
 
 ---
-### **color_tuning.p
+### **color_tuning.p**
 
 ---
 
@@ -1159,6 +1159,7 @@ Returns:
 ---
 
 ### **detect_painters_tape.py**
+---
 
 A script to detect painter's tape on a video stream.
 
