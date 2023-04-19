@@ -795,6 +795,66 @@ Returns:
 
 ---
 
+A module for autonomously controlling the robot based on detecting boundary lines using OpenCV.
+
+Imports:
+- opencv as cv2
+
+Methods:
+
+**`within_Bounds(image)`**
+Checks if both boundary lines are within the camera view.
+
+Arguments:
+- image: Image captured by the camera.
+
+Returns:
+- A boolean value indicating whether both boundary lines are within the camera view.
+
+**`reached_End()`**
+Determines if the robot has reached the end of the track.
+
+Arguments:
+- None
+
+Returns:
+- A boolean value indicating whether the robot has reached the end of the track.
+
+**`automated_Movement(image)`**
+Initiates the autonomous movement of the robot.
+
+Arguments:
+- image: Image captured by the camera.
+
+Returns:
+- None
+
+**`moveCamera()`**
+Moves the camera up or down to keep the boundary lines in view.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+**`turnLeft()`**
+Turns the robot left until both boundary lines are in view.
+
+Arguments:
+- None
+
+Returns:
+- A boolean or integer value indicating the status of the left boundary line.
+
+**`turnRight()`**
+Turns the robot right until both boundary lines are in view.
+
+Arguments:
+- None
+
+Returns:
+- A boolean or integer value indicating the status of the right boundary line.
 
 
 ---
