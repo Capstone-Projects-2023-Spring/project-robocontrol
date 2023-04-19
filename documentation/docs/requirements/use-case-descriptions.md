@@ -47,5 +47,6 @@ As a user, I want to use a RoboControl to make a map of the surrounding area.
 2. The user places the RoboControl in the desired starting position. 
 3. The user navigates to the control website. 
 4. The user views the live camera feed on his/her device. 
-5. The user controls the robot to go to the desired area and edits his/her map based on the landmarks discovered by the robot’s camera. 
-6. The user exits the website and powers down the RoboControl device. 
+5. The user controls the robot to go to the desired area and edits his/her map based on the landmarks discovered by the robot’s camera.
+6. The user controls the robot arm to leave new landmarks.  
+7. The user exits the website and powers down the RoboControl device. 
