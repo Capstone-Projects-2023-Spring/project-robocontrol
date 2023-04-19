@@ -100,7 +100,7 @@ Returns:
 ## Home Page
 
 ---
-**Home.tsx**
+### **Home.tsx**
 
 Component that renders the home page, including navigation buttons for the "Control" and "About" sections.
 
@@ -124,7 +124,7 @@ Arguments:
 Returns:
 - A React.ReactElement representing the Home component.
 
-**Banner.tsx**
+### **Banner.tsx**
 
 A class component that renders a banner with a hamburger menu for navigation.
 
@@ -168,5 +168,46 @@ Returns:
 
 ---
 
+## Login
+
+---
+
+### **Login.tsx**
+
+Component that renders a login form for the user to input their username and password to access controls.
+
+Props:
+- `loginSuccessful`: A function that will be called when the login is successful.
+
+Methods:
+
+```handleLogin```  
+Handles the login process. Makes a POST request to the authentication endpoint and, if successful, triggers the `loginSuccessful` prop function.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+```handleEnterKeyPress```  
+Handles the keypress event. If the 'Enter' key is pressed, it triggers the `handleLogin` function.
+
+Arguments:
+- `event`: A React.KeyboardEvent representing the key event.
+
+Returns:
+- None
+
+```render```  
+Renders the Login component, which includes input fields for the username and password, and a login button.
+
+Arguments:
+- None
+
+Returns:
+- A React.ReactElement representing the Login component.
+
+---
 
 
