@@ -49,11 +49,12 @@ class RobotCommandWS():
 			while True:
 				msg = await ws.recv()
 				print(msg)
-				message_data = json.loads(msg)
+				message_data: dict = json.loads(msg)
 
 				if 'autonomous' in message_data:
-					speed = 100 if speed == 30 else 30
 					self.autonomous = not self.autonomous
+
+				speed = message_data.get('speed', 40) if self.autonomous else 100
 
 				move.move(speed, message_data.get('direction', 'no'), message_data.get('turn', 'no'), 0.5)
 				claw_command = message_data.get('claw', 'no')
