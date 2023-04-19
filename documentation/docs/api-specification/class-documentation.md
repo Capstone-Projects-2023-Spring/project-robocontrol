@@ -7,9 +7,10 @@ description: What should be in this section.
 
 ## Treadbot Website
 
+---
+
 ### Control Tab
 
----
 **Control.tsx**
 
 Component that renders the control interface for the robot. This interface includes a live video stream from the robot's camera, as well as the button grid for controlling the robot's movements, arm and claw
@@ -46,6 +47,53 @@ Arguments:
 
 Returns:
 - A React.ReactElement representing the Control component.
+
+---
+**ButtonGrid.tsx**
+
+Component that renders a grid of buttons for controlling the robot's movements.
+
+Props:
+- keyPress: An object representing the pressed key and its state, containing the char (character) and keyDown (whether the key is currently pressed) properties.
+- commands_ws: A WebSocket object for sending robot commands.
+
+Methods:
+
+```handleButtonClick```  
+Sends the button's command via the commands WebSocket when a button is clicked.
+
+Arguments:
+- command: A string representing the command to be sent.
+
+Returns:
+- None
+
+```handleButtonMouseDown```  
+Sends the button's command via the commands WebSocket when a button is pressed down.
+
+Arguments:
+- command: A string representing the command to be sent.
+
+Returns:
+- None
+
+```handleButtonMouseUp```  
+Sends the 'stop' command via the commands WebSocket when a button is released.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+```ButtonGrid Component```  
+Renders the ButtonGrid component, which consists of a grid of buttons for controlling the robot.
+
+Arguments:
+- None
+
+Returns:
+- A React.ReactElement representing the ButtonGrid component.
 
 ---
 
