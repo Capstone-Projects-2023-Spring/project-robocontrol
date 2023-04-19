@@ -208,6 +208,35 @@ Arguments:
 Returns:
 - A React.ReactElement representing the Login component.
 
+### **Signup.tsx**
+
+Component that renders a signup form for the user to input their username, password, email, and phone number.
+
+Props:
+- None
+
+Methods:
+
+```handleSignup```  
+Handles the signup process. Validates the user input, hashes the password, and sends a POST request to the server to create a new user.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+```render```  
+Renders the Signup component, which includes input fields for the username, password, email, and phone number, and a signup button.
+
+Arguments:
+- None
+
+Returns:
+- A React.ReactElement representing the Signup component.
+
+
+
 ---
 
 
