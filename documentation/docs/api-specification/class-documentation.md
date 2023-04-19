@@ -10,7 +10,7 @@ description: What should be in this section.
 ### Control Tab
 
 ---
-**Control**
+**Control.tsx**
 
 Component that renders the control interface for the robot. This interface includes a live video stream from the robot's camera, as well as the button grid for controlling the robot's movements, arm and claw
 
