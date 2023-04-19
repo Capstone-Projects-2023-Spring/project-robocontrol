@@ -399,6 +399,73 @@ Returns:
 
 ---
 
+## robot_commands_ws.py
+
+---
+
+A script to manage the WebSocket connection for robot commands.
+
+Imports:
+- websockets
+- functions
+- move
+- json
+- asyncio
+- arm_claw_control (from move)
+
+Class:
+
+```RobotCommandWS```  
+- PORT: WebSocket port number.
+- HOST: WebSocket server IP address.
+- HOST_PATH: WebSocket server URL.
+
+Methods:
+
+```__init__(self) -> None:```  
+Initializes RobotCommandWS instance with necessary attributes.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+```async connect(self):```  
+Establishes the WebSocket connection to the command server, and maintains it. If the connection drops, it tries to reconnect.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+```async receive(self, ws):```  
+Receives messages from the WebSocket, processes and handles them. Controls the robot's movement and arm/claw/camera commands based on received messages.
+
+Arguments:
+- ws: The WebSocket object to receive messages from.
+
+Returns:
+- None
+
+```async send(self, ws):```  
+Sends data to the WebSocket server if the robot is in autonomous mode. The sent data includes the ultrasonic distance readings.
+
+
+Arguments:
+- ws: The WebSocket object to send messages to.
+
+Returns:
+- None
+
+---
+
+
+---
+
+
+
 
 
 
