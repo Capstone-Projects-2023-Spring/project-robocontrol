@@ -5,7 +5,7 @@ description: What should be in this section.
 
 # Class Documentation
 
-## 1. Treadbot Website
+## 1. Website
 
 ---
 
