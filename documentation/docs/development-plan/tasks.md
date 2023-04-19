@@ -41,4 +41,27 @@ sidebar_position: 2
 - Integrate color detection on robot
 - Automate centering between boundary colors / lines
 
-7. 
+7. OpenCV Line Navigation
+- Create program outline
+- Create nagivation algorithm for straight path
+- Update navigation algorithm to account for turns
+
+8. Object Detection
+- Develop disntance detection algorithm
+- Create distance labels for objects
+- Edit robot bahavior upon object detection
+
+9. Styling / frontend
+- Home, about and navigation page restyling
+- Control page login box
+- Padding, margins, and color in constants
+- URL tab name and favicon
+
+10. Documentation
+- Introduction
+- Requirements Speciication
+- Software Development Plan
+- System Architecture
+- API Spcification
+- Test Procedures
+
