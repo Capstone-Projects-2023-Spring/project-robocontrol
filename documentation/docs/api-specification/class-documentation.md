@@ -18,7 +18,9 @@ Component that renders the home page, including navigation buttons for the "Cont
 
 Methods:
 
-```handleClick```  
+```ts
+handleClick
+```  
 Navigates to the specified path and scrolls to the top of the page.
 
 Arguments:
@@ -27,7 +29,9 @@ Arguments:
 Returns:
 - None
 
-```Home Component```  
+```ts
+Home Component
+```  
 Renders the Home component, which consists of the home page content and navigation buttons.
 
 Arguments:
@@ -42,7 +46,9 @@ A class component that renders a banner with a hamburger menu for navigation.
 
 Methods:
 
-```handleClose```  
+```ts
+handleClose
+```
 Sets the state's `show` property to false, closing the Offcanvas menu.
 
 Arguments:
@@ -51,7 +57,9 @@ Arguments:
 Returns:
 - None
 
-```handleShow```  
+```ts
+handleShow
+```  
 Sets the state's `show` property to true, opening the Offcanvas menu.
 
 Arguments:
@@ -60,7 +68,9 @@ Arguments:
 Returns:
 - None
 
-```handleLink```  
+```ts
+handleLink
+```  
 Closes the Offcanvas menu and scrolls to the top of the page.
 
 Arguments:
@@ -69,7 +79,9 @@ Arguments:
 Returns:
 - None
 
-```render```  
+```ts
+render
+```  
 Renders the Banner component, which includes a Hamburger button and the Offcanvas navigation menu.
 
 Arguments:
@@ -91,7 +103,9 @@ State:
 
 Methods:
 
-```handleKeyDown```  
+```ts
+handleKeyDown
+```  
 An event handler for the keydown event. Sets the key state with the pressed character and updates the keyDown state to true.
 
 Arguments:
@@ -100,7 +114,9 @@ Arguments:
 Returns:
 - None
 
-```handleKeyUp```  
+```ts
+handleKeyUp
+```  
 An event handler for the keyup event. Sets the key state with the pressed character and updates the keyDown state to false.
 
 Arguments:
@@ -109,7 +125,9 @@ Arguments:
 Returns:
 - None
 
-```Control Component```  
+```ts
+Control Component
+```  
 Renders the Control component, which includes the video stream from the robot's camera, the color detection stream, and the ButtonGrid component for controlling the robot. Also, handles keyboard input for robot control.
 
 Arguments:
@@ -129,7 +147,9 @@ Props:
 
 Methods:
 
-```handleButtonClick```  
+```ts
+handleButtonClick
+```  
 Sends the button's command via the commands WebSocket when a button is clicked.
 
 Arguments:
@@ -138,7 +158,9 @@ Arguments:
 Returns:
 - None
 
-```handleButtonMouseDown```  
+```ts
+handleButtonMouseDown
+```  
 Sends the button's command via the commands WebSocket when a button is pressed down.
 
 Arguments:
@@ -147,7 +169,9 @@ Arguments:
 Returns:
 - None
 
-```handleButtonMouseUp```  
+```ts
+handleButtonMouseUp
+```  
 Sends the 'stop' command via the commands WebSocket when a button is released.
 
 Arguments:
@@ -156,7 +180,9 @@ Arguments:
 Returns:
 - None
 
-```ButtonGrid Component```  
+```ts
+ButtonGrid Component
+```  
 Renders the ButtonGrid component, which consists of a grid of buttons for controlling the robot.
 
 Arguments:
@@ -183,7 +209,9 @@ State:
 
 Methods:
 
-```useEffect```  
+```ts
+useEffect
+```  
 A React Hook that fetches the content of the About.md file and sets the markdownText state with the fetched content.
 
 Arguments:
@@ -192,7 +220,9 @@ Arguments:
 Returns:
 - None
 
-```render```  
+```ts
+render
+```  
 Renders the About component, which includes an AboutContainer that contains the AboutTextContainer, which displays the content of the About.md file using ReactMarkdown.
 
 Arguments:
@@ -218,7 +248,9 @@ Props:
 
 Methods:
 
-```handleLogin```  
+```ts
+handleLogin
+```  
 Handles the login process. Makes a POST request to the authentication endpoint and, if successful, triggers the `loginSuccessful` prop function.
 
 Arguments:
@@ -227,7 +259,9 @@ Arguments:
 Returns:
 - None
 
-```handleEnterKeyPress```  
+```ts
+handleEnterKeyPress
+```  
 Handles the keypress event. If the 'Enter' key is pressed, it triggers the `handleLogin` function.
 
 Arguments:
@@ -236,7 +270,9 @@ Arguments:
 Returns:
 - None
 
-```render```  
+```ts
+render
+```  
 Renders the Login component, which includes input fields for the username and password, and a login button.
 
 Arguments:
@@ -254,7 +290,9 @@ Props:
 
 Methods:
 
-```handleSignup```  
+```ts
+handleSignup
+```  
 Handles the signup process. Validates the user input, hashes the password, and sends a POST request to the server to create a new user.
 
 Arguments:
@@ -263,7 +301,9 @@ Arguments:
 Returns:
 - None
 
-```render```  
+```ts
+render
+```  
 Renders the Signup component, which includes input fields for the username, password, email, and phone number, and a signup button.
 
 Arguments:
@@ -324,7 +364,9 @@ Global Variables:
 
 Functions:
 
-```motorStop```  
+```python
+motorStop
+```  
 Stops the motors.
 
 Arguments:
@@ -333,7 +375,9 @@ Arguments:
 Returns:
 - None
 
-```setup```  
+```python
+setup
+```  
 Initializes the motors.
 
 Arguments:
@@ -342,7 +386,9 @@ Arguments:
 Returns:
 - None
 
-```motor_left```  
+```python
+motor_left
+```  
 Controls Motor 2 for positive and negative rotation.
 
 Arguments:
@@ -353,7 +399,9 @@ Arguments:
 Returns:
 - None
 
-``motor_right```  
+```python
+motor_right
+```  
 Controls Motor 1 for positive and negative rotation.
 
 Arguments:
@@ -364,7 +412,9 @@ Arguments:
 Returns:
 - None
 
-```move```  
+```python
+move
+```  
 Controls the movement and turns of the robot.
 
 Arguments:
@@ -376,7 +426,9 @@ Arguments:
 Returns:
 - None
 
-```arm_claw_control```  
+```python
+arm_claw_control
+```  
 Controls the servos for the robot's arm and claw.
 
 Arguments:
@@ -388,7 +440,9 @@ Arguments:
 Returns:
 - None
 
-```destroy```  
+```python
+destroy
+```  
 Stops the motors and releases the resources.
 
 Arguments:
@@ -415,14 +469,18 @@ Imports:
 
 Class:
 
-```RobotCommandWS```  
+```python
+RobotCommandWS
+```  
 - PORT: WebSocket port number.
 - HOST: WebSocket server IP address.
 - HOST_PATH: WebSocket server URL.
 
 Methods:
 
-```__init__(self) -> None:```  
+```python
+__init__(self) -> None:
+```  
 Initializes RobotCommandWS instance with necessary attributes.
 
 Arguments:
@@ -431,7 +489,9 @@ Arguments:
 Returns:
 - None
 
-```async connect(self):```  
+```python
+async connect(self):
+```  
 Establishes the WebSocket connection to the command server, and maintains it. If the connection drops, it tries to reconnect.
 
 Arguments:
@@ -440,7 +500,9 @@ Arguments:
 Returns:
 - None
 
-```async receive(self, ws):```  
+```python
+async receive(self, ws):
+```
 Receives messages from the WebSocket, processes and handles them. Controls the robot's movement and arm/claw/camera commands based on received messages.
 
 Arguments:
@@ -449,7 +511,9 @@ Arguments:
 Returns:
 - None
 
-```async send(self, ws):```  
+```python
+async send(self, ws):
+```  
 Sends data to the WebSocket server if the robot is in autonomous mode. The sent data includes the ultrasonic distance readings.
 
 
@@ -476,7 +540,9 @@ Class:
 
 Methods:
 
-```run(self):```  
+```python
+run(self):
+```  
 Runs the GStreamer command to stream the video from the robot to a remote server.
 
 Arguments:
@@ -508,7 +574,9 @@ Imports:
 
 Async Functions:
 
-```main():```  
+```python
+main():
+```  
 Sets up the necessary websockets and image processing threads for the robot.
 
 Arguments:
@@ -542,7 +610,9 @@ Global Variables:
 
 Functions:
 
-```cv2_to_base64(img):```  
+```python
+cv2_to_base64(img):
+```
 Converts an OpenCV image to Base64 bytes for transmission.
 
 Arguments:
@@ -553,7 +623,9 @@ Returns:
 
 Class:
 
-```VideoWS:```  
+```python
+VideoWS:
+```
 
 Attributes:
 - PORT: Port number for the video websocket server.
@@ -581,7 +653,9 @@ Arguments:
 Returns:
 - None
 
-**`original_stream(self):`**
+```python
+original_stream(self):
+```
 Creates a Flask response for the original video stream.
 
 Arguments:
@@ -590,7 +664,9 @@ Arguments:
 Returns:
 - Flask Response object for the original video stream.
 
-**`color_detection_stream(self):`**
+```python
+color_detection_stream(self):
+```
 Creates a Flask response for the color detection video stream.
 
 Arguments:
@@ -599,7 +675,9 @@ Arguments:
 Returns:
 - Flask Response object for the color detection video stream.
 
-**`original(self):`**
+```python
+original(self):
+```
 Main loop for displaying the original video stream.
 
 Arguments:
@@ -608,7 +686,9 @@ Arguments:
 Returns:
 - Generator yielding the original video stream.
 
-**`color_detection(self):`**
+```python
+color_detection(self):
+```
 Main loop for displaying the color detection video stream.
 
 Arguments:
@@ -634,7 +714,9 @@ Imports:
 
 Class:
 
-**`CommandWS:`**
+```python
+CommandWS:
+```
 
 Attributes:
 - PORT: Port number for the command websocket server.
@@ -647,7 +729,9 @@ Attributes:
 
 Methods:
 
-**`start_server(self, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):`**
+```python
+start_server(self, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):
+```
 Starts the command websocket server.
 
 Arguments:
@@ -658,7 +742,9 @@ Arguments:
 Returns:
 - None
 
-**`serve(self, websocket):`**
+```python
+serve(self, websocket):
+```
 Serves the websocket.
 
 Arguments:
@@ -667,7 +753,9 @@ Arguments:
 Returns:
 - None
 
-**`send(self, websocket):`**
+```python
+send(self, websocket):
+```
 Sends data through the websocket.
 
 Arguments:
@@ -676,7 +764,9 @@ Arguments:
 Returns:
 - None
 
-**`receive(self, websocket):`**
+```python
+receive(self, websocket):
+```
 Receives data through the websocket.
 
 Arguments:
@@ -688,7 +778,7 @@ Returns:
 
 
 ---
-### **color_tuning.py**
+### **color_tuning.p
 
 ---
 
@@ -701,7 +791,9 @@ Imports:
 
 Functions:
 
-**`nothing(x):`**
+```python
+nothing(x):
+```
 A dummy function that does nothing. Used as a callback for the trackbar.
 
 Arguments:
@@ -710,7 +802,9 @@ Arguments:
 Returns:
 - None
 
-**`detect_colors():`**
+```python
+detect_colors():
+```
 Detects colors in a video stream, allowing adjustment of the color range using trackbars.
 
 Arguments:
@@ -733,7 +827,9 @@ Imports:
 
 Class:
 
-**`Automation:`**
+```python
+Automation:
+```
 
 Attributes:
 - isCentered: Boolean value indicating if the robot is centered.
@@ -742,7 +838,9 @@ Attributes:
 
 Methods:
 
-**`__init__(self, q: Queue) -> None:`**
+```python
+__init__(self, q: Queue) -> None:
+```
 Initializes the Automation class.
 
 Arguments:
@@ -751,7 +849,9 @@ Arguments:
 Returns:
 - None
 
-**`process_ultrasonic_data(self, data):`**
+```python
+process_ultrasonic_data(self, data):
+```
 Processes the ultrasonic sensor data.
 
 Arguments:
@@ -760,7 +860,9 @@ Arguments:
 Returns:
 - None
 
-**`crop_image(self, image, h):`**
+```python
+crop_image(self, image, h):
+```
 Crops the image to the desired height.
 
 Arguments:
@@ -770,7 +872,9 @@ Arguments:
 Returns:
 - Cropped image.
 
-**`center_robot(self, direction) -> None:`**
+```python
+center_robot(self, direction) -> None:
+```
 Centers the robot based on the image.
 
 Arguments:
@@ -780,7 +884,9 @@ Returns:
 - None
 
 
-**`direction_to_center(image) -> str:`**
+```python
+direction_to_center(image) -> str:
+```
 Determines the direction in which the robot needs to be centered based on the image.
 
 Arguments:
@@ -802,7 +908,9 @@ Imports:
 
 Methods:
 
-**`within_Bounds(image)`**
+```python
+within_Bounds(image)
+```
 Checks if both boundary lines are within the camera view.
 
 Arguments:
@@ -811,7 +919,9 @@ Arguments:
 Returns:
 - A boolean value indicating whether both boundary lines are within the camera view.
 
-**`reached_End()`**
+```python
+reached_End()
+```
 Determines if the robot has reached the end of the track.
 
 Arguments:
@@ -820,7 +930,9 @@ Arguments:
 Returns:
 - A boolean value indicating whether the robot has reached the end of the track.
 
-**`automated_Movement(image)`**
+```python
+automated_Movement(image)
+```
 Initiates the autonomous movement of the robot.
 
 Arguments:
@@ -829,7 +941,9 @@ Arguments:
 Returns:
 - None
 
-**`moveCamera()`**
+```python
+moveCamera()
+```
 Moves the camera up or down to keep the boundary lines in view.
 
 Arguments:
@@ -838,7 +952,9 @@ Arguments:
 Returns:
 - None
 
-**`turnLeft()`**
+```python
+turnLeft()
+```
 Turns the robot left until both boundary lines are in view.
 
 Arguments:
@@ -847,7 +963,9 @@ Arguments:
 Returns:
 - A boolean or integer value indicating the status of the left boundary line.
 
-**`turnRight()`**
+```python
+turnRight()
+```
 Turns the robot right until both boundary lines are in view.
 
 Arguments:
@@ -872,7 +990,9 @@ Imports:
 
 Class:
 
-**`Contour:`**
+```python
+Contour:
+```
 
 Attributes:
 - area: Area of the contour.
@@ -880,7 +1000,9 @@ Attributes:
 
 Methods:
 
-**`__init__(self, area, contour)`**
+```python
+__init__(self, area, contour)
+```
 Initializes a new `Contour` object with the given area and contour.
 
 Arguments:
@@ -890,7 +1012,9 @@ Arguments:
 Returns:
 - None
 
-**`set_area(self, area)`**
+```python
+set_area(self, area)
+```
 Sets the area of the contour.
 
 Arguments:
@@ -899,7 +1023,9 @@ Arguments:
 Returns:
 - None
 
-**`set_contour(self, contour)`**
+```python
+set_contour(self, contour)
+```
 Sets the contour object.
 
 Arguments:
@@ -916,7 +1042,9 @@ Variables:
 
 Methods:
 
-**`make_contours(mask, text, img)`**
+```python
+make_contours(mask, text, img)
+```
 Makes the contours for the given mask and text on the image.
 
 Arguments:
@@ -927,7 +1055,9 @@ Arguments:
 Returns:
 - Image with the contours.
 
-**`direction_to_center(img)`**
+```python
+direction_to_center(img)
+```
 Determines which direction the robot should turn to center between the tape lines.
 
 Arguments:
@@ -936,7 +1066,10 @@ Arguments:
 Returns:
 - A string indicating the direction the robot should turn to center between the tape lines.
 
-**`detect_colors(img)`**
+```python
+detect_colors(img)
+```
+
 Detects colors in the image.
 
 Arguments:
@@ -962,7 +1095,9 @@ Imports:
 
 Class:
 
-**`CommandWS:`**
+```python
+CommandWS:
+```
 
 Attributes:
 - PORT: Port number for the command websocket server.
@@ -975,7 +1110,9 @@ Attributes:
 
 Methods:
 
-**`start_server(self, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):`**
+```python
+start_server(self, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):
+```
 Starts the command websocket server.
 
 Arguments:
@@ -986,7 +1123,9 @@ Arguments:
 Returns:
 - None
 
-**`serve(self, websocket):`**
+```python
+serve(self, websocket):
+```
 Serves the websocket.
 
 Arguments:
@@ -995,7 +1134,9 @@ Arguments:
 Returns:
 - None
 
-**`send(self, websocket):`**
+```python
+send(self, websocket):
+```
 Sends data through the websocket.
 
 Arguments:
@@ -1004,7 +1145,9 @@ Arguments:
 Returns:
 - None
 
-**`receive(self, websocket):`**
+```python
+receive(self, websocket):
+```
 Receives data through the websocket.
 
 Arguments:
@@ -1015,7 +1158,7 @@ Returns:
 
 ---
 
-**detect_painters_tape.py**
+### **detect_painters_tape.py**
 
 A script to detect painter's tape on a video stream.
 
@@ -1031,7 +1174,9 @@ Global variables:
 
 Functions:
 
-**`make_contours(mask, text, img):`**
+```python
+make_contours(mask, text, img):
+```
 Draws contours around detected objects.
 
 Arguments:
@@ -1042,7 +1187,9 @@ Arguments:
 Returns:
 - img: original image frame with contours drawn.
 
-**`detect_colors():`**
+```python
+detect_colors():
+```
 Detects painter's tape color in the video stream.
 
 Returns:
@@ -1062,7 +1209,9 @@ Imports:
 
 Functions:
 
-**`process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):`**
+```python
+process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):
+```
 Processes images from a video stream and sends commands to the robot.
 
 Arguments:
