@@ -863,6 +863,87 @@ Returns:
 ### **color_detection.py**
 ---
 
+A module for detecting colors using OpenCV.
+
+Imports:
+- typing: List
+- cv2
+- numpy as np
+
+Class:
+
+**`Contour:`**
+
+Attributes:
+- area: Area of the contour.
+- contour: Contour object.
+
+Methods:
+
+**`__init__(self, area, contour)`**
+Initializes a new `Contour` object with the given area and contour.
+
+Arguments:
+- area: Area of the contour.
+- contour: Contour object.
+
+Returns:
+- None
+
+**`set_area(self, area)`**
+Sets the area of the contour.
+
+Arguments:
+- area: Area of the contour.
+
+Returns:
+- None
+
+**`set_contour(self, contour)`**
+Sets the contour object.
+
+Arguments:
+- contour: Contour object.
+
+Returns:
+- None
+
+Variables:
+
+- yellow_tape_lower: Lower bound of the yellow color range.
+- yellow_tape_upper: Upper bound of the yellow color range.
+- kernel: 5x5 numpy array.
+
+Methods:
+
+**`make_contours(mask, text, img)`**
+Makes the contours for the given mask and text on the image.
+
+Arguments:
+- mask: Mask for the contours.
+- text: Text to put on the image.
+- img: Image to put the contours on.
+
+Returns:
+- Image with the contours.
+
+**`direction_to_center(img)`**
+Determines which direction the robot should turn to center between the tape lines.
+
+Arguments:
+- img: Image captured by the camera.
+
+Returns:
+- A string indicating the direction the robot should turn to center between the tape lines.
+
+**`detect_colors(img)`**
+Detects colors in the image.
+
+Arguments:
+- img: Image captured by the camera.
+
+Returns:
+- Image with the detected colors.
 
 
 ---
