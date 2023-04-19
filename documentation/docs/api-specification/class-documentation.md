@@ -276,4 +276,35 @@ Returns:
 
 ---
 
+## 2. Robot
+
+---
+
+## main.py
+
+---
+
+A script to establish connections for robot command and video streaming.
+
+Imports:
+- asyncio
+- threading
+- RobotCommandWS (from robot_commands_ws)
+- RobotVideoWS (from robot_video_ws)
+
+Main Execution:
+
+1. Create instances of RobotCommandWS and RobotVideoWS.
+2. Start separate threads for each connection:
+   - commands_thread: Runs the asynchronous connection of RobotCommandWS instance.
+   - video_thread: Runs the video streaming connection of RobotVideoWS instance.
+3. Wait for both threads to complete using join() method.
+
+---
+
+## move.py
+
+
+
+
 
