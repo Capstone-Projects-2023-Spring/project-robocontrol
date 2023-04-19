@@ -5,13 +5,14 @@ description: What should be in this section.
 
 # Class Documentation
 
-## Treadbot Website
+## 1. Treadbot Website
 
 ---
 
-### Control Tab
+## Control Tab
+---
 
-**Control.tsx**
+### **Control.tsx**
 
 Component that renders the control interface for the robot. This interface includes a live video stream from the robot's camera, as well as the button grid for controlling the robot's movements, arm and claw
 
@@ -46,10 +47,10 @@ Arguments:
 - None
 
 Returns:
-- A React.ReactElement representing the Control component.
+- A React.ReactElement representing the Control component.  
 
----
-**ButtonGrid.tsx**
+
+### **ButtonGrid.tsx**
 
 Component that renders a grid of buttons for controlling the robot's movements.
 
@@ -96,7 +97,7 @@ Returns:
 - A React.ReactElement representing the ButtonGrid component.
 
 ---
-### Home Page
+## Home Page
 
 ---
 **Home.tsx**
@@ -123,5 +124,49 @@ Arguments:
 Returns:
 - A React.ReactElement representing the Home component.
 
+**Banner.tsx**
+
+A class component that renders a banner with a hamburger menu for navigation.
+
+Methods:
+
+```handleClose```  
+Sets the state's `show` property to false, closing the Offcanvas menu.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+```handleShow```  
+Sets the state's `show` property to true, opening the Offcanvas menu.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+```handleLink```  
+Closes the Offcanvas menu and scrolls to the top of the page.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+```render```  
+Renders the Banner component, which includes a Hamburger button and the Offcanvas navigation menu.
+
+Arguments:
+- None
+
+Returns:
+- A React.ReactElement representing the Banner component.
+
 ---
+
+
 
