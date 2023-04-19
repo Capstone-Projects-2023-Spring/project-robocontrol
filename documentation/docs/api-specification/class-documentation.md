@@ -461,9 +461,31 @@ Returns:
 
 ---
 
+## robot_video_ws.py
 
 ---
 
+A script to manage the video stream for the robot using GStreamer.
+
+Imports:
+- os
+
+Class:
+
+**RobotVideoWS**
+
+Methods:
+
+```run(self):```  
+Runs the GStreamer command to stream the video from the robot to a remote server.
+
+Arguments:
+- None
+
+Returns:
+- None
+
+---
 
 
 
