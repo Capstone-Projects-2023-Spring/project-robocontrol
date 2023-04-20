@@ -14,6 +14,17 @@ const Control = (): React.ReactElement => {
 	const [key, setKey] = useState({char: '', keyDown: false})
 	const [autonomous, setAutonomous] = useState(false); // Add state variable for autonomous mode
 
+
+	// New function to toggle autonomous mode
+	const toggleAutonomous = () => {
+		setAutonomous(prevState => !prevState);
+	}
+
+	// New function to set autonomous mode
+	const setAutonomousMode = (value: boolean) => {
+		setAutonomous(value);
+	}
+
 	// Allow bot to be controlled by WASD keys on keyboard
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -37,16 +48,7 @@ const Control = (): React.ReactElement => {
 		};
 	}, [loggedIn]);
 
-	// New function to toggle autonomous mode
-	const toggleAutonomous = () => {
-		setAutonomous(prevState => !prevState);
-	}
-
-	// New function to set autonomous mode
-	const setAutonomousMode = (value: boolean) => {
-		setAutonomous(value);
-	}
-
+	
 	return (
 
 		// Give camera feed its own container to avoid overlapping with WASD controls
