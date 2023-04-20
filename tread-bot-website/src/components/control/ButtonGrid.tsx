@@ -23,18 +23,17 @@ type wasd = {
 
 const direction_buttons: DirectionContent[] = [
 	{ grid: '2 / 2', command: 'forward', text: '↑', character: 'arrowup' },
-
-	{ grid: '3 / 1', command: 'left', text: '\n←', character: 'arrowleft' },
-	{ grid: '3 / 2', command: 'backward', text: '\n↓', character: 'arrowdown' },
-	{ grid: '3 / 3', command: 'right', text: '\n→', character: 'arrowright' },
-	{ grid: '2 / 6', command: 'shoulderUp', text: 'UP\n\nW', character: 'w' }, // added up button
-	{ grid: '3 / 6', command: 'shoulderDown', text: 'DOWN\n\nS', character: 's' }, // added down button
-	{ grid: '3 / 5', command: 'clawOpen', text: 'OPEN\n\nA', character: 'a' }, // added left button
-	{ grid: '3 / 7', command: 'clawClose', text: 'CLOSE\n\nD', character: 'd' }, // added right button
-	{ grid: '2 / 5', command: 'elbowUp', text: 'ELBOW\nUP\nD', character: 'q' }, 
-	{ grid: '2 / 7', command: 'elbowDown', text: 'ELBOW\nDOWN\nD', character: 'e' }, 
-	{ grid: '1 / 5', command: 'cameraUp', text: 'CAMERA\nUP\nD', character: 'r' }, 
-	{ grid: '1 / 7', command: 'cameraDown', text: 'CAMERA\nDOWN\nD', character: 'f' },
+	{ grid: '3 / 1', command: 'left', text: '←', character: 'arrowleft' },
+	{ grid: '3 / 2', command: 'backward', text: '↓', character: 'arrowdown' },
+	{ grid: '3 / 3', command: 'right', text: '→', character: 'arrowright' },
+	{ grid: '2 / 6', command: 'shoulderUp', text: 'ARM UP\n(W)', character: 'w' }, // added up button
+	{ grid: '3 / 6', command: 'shoulderDown', text: 'ARM DOWN\n(S)', character: 's' }, // added down button
+	{ grid: '2 / 5', command: 'elbowUp', text: 'ELBOW UP\n(Q)', character: 'q' }, // added up button
+	{ grid: '2 / 7', command: 'elbowDown', text: 'ELBOW DOWN\n(E)', character: 'e' }, // added down button
+	{ grid: '3 / 5', command: 'clawOpen', text: 'OPEN\n(A)', character: 'a' }, // added left button
+	{ grid: '3 / 7', command: 'clawClose', text: 'CLOSE\n(D)', character: 'd' }, // added right button
+	{ grid: '2 / 9', command: 'cameraUp', text: 'CAM UP\n(R)', character: 'r' }, // added right button
+	{ grid: '3 / 9', command: 'cameraDown', text: 'CAM DOWN\n(F)', character: 'f' }, // added right button
 ]
 
 const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, shoulderDown: false, shoulderUp: false, elbowDown: false, elbowUp: false, clawOpen: false, clawClose: false, cameraDown: false, cameraUp: false }
@@ -78,7 +77,6 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 		}
 		const data: MsgData = { direction: '', turn: '', shoulder: '', elbow: '', claw: '', camera: '' }
 
-
 		if (active.shoulderUp) { data.shoulder = 'up' }
 		else if (active.shoulderDown) { data.shoulder = 'down' }
 		else { data.shoulder = 'no' }
@@ -86,7 +84,6 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 		if (active.elbowUp) { data.elbow = 'up' }
 		else if (active.elbowDown) { data.elbow = 'down' }
 		else { data.elbow = 'no' }
-
 
 		if (active.clawOpen) { data.claw = 'open' }
 		else if (active.clawClose) { data.claw = 'close' }
@@ -137,18 +134,22 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 					style={{ gridArea: "5 / 5" }}
 				>Stop
 				</Styles.StopButton>
+					<Styles.Modes
+						style={{ 
+							gridArea: "1 / 5",
+							gridColumnStart: 4, gridColumnEnd: 7,
+							backgroundColor: this.state.autonomousMode ? '#50C878' : '#f0ecec'
+						}}
+						onClick={() => {
+							this.toggleAutonomousMode();
+							this.sendMessage(wasd_default, 'autonomous');
+						}}>AUTONOMOUS
+					</Styles.Modes>
 
-
-				<Styles.Modes
-					style={{ gridArea: "1 / 2" }}
-					onClick={() => this.sendMessage(wasd_default, 'autonomous')}>Autonomous
-				</Styles.Modes>
-
-
-				<Styles.Labels style={{ gridArea: "4 / 1" }}>TREADS</Styles.Labels>
+				<Styles.Labels style={{ gridArea: "4 / 2" }}>TREADS</Styles.Labels>
 				{/* Add the "ARM/CLAW" text container */}
-				<Styles.Labels style={{ gridArea: "4 / 5" }}>ARM/CLAW</Styles.Labels>
-				<Styles.Labels style={{ gridArea: "4 / 8" }}>CAMERA</Styles.Labels>
+				<Styles.Labels style={{ gridArea: "4 / 6" }}>ARM/CLAW</Styles.Labels>
+				<Styles.Labels style={{ gridArea: "4 / 9" }}>CAMERA</Styles.Labels>
 			</Styles.ButtonGridContainer>
 		)
 	}
