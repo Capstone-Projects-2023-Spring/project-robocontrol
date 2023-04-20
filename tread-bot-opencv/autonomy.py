@@ -5,8 +5,12 @@ class Automation:
 	def __init__(self, q: Queue) -> None:
 		self.isCentered = False
 		self.commands_q = q
+		self.ultrasonic_data = None
 		pass
-
+	
+	def process_ultrasonic_data(self, data):
+		self.ultrasonic_data = data
+	
 	# Crop the image to the desired height (h)
 	def crop_image(self, image, h):
 		height = image.shape[0]

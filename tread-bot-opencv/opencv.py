@@ -11,13 +11,15 @@ async def main():
 	websocket_q = Queue()
 	command_q = Queue()
 	autonomous = [False]
+	ultrasonic_data_q = Queue()
+
 
 	commands = CommandWS()
 	video = VideoWS()
 
-	commands_thread = threading.Thread(target=asyncio.run, args=(commands.start_server(command_q, autonomous),))
+	commands_thread = threading.Thread(target=asyncio.run, args=(commands.start_server(command_q, autonomous, ultrasonic_data_q),))
 	video_thread = threading.Thread(target=asyncio.run, args=(video.start(img_proc_q, websocket_q, autonomous),))
-	img_processing_thread = threading.Thread(target=process_img, args=(img_proc_q, websocket_q, command_q, autonomous,))
+	img_processing_thread = threading.Thread(target=process_img, args=(img_proc_q, websocket_q, command_q, autonomous, ultrasonic_data_q,))
 	
 	img_processing_thread.start()
 	commands_thread.start()

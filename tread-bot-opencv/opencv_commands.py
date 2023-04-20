@@ -16,10 +16,12 @@ class CommandWS():
 		self.robot_ws = None
 		self.command_q = Queue()
 		self.autonomous = [False]
+		self.ultrasonic_data_q = None
 
-	async def start_server(self, command_q: Queue, autonomous: List[bool]):
+	async def start_server(self, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):
 		self.command_q = command_q
 		self.autonomous = autonomous
+		self.ultrasonic_data_q = ultrasonic_data_q
 		# Start the servers
 		async with websockets.serve(self.serve, CommandWS.HOST, CommandWS.PORT, ping_timeout=None):
 			await asyncio.Future()
@@ -36,14 +38,13 @@ class CommandWS():
 			while True:
 				if self.autonomous[0]:
 					try:
-						msg = self.command_q.get(timeout=0.2)
+						msg = self.command_q.get(timeout=0.001)
 					except Exception:
 						msg = None
 						await asyncio.sleep(0)
 					if msg:
-						msg.update({'autonomous': True})
 						await websocket.send(json.dumps(msg))
-				await asyncio.sleep(.05)
+				await asyncio.sleep(0.01)
 		except websockets.exceptions.ConnectionClosed as e:
 			print("Command client disconnected")
 	
@@ -57,10 +58,15 @@ class CommandWS():
 					self.robot_ws = websocket
 				elif (msg == 'autonomous'):
 					self.autonomous[0] = not self.autonomous[0]
+					print('Auto:' + str(self.autonomous))
 					await self.robot_ws.send(json.dumps({'direction': 'no', 'turn': 'no', 'autonomous': self.autonomous[0]}))
-					print(self.autonomous)
+				elif msg.startswith('{"ultrasonic_data":'):
+					ultrasonic_data = json.loads(msg)
+					print(ultrasonic_data)
+					self.ultrasonic_data_q.put(ultrasonic_data)
 				elif(not self.autonomous[0] and self.robot_ws):
 					await self.robot_ws.send(msg)
+				await asyncio.sleep(0)
 		except websockets.exceptions.ConnectionClosed as e:
 			print("Command client disconnected")
 		finally:

@@ -58,11 +58,10 @@ class VideoWS():
 			with original_lock:
 				# Read next frame
 				_, img = self.vid.read()
+				# If frame is empty
+				if img is None: continue
 				# If in autonomous mode, put the image into the image processing queue
 				self.img_proc_q.put(img.copy())
-
-			# If frame is empty
-			if img is None: continue
 
 			# Encode the frame in JPEG format
 			(flag, encodedImage) = cv2.imencode(".jpg", img)

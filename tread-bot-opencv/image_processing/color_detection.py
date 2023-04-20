@@ -71,8 +71,8 @@ def direction_to_center(img):
 			right_x, _, _, _ = cv2.boundingRect(right_contour)
 			l1 = left_x + left_w # Bottom right corner of the left tape line
 			l2 = img_width - right_x # Bottom left corner of the right tape line
-			print('l1: ' + str(l1))
-			print('l2: ' + str(l2))
+			# print('l1: ' + str(l1))
+			# print('l2: ' + str(l2))
 			if (l1 - l2) > tolerance: return 'right'
 			elif (l1 - l2) < -tolerance: return 'left'
 			else: return 'no'

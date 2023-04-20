@@ -53,8 +53,6 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 		}));
 	}
 
-	
-
 	/**
 	 * Get the current wasd value based on the current state of the button pressing
 	 */
@@ -106,6 +104,7 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 		console.log(data)
 		this.props.commands_ws.send(JSON.stringify(data))
 	}
+
 
 	renderDirections = (): React.ReactElement[] => {
 		const directionButtons: React.ReactElement[] = []

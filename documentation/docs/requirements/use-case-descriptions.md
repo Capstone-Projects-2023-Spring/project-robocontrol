@@ -32,4 +32,21 @@ As a user, I want the RoboControl to autonomously center, detect obstacles and m
 5. The RoboControl will also stop when it detects an obstacle using object detection and the ultrasonic sensor. 
 6. At the end of the course, the user disables ‘Autonomous Mode’, exits the website, and powers down the RoboControl device. 
 
+## Use Case #4 
+As a user, I want to use the RoboControl to assist me in teaching those interested in coding and robotics. 
 
+1. The user powers on the RoboControl device. 
+2. The user navigates to the code repository and makes the desired changes. 
+3. After making/saving changes to the code, the user navigates to the website GUI to manage the controls and demonstrates the changes to the audience. 
+4. After the demonstration, the user exits the website and powers down the RoboControl device. 
+
+## Use Case #5
+As a user, I want to use a RoboControl to make a map of the surrounding area. 
+
+1. The user powers on the RoboControl device. 
+2. The user places the RoboControl in the desired starting position. 
+3. The user navigates to the control website. 
+4. The user views the live camera feed on his/her device. 
+5. The user controls the robot to go to the desired area and edits his/her map based on the landmarks discovered by the robot’s camera.
+6. The user controls the robot arm to leave new landmarks.  
+7. The user exits the website and powers down the RoboControl device. 
