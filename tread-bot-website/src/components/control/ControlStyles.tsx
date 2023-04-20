@@ -6,7 +6,7 @@ export default class ControlStyles {
         height: 100%;
 		display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: calc(var(--vh) * 0.4) calc(var(--vh) * 0.5) calc(var(--vh) * 0.5);
+        grid-template-rows: calc(var(--vh) * 0.4) calc(var(--vh) * 0.7) calc(var(--vh) * 0.5);
         justify-items: center;
         align-items: center;
 

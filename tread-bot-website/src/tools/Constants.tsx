@@ -24,10 +24,16 @@ export class FONT_FAMILY {
         font-family: "Open Sans", sans-serif;
         font-weight: bold;
 		font-size: calc(var(--vh) * .012);
-        letter-spacing: 2px;
+        letter-spacing: .2vh;
         cursor: pointer;
-		border: 3px solid;
+		border: .3vh solid;
 		padding: 0.25em 0.5em;
-		box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px, 15px 15px 13px rgba(0, 0, 0, 0.3);	
+		box-shadow: calc(var(--vh) * 0.001) calc(var(--vh) * 0.001) 0vh 0vh,
+            calc(var(--vh) * 0.002) calc(var(--vh) * 0.002) 0vh 0vh, 
+            calc(var(--vh) * 0.003) calc(var(--vh) * 0.003) 0vh 0vh, 
+            calc(var(--vh) * 0.004) calc(var(--vh) * 0.004) 0vh 0vh, 
+            calc(var(--vh) * 0.005) calc(var(--vh) * 0.005) 0vh 0vh,
+            calc(var(--vh) * 0.015) calc(var(--vh) * 0.015) calc(var(--vh) * 0.013)
+            rgba(0, 0, 0, 0.3);	
 	`
 }
