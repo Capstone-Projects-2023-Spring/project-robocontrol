@@ -42,12 +42,8 @@ const Control = (): React.ReactElement => {
 		// Give camera feed its own container to avoid overlapping with WASD controls
 		<Styles.ControlContainer>
 			{/* Display the Base64 image string sent from the robot */}
-			{autonomous ? (
-	<img src="https://ryanhodge.net/stream/color_detection" alt="Color detection stream" />
-) : (
-	<img src="https://ryanhodge.net/stream/original" alt="Video stream from robot" />
-)}
-
+			<img src={'https://ryanhodge.net/stream/original'} alt='Video stream from robot'/>
+			<img src={'https://ryanhodge.net/stream/color_detection'} alt='Color detection stream'/>
 
 			<Styles.ButtonContainer>
 				{ !loggedIn ? <Login loginSuccessful={login} /> : <ButtonGrid keyPress={key} commands_ws={commands_ws}/> }

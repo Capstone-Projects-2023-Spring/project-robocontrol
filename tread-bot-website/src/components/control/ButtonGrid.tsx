@@ -20,12 +20,6 @@ type wasd = {
 	cameraUp: boolean,
 	cameraDown: boolean
 }
-type ButtonGridProps = { 
-	keyPress: KeyPress; 
-	commands_ws: WebSocket; 
-	autonomous: boolean; 
-	setAutonomous: React.Dispatch<React.SetStateAction<boolean>> 
-}
 
 const direction_buttons: DirectionContent[] = [
 	{ grid: '2 / 2', command: 'forward', text: '↑', character: 'arrowup' },
