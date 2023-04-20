@@ -37,3 +37,17 @@ export class FONT_FAMILY {
 			rgba(0, 0, 0, 0.3);	
 	`
 }
+
+export class FONT_FAMILY {
+    static readonly BUTTON = `
+        color: ${COLORS.TEXT};
+        font-family: "Open Sans", sans-serif;
+        font-weight: bold;
+		font-size: calc(var(--vh) * .012);
+        letter-spacing: 2px;
+        cursor: pointer;
+		border: 3px solid;
+		padding: 0.25em 0.5em;
+		box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px, 15px 15px 13px rgba(0, 0, 0, 0.3);	
+	`
+}

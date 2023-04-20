@@ -68,6 +68,10 @@ line_pin_left = 20
 def pwmGenOut(angleInput):
 	return int(round(23/9*angleInput))
 
+def get_ultrasonic_distance():
+    return ultra.checkdist()
+
+
 
 def setup():
 	GPIO.setwarnings(False)

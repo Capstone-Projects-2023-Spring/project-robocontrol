@@ -3,51 +3,50 @@ sidebar_position: 5
 ---
 <!-- TODO: Change from user stories into use cases. Examples found here: https://capstone-projects-2022-fall.github.io/project-collabybot/docs/requirements/use-case-descriptions -->
 # Use-case descriptions
-Three use cases are described in detail below. Each use case represents a different method of using the application. These scenarios outline the edge of the device’s capabilities showcasing the possibilities of the project.
+Three use cases are described in detail below. Each use case represents a different method of using the application, with the third one combining first two. These scenarios outline the edge of the device’s capabilities showcasing the possibilities of the project. 
 
 ## Use Case #1
-<b>Triggering Event</b>: Madison Beer is looking for a small, lost object in an unsanitary area. 
+As a user, I want to be able to look for objects using the RoboControl’s camera. 
 
-### Normal Flow (Actor: Madison, System: RoboControl):
-1.	Madison powers on her RoboControl device and starts the GUI.
-2.	The robot starts moving and uses its sensors and camera to gather data about its surroundings.
-3.	Madison uses the onboard GUI to control the device and view the live video feed to observe the surroundings. 
-4.	Once she finds the lost object, she uses the GUI to control the robot arm to pick up the object.
-5.	Madison uses the controls to recall the RoboControl device, then leaving the GUI and turning the device off.
-
-### Alternate Flow (Obstacle): 
-1.	Madison powers on her RoboControl device and starts the GUI.
-2.	The robot starts moving and uses its sensors and camera to gather data about its surroundings.
-3.	The robot encounters an obstacle (wall, boxes, etc.) while searching for the lost object.
-4.	Madison views the obstacle on the video feed, and the robot uses image recognition to show an obstacle on the GUI.
-5.	Madison uses the controls to reroute the robot away from the obstacle to continue searching for the lost object. 
+1.	The user powers on the RoboControl device. 
+2.	The user navigates to the control website. 
+3.	The user views the live camera feed on his/her device. 
+4.	The user exits the website and powers down the RoboControl device. 
 
 ## Use Case #2
-<b>Triggering Event</b>: Jason Derulo wants to use the RoboControl on a course he built, for his entertainment.
+As a user, I want to be able to control the RoboControl so it is able to traverse through a custom obstacle course for entertainment.
 
-### Normal flow (Actor: Jason, System: RoboControl):
-1.	Jason powers on his RoboControl device and starts the GUI.
-2.	Jason uses the web-based GUI to control the robot and has it traverse through the course he built.
-3.	The RoboControl device finishes the track, and Jason powers off the device. 
-
-### Alternative Flow (Obstacle & Image Recognition):
-1.	Jason turns on the RoboControl device and starts the GUI.
-2.	Jason uses the onboard GUI to control the robot, but he mistakenly has it go off-course.
-3.	The RoboControl device uses its image recognition capabilities to spot an unavoidable obstacle, halts, and notifies Jason through the GUI.
-4.	Jason then uses the controls to reposition the robot onto the course.
-5.	The RoboControl device finishes the track, and Jason powers off the device.
+1. The user powers on the RoboControl device. 
+2. The user places the RoboControl in the desired starting position. 
+3. The user navigates to the control website. 
+4. The user uses the GUI with all the controls and maneuvers the robot through the course. 
+5. The user exits the website and powers down the RoboControl device. 
 
 ## Use Case #3
-<b>Triggering Event</b>: Charlie Puth works at Wal-Mart and wants an efficient way to manage inventory.
+As a user, I want the RoboControl to autonomously center, detect obstacles and manuever through a track defined by painter’s tape. 
 
-### Normal flow (Actor: Charlie, System: RoboControl):
-1.	Charlie powers on the RoboControl device and places it in the desired starting position in the store.
-2.	Charlie uses the onboard GUI and camera on the device to take pictures of desired items on shelves around the store.
-3.	Charlie uses this information to manage and update inventory information in real time.
-4.	Charlie continues this process until it is no longer needed and turns off the camera feed/device.
+1. The user powers on the RoboControl device. 
+2. The user places the RoboControl in the desired starting position. 
+3. The user navigates to the control website and enables ‘Autonomous Mode’. 
+4. The RoboControl will automatically center and traverse through the course using computer vision. 
+5. The RoboControl will also stop when it detects an obstacle using object detection and the ultrasonic sensor. 
+6. At the end of the course, the user disables ‘Autonomous Mode’, exits the website, and powers down the RoboControl device. 
 
-### Alternative Flow (Autonomous & Obstacle):
-1.	Charlie powers on the RoboControl device and places it in the desired starting position in the store.
-2.	The RoboControl device is set to autonomous mode and goes around the store to view the desired items on shelves.
-3.	The RoboControl device spots an obstacle (customers, boxes, etc.) in its path, and preemptively changes its course using image recognition to avoid the obstacle.
-4.	Charlie continues to update and manage inventory information in real time as the RoboControl moves forward using the real-time video shown in the GUI.
+## Use Case #4 
+As a user, I want to use the RoboControl to assist me in teaching those interested in coding and robotics. 
+
+1. The user powers on the RoboControl device. 
+2. The user navigates to the code repository and makes the desired changes. 
+3. After making/saving changes to the code, the user navigates to the website GUI to manage the controls and demonstrates the changes to the audience. 
+4. After the demonstration, the user exits the website and powers down the RoboControl device. 
+
+## Use Case #5
+As a user, I want to use a RoboControl to make a map of the surrounding area. 
+
+1. The user powers on the RoboControl device. 
+2. The user places the RoboControl in the desired starting position. 
+3. The user navigates to the control website. 
+4. The user views the live camera feed on his/her device. 
+5. The user controls the robot to go to the desired area and edits his/her map based on the landmarks discovered by the robot’s camera.
+6. The user controls the robot arm to leave new landmarks.  
+7. The user exits the website and powers down the RoboControl device. 
