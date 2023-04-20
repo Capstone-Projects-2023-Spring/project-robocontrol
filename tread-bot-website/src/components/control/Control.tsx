@@ -42,6 +42,11 @@ const Control = (): React.ReactElement => {
 		setAutonomous(prevState => !prevState);
 	}
 
+	// New function to set autonomous mode
+	const setAutonomousMode = (value: boolean) => {
+		setAutonomous(value);
+	}
+
 	return (
 
 		// Give camera feed its own container to avoid overlapping with WASD controls
