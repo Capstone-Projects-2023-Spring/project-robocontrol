@@ -14,17 +14,6 @@ const Control = (): React.ReactElement => {
 	const [key, setKey] = useState({char: '', keyDown: false})
 	const [autonomous, setAutonomous] = useState(false); // Add state variable for autonomous mode
 
-
-	// New function to toggle autonomous mode
-	const toggleAutonomous = () => {
-		setAutonomous(prevState => !prevState);
-	}
-
-	// New function to set autonomous mode
-	const setAutonomousMode = (value: boolean) => {
-		setAutonomous(value);
-	}
-
 	// Allow bot to be controlled by WASD keys on keyboard
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -48,14 +37,17 @@ const Control = (): React.ReactElement => {
 		};
 	}, [loggedIn]);
 
-	
 	return (
 
 		// Give camera feed its own container to avoid overlapping with WASD controls
 		<Styles.ControlContainer>
 			{/* Display the Base64 image string sent from the robot */}
-			<img src={'https://ryanhodge.net/stream/original'} alt='Video stream from robot'/>
-			<img src={'https://ryanhodge.net/stream/color_detection'} alt='Color detection stream'/>
+			{autonomous ? (
+	<img src="https://ryanhodge.net/stream/color_detection" alt="Color detection stream" />
+) : (
+	<img src="https://ryanhodge.net/stream/original" alt="Video stream from robot" />
+)}
+
 
 			<Styles.ButtonContainer>
 				{ !loggedIn ? <Login loginSuccessful={login} /> : <ButtonGrid keyPress={key} commands_ws={commands_ws}/> }
