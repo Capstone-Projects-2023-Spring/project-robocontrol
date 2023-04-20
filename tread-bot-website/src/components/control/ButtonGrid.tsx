@@ -49,9 +49,11 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 	// for changing background color of autonomous button when active
 	toggleAutonomousMode = () => {
 		this.setState(prevState => ({
-			autonomousMode: !prevState.autonomousMode
-		}));
-	}
+		  autonomousMode: !prevState.autonomousMode
+		}), () => {
+		  this.props.setAutonomous(this.state.autonomousMode);
+		});
+	  }
 
 	/**
 	 * Get the current wasd value based on the current state of the button pressing
