@@ -11,20 +11,20 @@ const commands_ws = new WebSocket(COMMANDS_WS_URL) // A websocket for the robot 
 // add state variable for automous 
 const Control = (): React.ReactElement => {
 	const [loggedIn, login] = useState<boolean>(false);
-	const [key, setKey] = useState({char: '', keyDown: false})
+	const [key, setKey] = useState({ char: '', keyDown: false })
 	const [autonomous, setAutonomous] = useState(false); // Add state variable for autonomous mode
 
 	// Allow bot to be controlled by WASD keys on keyboard
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (loggedIn && !event.repeat) {
-				setKey({char: event.key.toLowerCase(), keyDown: true})
+				setKey({ char: event.key.toLowerCase(), keyDown: true })
 			}
 		};
 
 		const handleKeyUp = (event: KeyboardEvent) => {
 			if (loggedIn) {
-				setKey({char: event.key.toLowerCase(), keyDown: false})
+				setKey({ char: event.key.toLowerCase(), keyDown: false })
 			}
 		};
 
@@ -42,11 +42,17 @@ const Control = (): React.ReactElement => {
 		// Give camera feed its own container to avoid overlapping with WASD controls
 		<Styles.ControlContainer>
 			{/* Display the Base64 image string sent from the robot */}
-			<img src={'https://ryanhodge.net/stream/original'} alt='Video stream from robot'/>
-			<img src={'https://ryanhodge.net/stream/color_detection'} alt='Color detection stream'/>
+			<img src={'https://ryanhodge.net/stream/original'} alt='Video stream from robot' />
+			<img src={'https://ryanhodge.net/stream/color_detection'} alt='Color detection stream' />
 
 			<Styles.ButtonContainer>
-				{ !loggedIn ? <Login loginSuccessful={login} /> : <ButtonGrid keyPress={key} commands_ws={commands_ws}/> }
+				{!loggedIn ? <Login loginSuccessful={login} /> :
+					<ButtonGrid
+						keyPress={key}
+						commands_ws={commands_ws}
+						setAutonomous={setAutonomous}
+					/>
+				}
 			</Styles.ButtonContainer>
 		</Styles.ControlContainer>
 	)
