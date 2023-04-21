@@ -1,5 +1,4 @@
 from queue import Queue
-from image_processing.color_detection import direction_to_center
 
 class Automation:
 	def __init__(self, q: Queue) -> None:
@@ -12,18 +11,18 @@ class Automation:
 		self.ultrasonic_data = data
 	
 	# Crop the image to the desired height (h)
-	def crop_image(self, image, h):
+	def crop_image(self, image, start, h):
 		height = image.shape[0]
-		return image[height-h:height, :]
+		return image[height - h:height - start, :]
 
 	# Send command to robot to center the robot based on the image
 	def center_robot(self, direction) -> None:
 		if direction == 'left':
 			self.isCentered = False
-			return {'direction': 'no', 'turn': 'left'}
+			return {'direction': 'no', 'turn': 'left', 'speed': 50}
 		elif direction == 'right':
 			self.isCentered = False
-			return {'direction': 'no', 'turn': 'right'}
+			return {'direction': 'no', 'turn': 'right', 'speed': 50}
 		else:
 			self.isCentered = True
-			return {'direction': 'no', 'turn': 'no'}
+			return {'direction': 'no', 'turn': 'no', 'speed': 50}
