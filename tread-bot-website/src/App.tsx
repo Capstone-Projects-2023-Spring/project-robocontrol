@@ -1,3 +1,4 @@
+import React from "react";
 import Styles from "./AppStyles";
 import Banner from "./components/Banner";
 import 'bootstrap/dist/css/bootstrap.min.css';
