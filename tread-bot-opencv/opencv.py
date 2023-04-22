@@ -6,27 +6,27 @@ from queue import Queue
 import threading
 from image_processing.process_images import process_img
 
-async def main():
-	img_proc_q = Queue()
-	websocket_q = Queue()
-	command_q = Queue()
-	autonomous = [False]
-	ultrasonic_data_q = Queue()
+class OpenCV:
+	async def main():
+		img_proc_q = Queue()
+		websocket_q = Queue()
+		command_q = Queue()
+		autonomous = [False]
+		ultrasonic_data_q = Queue()
 
+		commands = CommandWS()
+		video = VideoWS()
 
-	commands = CommandWS()
-	video = VideoWS()
-
-	commands_thread = threading.Thread(target=asyncio.run, args=(commands.start_server(command_q, autonomous, ultrasonic_data_q),))
-	video_thread = threading.Thread(target=asyncio.run, args=(video.start(img_proc_q, websocket_q, autonomous),))
-	img_processing_thread = threading.Thread(target=asyncio.run, args=(process_img(img_proc_q, websocket_q, command_q, autonomous, ultrasonic_data_q),))
-	
-	img_processing_thread.start()
-	commands_thread.start()
-	video_thread.start()
-	img_processing_thread.join()
-	commands_thread.join()
-	video_thread.join()
+		commands_thread = threading.Thread(target=asyncio.run, args=(commands.start_server(command_q, autonomous, ultrasonic_data_q),))
+		video_thread = threading.Thread(target=asyncio.run, args=(video.start(img_proc_q, websocket_q, autonomous),))
+		img_processing_thread = threading.Thread(target=asyncio.run, args=(process_img(img_proc_q, websocket_q, command_q, autonomous, ultrasonic_data_q),))
+		
+		img_processing_thread.start()
+		commands_thread.start()
+		video_thread.start()
+		img_processing_thread.join()
+		commands_thread.join()
+		video_thread.join()
 
 if __name__ == '__main__':
-	asyncio.run(main())
+	asyncio.run(OpenCV.main())

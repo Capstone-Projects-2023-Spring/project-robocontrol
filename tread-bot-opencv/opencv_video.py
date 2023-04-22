@@ -21,7 +21,6 @@ class VideoWS():
 	HOST = '127.0.0.1'
 
 	def __init__(self) -> None:
-		self.dummy_img = cv2.imread("/home/robot/Ryan/project-robocontrol/tread-bot-opencv/dummy_image.jpeg")
 		self.vid = None
 		self.clients = set()
 		self.img_proc_q = Queue()
@@ -29,7 +28,7 @@ class VideoWS():
 		self.app = Flask(__name__)
 		self.autonomous = [False] # This is a list so that it gets passed by reference, not value
 
-	async def start(self, img_proc_q, websocket_q, autonomous: List[bool]):
+	def start(self, img_proc_q, websocket_q, autonomous: List[bool]):
 		self.autonomous = autonomous
 		self.img_proc_q = img_proc_q
 		self.websocket_q = websocket_q
@@ -37,7 +36,7 @@ class VideoWS():
 		# gstreamer_str = 'v4l2src device=/dev/video0 ! queue ! videoconvert ! appsink drop=1'
 		gstreamer_str = 'udpsrc port=8888 ! queue ! h264parse ! avdec_h264 ! videoconvert ! appsink drop=1'
 		self.vid = cv2.VideoCapture(gstreamer_str, cv2.CAP_GSTREAMER)
-
+		
 		# Start the servers
 		self.app.add_url_rule('/original', 'original', self.original_stream)
 		self.app.add_url_rule('/color_detection', 'color_detection', self.color_detection_stream)
