@@ -12,7 +12,7 @@ const About = (): React.ReactElement => {
 	})
 	
 	return (
-		<AboutStyles.AboutContainer>
+		<AboutStyles.AboutContainer data-testid='About'>
 			<AboutStyles.AboutTextContainer>
 				<AboutStyles.AboutContent>
 					<ReactMarkdown children={markdownText} />

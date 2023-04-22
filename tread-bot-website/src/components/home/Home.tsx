@@ -13,14 +13,14 @@ const Home = () => {
 	};
 
 	return (
-		<HomeStyles.HomeContainer>
+		<HomeStyles.HomeContainer data-testid='Home'>
 			<HomeStyles.RoboControlBox>ROBOCONTROL</HomeStyles.RoboControlBox>
 			<HomeStyles.ControlsImage><div/></HomeStyles.ControlsImage>
 			<HomeStyles.AboutImage><div/></HomeStyles.AboutImage>
-			<HomeStyles.ControlButton data-testid='control' onClick={() => handleClick(PATHS.CONTROL)}>
+			<HomeStyles.ControlButton data-testid='control-button' onClick={() => handleClick(PATHS.CONTROL)}>
 				CONTROL
 			</HomeStyles.ControlButton>
-			<HomeStyles.AboutButton data-testid='about' onClick={() => handleClick(PATHS.ABOUT)}>
+			<HomeStyles.AboutButton data-testid='about-button' onClick={() => handleClick(PATHS.ABOUT)}>
 				ABOUT
 			</HomeStyles.AboutButton>
 			<HomeStyles.FooterContainer>

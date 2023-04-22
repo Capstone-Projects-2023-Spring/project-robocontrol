@@ -40,7 +40,7 @@ const Control = (): React.ReactElement => {
 	return (
 
 		// Give camera feed its own container to avoid overlapping with WASD controls
-		<Styles.ControlContainer>
+		<Styles.ControlContainer data-testid='Control'>
 			{/* Display the Base64 image string sent from the robot */}
 			{autonomous ? (
 			<img
