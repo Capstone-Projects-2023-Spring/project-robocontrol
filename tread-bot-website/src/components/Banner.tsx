@@ -26,7 +26,7 @@ class Banner extends React.Component <unknown, { show: boolean }> {
 	render () {
 		return (
             <>
-                <Styles.HamburgerButton onClick={this.handleShow}>
+                <Styles.HamburgerButton data-testid='hamburger' onClick={this.handleShow}>
 					<RxHamburgerMenu size={'40px'}/>
 				</Styles.HamburgerButton>
 
@@ -35,9 +35,9 @@ class Banner extends React.Component <unknown, { show: boolean }> {
                         <Styles.OffcanvasTitle>RoboControl</Styles.OffcanvasTitle>
                     </Offcanvas.Header>
                     <Styles.OffcanvasBody>
-                        <Styles.LinkCont className='first-link' to={PATHS.HOME} onClick={this.handleLink}>HOME</Styles.LinkCont>
-                        <Styles.LinkCont to={PATHS.CONTROL} onClick={this.handleLink}>CONTROL</Styles.LinkCont>
-                        <Styles.LinkCont to={PATHS.ABOUT} onClick={this.handleLink}>ABOUT</Styles.LinkCont>
+                        <Styles.LinkCont data-testid='banner-home' className='first-link' to={PATHS.HOME} onClick={this.handleLink}>HOME</Styles.LinkCont>
+                        <Styles.LinkCont data-testid='banner-controls' to={PATHS.CONTROL} onClick={this.handleLink}>CONTROL</Styles.LinkCont>
+                        <Styles.LinkCont data-testid='banner-about' to={PATHS.ABOUT} onClick={this.handleLink}>ABOUT</Styles.LinkCont>
                     </Styles.OffcanvasBody>
                 </Styles.OffcanvasContainer>
             </>
