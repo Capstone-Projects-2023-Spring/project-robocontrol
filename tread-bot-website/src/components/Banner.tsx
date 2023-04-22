@@ -26,7 +26,7 @@ class Banner extends React.Component <unknown, { show: boolean }> {
 	render () {
 		return (
             <>
-                <Styles.HamburgerButton onClick={this.handleShow}>
+                <Styles.HamburgerButton data-testid='hamburger' onClick={this.handleShow}>
 					<RxHamburgerMenu size={'40px'}/>
 				</Styles.HamburgerButton>
 

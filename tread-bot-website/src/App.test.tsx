@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 
+// Crazy voodoo magic
 beforeAll(() => Object.defineProperty(window, 'matchMedia', {
 	writable: true,
 	value: jest.fn().mockImplementation(query => ({
@@ -16,8 +17,15 @@ beforeAll(() => Object.defineProperty(window, 'matchMedia', {
 	})),
 }));
 
-test('renders learn react link', () => {
+test('Render whole app', () => {
 	render(<App />);
-	const linkElement = screen.getByText(/learn react/i);
-	expect(linkElement).toBeInTheDocument();
+	const linkElement = screen.getByText('CONTROL');
+	expect(linkElement.textContent).toEqual('CONTROL');
 });
+
+test('Open offcanvas menu', () => {
+	render(<App />);
+	fireEvent.click( screen.getByTestId('hamburger') )
+	const linkText = screen.getByText('HOME');
+	expect(linkText).toBeDefined()
+})
