@@ -5,8 +5,7 @@ import numpy as np
 gstreamer_str = 'udpsrc port=8888 ! queue ! h264parse ! avdec_h264 ! videoconvert ! appsink drop=1'
 vid = cv2.VideoCapture(gstreamer_str, cv2.CAP_GSTREAMER)
 
-def nothing(x):
-    pass
+def nothing(x): pass
 
 cv2.namedWindow("live transmission", cv2.WINDOW_AUTOSIZE)
 

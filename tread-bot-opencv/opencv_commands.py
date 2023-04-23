@@ -4,7 +4,6 @@ from typing import List
 import websockets
 import asyncio
 from queue import Queue
-import copy
 
 class CommandWS():
 	
