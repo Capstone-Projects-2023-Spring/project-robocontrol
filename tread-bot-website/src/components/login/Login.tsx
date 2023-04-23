@@ -57,7 +57,7 @@ const Login = (props: LoginProps): React.ReactElement => {
 
 
 	return (
-		<Styles.LoginContainer>
+		<Styles.LoginContainer data-testid='Login'>
 			<Styles.Heading>Controls</Styles.Heading>
 			<Styles.InputContainer>
 				{!usernameFocused && !username && (
