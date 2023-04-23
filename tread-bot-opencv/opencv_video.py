@@ -28,7 +28,7 @@ class VideoWS():
 		self.app = Flask(__name__)
 		self.autonomous = [False] # This is a list so that it gets passed by reference, not value
 
-	def start(self, img_proc_q, websocket_q, autonomous: List[bool]):
+	async def start(self, img_proc_q, websocket_q, autonomous: List[bool]):
 		self.autonomous = autonomous
 		self.img_proc_q = img_proc_q
 		self.websocket_q = websocket_q

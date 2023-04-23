@@ -1,6 +1,6 @@
 from autonomy import Automation
 from queue import Queue
-import cv2
+import numpy as np
 
 autonomous = Automation(Queue())
 
@@ -14,7 +14,7 @@ def test_centering_robot_commands():
 
 def test_crop_image():
 	height = 20
-	img = cv2.imread('./dummy_image.jpeg', 0)
+	img = np.zeros((30,60,3),np.uint8)
 	cropped = autonomous.crop_image(img, 0, height)
 	cropped_image_calculation = img[img.shape[0] - height:img.shape[0]][:]
-	assert cropped_image_calculation.all() == cropped.all()
+	assert (cropped_image_calculation == cropped).all()
