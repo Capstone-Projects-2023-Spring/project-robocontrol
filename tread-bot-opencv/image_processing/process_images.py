@@ -5,7 +5,7 @@ from image_processing.color_detection import ColorDetection
 from autonomy import Automation
 import numpy as np
 
-async def process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):
+def process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, autonomous: List[bool], ultrasonic_data_q: Queue):
     automation = Automation(command_q)
     color_detection = ColorDetection(None)
     while True:
