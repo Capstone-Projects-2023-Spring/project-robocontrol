@@ -51,15 +51,25 @@ class ColorDetection:
 		if len(contour_list) >= 1:
 			largest_contours[0] = Contour(cv2.contourArea(contour_list[-1]), contour_list[-1])
 			if len(contour_list) >= 2:
+				print("Exists within length of contours >= 2")
 				largest_contours[1] = Contour(cv2.contourArea(contour_list[-2]), contour_list[-2])
 			# Get the left tape line and right tape line, as long as there are 2 in the list
 			if len(contour_list) >= 2 and largest_contours[0].area >= contour_tolerance and largest_contours[1].area >= contour_tolerance:
+				print("Exists within two lines visible")
 				self.turn = False
+				# print("Two lines visible.")
 				return self.two_lines_visible(largest_contours)
 			elif largest_contours[0].area >= contour_tolerance:
+				print("exists within one line visible")
+				self.turn = False
+				# print("single line visible")
 				return self.one_line_visible(largest_contours[0])
-			else: return 'no'
-
+			else: 
+				print("exists within no contours")
+				self.turn = False
+				return 'no'
+		else:
+			return 'backward'
 		return 'no'
 
 	def two_lines_visible(self, largest_contours: List[Contour]) -> str:
@@ -91,11 +101,18 @@ class ColorDetection:
 	# When only one line is visible (turning probably)
 	def one_line_visible(self, largest_contour: Contour):
 		draw_contour(self.img, largest_contour.contour, 'Single Line')
-		if self.turn: return
-		self.turn = True
+		self.turn = False
 		img_width = self.img.shape[1]
 		img_center = img_width / 2
 		x, _, w, _ = cv2.boundingRect(largest_contour.contour)
 		contour_center = x + w / 2
-		if img_center > contour_center: self.turn_direction = 'right'
-		else: self.turn_direction = 'left'
+		if img_center > contour_center: 
+			self.turn_direction = 'right'
+			self.turn = True
+		else: 
+			self.turn_direction = 'left'
+			self.turn = True
+		print(img_center, contour_center)
+		if self.turn is True:
+			return self.turn_direction
+
