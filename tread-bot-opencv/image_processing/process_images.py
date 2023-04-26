@@ -18,6 +18,7 @@ def process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, autonom
         img = img_proc_q.get()
         if img is None: continue
         
+        
         cropped_img_bottom = automation.crop_image(img, 0, 50)
         cropped_img_top = automation.crop_image(img, 51, img.shape[0])
         color_detection.set_img(cropped_img_bottom)
@@ -27,14 +28,19 @@ def process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, autonom
         if autonomous[0]:
             if color_detection.turn:
                 cmd = automation.center_robot(color_detection.turn_direction)
-                command_q.put({'direction': 'no', 'turn': color_detection.turn_direction, 'speed': 80})
-                command_q.put({'direction': 'no', 'turn': 'no'})
+                command_q.put({'direction': 'no', 'turn': color_detection.direction_to_center, 'speed': 100})
                 print(color_detection.turn_direction)
             # If the robot is not centered, get the command to send to the robot to turn it
             elif not automation.isCentered:
+                print("Not centered")
                 cmd = automation.center_robot(direction)
                 command_q.put(cmd)
             # Do nothing or go straight if the robot is centered
             else:
-                if direction != 'no': automation.isCentered = False
-                command_q.put({'direction': 'forward', 'turn': 'no', 'speed': 50})
+                if direction != 'no': 
+                    automation.isCentered = False
+                    command_q.put({'direction': 'forward', 'turn': 'no', 'speed': 80})
+                elif direction == 'backward':
+                    command_q.put({'direction': 'backward', 'turn': 'no', 'speed': 80})
+                else:
+                    command_q.put({'direction': 'forward', 'turn': 'no', 'speed': 80})

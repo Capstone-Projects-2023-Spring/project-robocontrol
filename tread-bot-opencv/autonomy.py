@@ -19,10 +19,10 @@ class Automation:
 	def center_robot(self, direction) -> dict:
 		if direction == 'left':
 			self.isCentered = False
-			return {'direction': 'no', 'turn': 'left', 'speed': 50}
+			return {'direction': 'no', 'turn': 'left', 'speed': 80}
 		elif direction == 'right':
 			self.isCentered = False
-			return {'direction': 'no', 'turn': 'right', 'speed': 50}
+			return {'direction': 'no', 'turn': 'right', 'speed': 80}
 		else:
 			self.isCentered = True
-			return {'direction': 'no', 'turn': 'no', 'speed': 50}
+			return {'direction': 'no', 'turn': 'no', 'speed': 80}
