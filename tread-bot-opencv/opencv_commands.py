@@ -59,10 +59,10 @@ class CommandWS():
 					self.autonomous[0] = not self.autonomous[0]
 					print('Auto:' + str(self.autonomous))
 					await self.robot_ws.send(json.dumps({'direction': 'no', 'turn': 'no', 'autonomous': self.autonomous[0]}))
-				elif msg.startswith('{"ultrasonic_data":'):
-					ultrasonic_data = json.loads(msg)
-					print(ultrasonic_data)
-					self.ultrasonic_data_q.put(ultrasonic_data)
+				# elif msg.startswith('{"ultrasonic_data":'):
+				# 	ultrasonic_data = json.loads(msg)
+				# 	print(ultrasonic_data)
+				# 	self.ultrasonic_data_q.put(ultrasonic_data)
 				elif(not self.autonomous[0] and self.robot_ws):
 					await self.robot_ws.send(msg)
 				await asyncio.sleep(0)

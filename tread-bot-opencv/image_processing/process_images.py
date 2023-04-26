@@ -29,6 +29,9 @@ def process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, autonom
                 cmd = automation.center_robot(color_detection.turn_direction)
                 command_q.put({'direction': 'no', 'turn': color_detection.turn_direction, 'speed': 100})
                 print(color_detection.turn_direction)
+            elif color_detection.turn is False:
+                cmd = automation.center_robot(color_detection.turn_direction)
+                command_q.put({'direction': 'no', 'turn': color_detection.turn_direction, 'speed': 100})
             # If the robot is not centered, get the command to send to the robot to turn it
             elif not automation.isCentered:
                 cmd = automation.center_robot(direction)
