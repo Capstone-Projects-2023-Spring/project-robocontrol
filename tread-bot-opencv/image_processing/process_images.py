@@ -25,6 +25,8 @@ def process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, autonom
         stitched_img = np.vstack((cropped_img_top, cropped_img_bottom))
         websocket_q.put(stitched_img)
         if autonomous[0]:
+            print(color_detection.turn)
+            print(color_detection.turn_direction)
             if color_detection.turn:
                 cmd = automation.center_robot(color_detection.turn_direction)
                 command_q.put({'direction': 'no', 'turn': color_detection.turn_direction, 'speed': 100})
