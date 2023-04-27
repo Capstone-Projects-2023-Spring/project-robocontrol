@@ -26,21 +26,25 @@ def process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, autonom
         stitched_img = np.vstack((cropped_img_top, cropped_img_bottom))
         websocket_q.put(stitched_img)
         if autonomous[0]:
-            if color_detection.turn:
-                cmd = automation.center_robot(color_detection.turn_direction)
-                command_q.put({'direction': 'no', 'turn': color_detection.direction_to_center, 'speed': 100})
-                print(color_detection.turn_direction)
+            # if color_detection.turn:
+                # cmd = automation.center_robot(color_detection.turn_direction)
+                # command_q.put({'direction': 'no', 'turn': color_detection.direction_to_center(), 'speed': 100})
+                # print(color_detection.turn_direction)
             # If the robot is not centered, get the command to send to the robot to turn it
-            elif not automation.isCentered:
+            # el
+            if not automation.isCentered:
                 print("Not centered")
+                print(direction)
                 cmd = automation.center_robot(direction)
+                print(cmd)
                 command_q.put(cmd)
             # Do nothing or go straight if the robot is centered
             else:
                 if direction != 'no': 
-                    automation.isCentered = False
-                    command_q.put({'direction': 'forward', 'turn': 'no', 'speed': 80})
-                elif direction == 'backward':
-                    command_q.put({'direction': 'backward', 'turn': 'no', 'speed': 80})
+                    print("Inside outside else for direction.")
+                    # automation.isCentered = False
+                    command_q.put({'direction': 'forward', 'turn': direction, 'speed': 80})
+                # elif direction == 'backward':
+                    # command_q.put({'direction': 'backward', 'turn': 'no', 'speed': 75})
                 else:
-                    command_q.put({'direction': 'forward', 'turn': 'no', 'speed': 80})
+                    command_q.put({'direction': 'no', 'turn': 'no', 'speed': 80})
