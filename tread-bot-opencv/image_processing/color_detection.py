@@ -78,7 +78,7 @@ class ColorDetection:
 				# return self.one_line_visible(largest_contours[0])
 			# else: return 'no'
 		elif len(contour_list) == 0:
-			return 'stop'
+			return 'backward'
 		else:
 			largest_contours[0] = Contour(cv2.contourArea(contour_list[-1]), contour_list[-1])
 			return self.one_line_visible(largest_contours[0])
@@ -110,10 +110,10 @@ class ColorDetection:
 		print('l2: ' + str(l2))
 		ratio = l1 / l2
 		print("ratio:", ratio)
-		if ratio < 0.7: 
+		if ratio < 0.3: 
 			print("returning left")
 			return 'left'
-		elif ratio > 1.3: 
+		elif ratio > 1.7: 
 			print("returning right")
 			return 'right'
 		else: return 'no'
@@ -132,8 +132,11 @@ class ColorDetection:
 		# if self.turn: return
 		# self.turn = True
 		img_width = self.img.shape[1]
-		print(img_width)
+		
 		img_center = img_width / 2
+		print(img_center)
+		img_left_trigger = img_width / 4
+		img_right_trigger = img_center + img_left_trigger
 		x, _, w, _ = cv2.boundingRect(largest_contour.contour)
 		contour_center = x + w / 2
 		print(contour_center)
