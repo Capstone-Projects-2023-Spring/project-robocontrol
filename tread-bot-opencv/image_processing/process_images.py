@@ -41,6 +41,9 @@ async def process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, a
         stitched_img = np.vstack((cropped_img_top, cropped_img_bottom))
         websocket_q.put(stitched_img)
         print("Autonomous Value: ", autonomous[0])
+        if autonomous[0] is not True:
+            print("Resetting backward count")
+            backward_count = 0
         if autonomous[0]:
             # time.sleep(1)
             if color_detection.turn:
@@ -84,3 +87,4 @@ async def process_img(img_proc_q: Queue, websocket_q: Queue, command_q: Queue, a
                 else:
                     print("At end of if statements.")
                     command_q.put({'direction': 'forward', 'turn': 'no', 'speed': 80})
+            
