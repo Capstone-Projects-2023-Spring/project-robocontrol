@@ -115,8 +115,6 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 				<Styles.DirectionButton
 					style={{
 						gridArea: direction.grid,
-						backgroundColor: COLORS.UNPRESSBUTTON,
-						userSelect: 'none',
 						...(this.getActiveMovementFromChar()[direction.command] ? activeStyle : {})
 					}}
 					key={i} 
