@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { FONT_FAMILY } from '../../tools/Constants';
+import { COLORS, FONT_FAMILY } from '../../tools/Constants';
 
 export default class ButtonGridStyles {
 	static readonly ButtonGridContainer = styled.div`
@@ -24,6 +24,14 @@ export default class ButtonGridStyles {
 
 	static readonly DirectionButton = styled.button`
 		${FONT_FAMILY.BUTTON}
+		background-color: ${COLORS.UNPRESSBUTTON};
+		-webkit-touch-callout:none;
+		-webkit-user-select:none;
+		-khtml-user-select:none;
+		-moz-user-select:none;
+		-ms-user-select:none;
+		user-select:none;
+		-webkit-tap-highlight-color:rgba(0,0,0,0);
 		&:active { box-shadow: 0px 0px 0px 0px; }
 		@media (min-width: 768px) { padding: 0.25em 0.75em; }
 	`
