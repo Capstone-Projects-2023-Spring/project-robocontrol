@@ -53,6 +53,7 @@ class CommandWS():
 		try:
 			while True:
 				msg = await websocket.recv()
+				print(msg)
 				if (msg == 'robot'):
 					self.robot_ws = websocket
 				elif (msg == 'autonomous'):
@@ -63,6 +64,9 @@ class CommandWS():
 					ultrasonic_data = json.loads(msg)
 					print(ultrasonic_data)
 					self.ultrasonic_data_q.put(ultrasonic_data)
+					if self.autonomous:
+						await self.robot_ws.send(json.dumps({'direction': 'no', 'turn': 'no', 'autonomous': self.autonomous[0]}))
+					
 				elif(not self.autonomous[0] and self.robot_ws):
 					await self.robot_ws.send(msg)
 				await asyncio.sleep(0)
