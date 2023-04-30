@@ -43,17 +43,17 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 	constructor(props: { keyPress: KeyPress, commands_ws: WebSocket, setAutonomous: (isActive: boolean) => void}) {
 		super(props)
 		this.state = { activeMovement: wasd_default, autonomousMode: false }
-	  }
+	}
 
 	
 	// for changing background color of autonomous button when active
 	toggleAutonomousMode = () => {
 		this.setState(prevState => ({
-		  autonomousMode: !prevState.autonomousMode
+			autonomousMode: !prevState.autonomousMode
 		}), () => {
-		  this.props.setAutonomous(this.state.autonomousMode);
+			this.props.setAutonomous(this.state.autonomousMode);
 		});
-	  }
+	}
 
 	/**
 	 * Get the current wasd value based on the current state of the button pressing
@@ -116,11 +116,12 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 					style={{
 						gridArea: direction.grid,
 						backgroundColor: COLORS.UNPRESSBUTTON,
+						userSelect: 'none',
 						...(this.getActiveMovementFromChar()[direction.command] ? activeStyle : {})
 					}}
-					onMouseDown={() => { this.sendMessage(this.getActiveMovementFromChar({ char: direction.character, keyDown: true })) }}
-					onMouseUp={() => { this.sendMessage(this.getActiveMovementFromChar({ char: direction.character, keyDown: false })) }}
-					key={i} >{direction.text}</Styles.DirectionButton>
+					key={i} 
+					onTouchStart={() => { this.sendMessage(this.getActiveMovementFromChar({ char: direction.character, keyDown: true })) }}
+					onTouchEnd={() => { this.sendMessage(this.getActiveMovementFromChar({ char: direction.character, keyDown: false })) }}>{direction.text}</Styles.DirectionButton>
 			)
 		})
 		return directionButtons

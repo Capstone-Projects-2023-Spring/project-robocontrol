@@ -20,6 +20,9 @@ const Control = (): React.ReactElement => {
 			if (loggedIn && !event.repeat) {
 				setKey({ char: event.key.toLowerCase(), keyDown: true })
 			}
+			if (event.key.toLowerCase() === 'arrowdown' || event.key.toLowerCase() === 'arrowup') {
+				event.preventDefault()
+			}
 		};
 
 		const handleKeyUp = (event: KeyboardEvent) => {
