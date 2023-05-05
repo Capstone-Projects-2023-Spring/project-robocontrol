@@ -4,166 +4,153 @@ sidebar_position: 1
 # Class Diagrams
 
 ## Robot Diagram ##
-![](assets/ArchitectureROBOT.png)
+![](assets/Architecture_TREAD_BOT.png)
 ### Robot Code ###
-* (Main) Class purpose: Creates instances of Website, Server and Robot classes and handles their interactions. 
+* (Main) Class purpose: Main handler of robot functions. Also manages the websockets for sending data.
     * Data Fields:  
-        * website 
-            * Type: Website 
-        * timer: 
-            * Type: Timer 
-        * robot: 
-            * Type: Robot 
+        * commands: 
+            * Type: RobotCommandsWS 
+        * video: 
+            * Type: RobotVideoWS 
+        * commands_thread: 
+            * Type: Thread 
+        * video_thread:
+            * Type: Thread
 
-* (Website) Class purpose: Provides a means for sending data from the robot to the website. 
+* (robot_commands_ws) Class purpose: Provides a means for sending commands from the robot to the server. 
     * Data Fields:  
-        * img 
-            * Type: Image 
-        * dist: 
+        * PORT 
             * Type: int 
+        * HOST: 
+            * Type: string 
+        * HOST_PATH:
+            * Type: string
+        * fuc : 
+            * Type: functions
+        * clients: 
+            * Type: Set
+        * robot_ws: 
+            * Type: WebSocket
+        * autonomous:
+            * Type: boolean
+        * connected:
+            * Type: boolean
 
     * Methods: 
-        * sendSensorData(Image img, int dist): void 
-            * This method will send the data acquired by the sensors (camera and ultrasonic) to the website in the form of a JSON string. 
-            * Pre-conditions: The robot's camera and ultrasonic sensors must be functioning properly. 
-            * Parameters: img, dist 
+        * connect(): void 
+            * This method will connect the robot to the server through JSON websockets. 
+            * Pre-conditions: None
+            * Parameters: None 
+            * Return Values: None 
+            * Exceptions thrown: None 
+        * receive(WebSocket): void 
+            * This method will interpret commands received through the JSON websockets. 
+            * Pre-conditions: None
+            * Parameters: Websocket 
             * Return Values: None 
             * Exceptions thrown: None  
-
-* (Robot) Class purpose: Facilitates the movement of the robot. 
-    * Data Fields: 
-        * move 
-            * Type: Movement 
-    * Methods: 
-        * move(String direction): void 
-            * This method will accept a string as an argument and send a command to the servos as an output. 
-            * Preconditions: The direction must be a string representing a valid direction, which can be one of the following: "forward", "backward", "left", or "right". 
-            * Parameters: direction 
-            * Return Value: None 
-            * Exceptions Thrown: None 
-
-* (Server) Class purpose: Sends robot data to the server. 
-    * Methods: 
-        * sendSensorData(Image img, int dist): void 
-            * This method will send the data acquired by the sensors (camera and ultrasonic) to the server in the form of JSON strings. 
-            * Pre-conditions: The robot's camera and ultrasonic sensors must be functioning properly. 
-            * Parameters: img, dist 
+        * send(WebSocket): void 
+            * This method will send data from the robot to the server through JSON websockets. 
+            * Pre-conditions: None
+            * Parameters: WebSocket 
             * Return Values: None 
             * Exceptions thrown: None 
 
-* (Movement) Class purpose: This class will house the logic for the different movements of the robot. 
+* (RobotVideoWS) Class purpose: Send video data from the robot to the server. 
+    * Data Fields: 
+        * gstr 
+            * Type: string 
     * Methods: 
-        * forward() 
-            * Moves the robot Forward in its current direction by the current speed. 
+        * run(): void 
+            * This method take the images from the robot's onboard camera and send it through the JSON websocket. 
+            * Preconditions: None 
             * Parameters: None 
             * Return Value: None 
             * Exceptions Thrown: None 
-
-        * backward() 
-            * Moves the robot backward in its current direction by the current speed. 
-            * Parameters: None 
-            * Return Value: None 
-            * Exceptions Thrown: None 
-
-        * left() 
-            * Moves Turns the robot left 
-            * Parameters: None 
-            * Return Value: None 
-            * Exceptions Thrown: None 
-
-        * right() 
-            * Turns the robot right 
-            * Parameters: None 
-            * Return Value: None 
-            * Exceptions Thrown: None 
-            
 ## OpenCV Diagram ##
-![](assets/ArchitectureOPENCV.png)
+![](assets/Architecture_TREAD_BOT_OPENCV.png)
 ### OpenCV Code ###
-* (Main) Class Purpose: The controller for navigation and image recognition. It ties together all the subcomponents within the OpenCV architecture allowing for seamless communication and data transfer. 
+* (opencv) Class Purpose: The controller for video feed display and image processing. Also handles command passing to the robot for both manual and autnomous mode. 
     * Data Fields: 
-        * robot 
-            * Type: Robot 
-        * website 
-            * Type: Website
-        * process 
-            * Type: ProcessData 
+        * img_proc_q 
+            * Type: Queue 
+        * websocket_q 
+            * Type: Queue
+        * command_q: 
+            * Type: Queue 
+        * autonomous:
+            * Type: boolean
+        * ultrasonic_data_q:
+            * Type: Queue
+        * commands:
+            * Type: CommandWS
+        * video:
+            * Type: VideoWS
+        * commands_thread:
+            * Type: Thread
+        * video_thread:
+            * Type: Thread
+        * img_processing_thread:
+            * Type: Thread
 
-* (Robot) Class purpose: Represents data and information sent to and from the robot itself. The class will also contain methods to manipulate the robot’s speed by left and right tracks. 
+* (opencv_video) Class purpose: Handles the processing and passing of video images.  
     * Data Fields: 
-        * image 
-            * Type: Image 
-        * obstacleDistance 
-            * Type: int 
+        * original_lock 
+            * Type: Lock 
+        * color_detection_lock 
+            * Type: Lock 
     * Methods: 
-        * serve(): int 
-            * This method will start the robot WebSocket server.  
-            * Parameters: None 
-            * Pre-conditions: None 
+        * cv2_to_base64(img): int64 []
+            * This method will take the image from the video feed and convert it to base64 array.  
+            * Parameters: Image 
+            * Pre-conditions: Must be connected to the robot websocket delivering images from the onboard camera 
             * Post-conditions: None 
-            * Return Values: 1 for successful connection, 0 otherwise.  
-            * Exceptions Thrown:  
-                * 404: Robot not available 
-                * 405: Left tread motor not working. 
-                * 406: Right tread motor not working. 
-
-        * setLeftMotorSpeed(int speed): void
-            * This method will set the speed of the left tread motors. It will accept an integer and pass this value to the left tread motors. 
-            * Parameters: An integer value for speed.  
-            * Pre-conditions: Successful connection to robot 
-            * Post-conditions: None 
-            * Exceptions Thrown:  
-                * 405: Left tread motor not functioning. 
-        
-        * SetRightMotorSpeed(int speed): void 
-            * This method will set the speed of the right tread motors. It will accept an integer and pass this value to the right tread motors.  
-            * Parameters: An integer value for speed. 
-            * Pre-conditions: Successful connection to robot 
-            * Post-conditions: None 
-            * Exceptions Thrown:  
-                * 406: Right motor not working.  
-
-* (Website) Class purpose: Sends data to the website for display purposes. Used for visualization of the imaging algorithm. 
+            * Return Values: An array of base64 integers 
+            * Exceptions Thrown: None
+       
+* (VideoWS) Class purpose: Connects to the websocket port and creates two video feeds, one of the original video data and one of the processed images from the onboard camera. 
     * Methods: 
-        * serve(): int 
-            * This method will start the website WebSocket server. 
-            * Parameters: None 
-            * Pre-conditions: None 
+        * start(img_proc_q, websocket_q, autonomous): void 
+            * This method connects to the websocket queue for both the image processing and display of original video 
+            * Parameters: img_proc_q, websocket_q, autonomous 
+            * Pre-conditions: Connection to both website and robot 
             * Post-conditions: None 
-            * Return Values: 1(one) for successful connection, 0(zero) otherwise.  
-            * Exceptions Thrown: 
-                * 414: Website not available. 
-                * sendImage(Image image): void 
-                * This method will transfer image(s) to be displayed on the website.  
-                * Parameters: An image received by the robot’s camera. 
-                * Pre-conditions: Successful connection(s) to both robot and website. 
-                * Post-conditions: None 
-                * Exceptions Thrown: 
-                    * 415: Image is not of proper resolution. 
-* (ProcessData) Class purpose: Processes image(s) received by the robot and detect color(s) for object recognition. 
+            * Return Values: None  
+            * Exceptions Thrown: None
+ 
+* (CommandsWS) Class purpose: Handles the sending of commands through either manual or autonomous mode.
+    * Data Fields:
+        * PORT:
+            * Type: int
+        * HOST:
+            * Type: string 
     * Methods: 
-        * detectColors(): void 
-            * This method will detect color(s) in images received by the robot.  
+        * start_server(): void 
+            * This method start the connection to the robot for passing of commands.  
             * Parameters: None 
-            * Pre-conditions: Successful connection to robot. 
+            * Pre-conditions: Successful connection to robot and website host. 
             * Post-conditions: None 
             * Return values: None 
-            * Exceptions Thrown: 
-                * 424: No image(s) to process. 
-                * 425: Image is grey scaled. 
+            * Exceptions Thrown: None 
 
-        * processImages(): void 
-            * This method converts information from the images and ultrasonic distances to motor speeds. 
-            * Parameters: None 
-            * Pre-conditions: Successful connection to robot 
+        * serve(websocket): void 
+            * This method sends data and receives commands from the website. 
+            * Parameters: Websocket 
+            * Pre-conditions: Successful connection to robot and the website host.
             * Post-conditions: None 
             * Return values: None 
-            * Exceptions Thrown: 
-                * 434: No image received. 
-                * 435: Unknown value(s) in image. 
+            * Exceptions Thrown: None
+
+        * receive(websocket): void
+            * This method will receive commands from the website as well as flag to set the autonomous function.
+            * Parameters: Websocket
+            * Pre-conditions: Successful connections to the robot and the website host.
+            * Post-conditions: None
+            * Return values: None
+            * Excpetions Thrown: None
 
 ## Website Diagram ##
-![](assets/ArchitectureWEBSITE.png)
+![](assets/Architecture_TREAD_BOT_OPENCV.png)
 ### Website Code ###
 * (Robot) Class purpose: To control the robot's movements and retrieve sensor data. 
     * Data Fields:
