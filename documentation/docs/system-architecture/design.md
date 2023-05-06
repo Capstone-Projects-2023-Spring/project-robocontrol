@@ -287,158 +287,128 @@ sidebar_position: 1
             * Exceptions Thrown: None
 
 ## Website Diagram ##
-![](assets/Architecture_TREAD_BOT_OPENCV.png)
+![](assets/Architecture_TREAD_BOT_WEBSITE.png)
 ### Website Code ###
-* (Robot) Class purpose: To control the robot's movements and retrieve sensor data. 
+* (App) Class purpose: Main executable handler for the website.
     * Data Fields:
-        * IPAddress 
-            * Type: string 
-    
+        * None    
     * Methods:  
-        * sendCommand(string command): void 
-            * Sends specified command to the robot in JSON format. 
-            * Pre-Conditions: The robot must be connected to the website and functioning properly. 
-            * Post-Conditions: None 
+        * app(): void 
+            * Runs and manages interactions between 
+            * Pre-conditions: None 
+            * Post-conditions: None 
             * Parameters:  
-                * command: A string command that will be sent to the robot. 
-            * Returns: None 
-        
-        * forward(): void 
-            * Sends forward command to the robot. 
-            * Pre-Conditions: The robot must be connected and functioning        properly. 
-            * Post-Conditions: None 
-            * Parameters: None 
-            * Returns: None 
-
-        * backward(): void 
-            * Sends backward command to the robot. 
-            * Pre-Conditions: The robot must be connected and functioning properly. 
-            * Post-Conditions: None 
-            * Parameters: None 
-            * Returns: None 
-
-        * left(): void 
-            * Sends left command to the robot. 
-            * Pre-Conditions: The robot must be connected and functioning properly. 
-            * Post-Conditions: None 
-            * Parameters: None 
-            * Returns: None 
-
-        * right(): void 
-            * Sends right command to the robot. 
-            * Pre-Conditions: The robot must be connected and functioning properly. 
-            * Parameters: None 
-            * Returns: None 
-
-        * stop(): void 
-            * Sends stop command to the robot. 
-            * Pre-Conditions: The robot must be connected and functioning properly. 
-            * Post-Conditions: None 
-            * Parameters: None 
-            * Returns: None 
-
-        * getSensorData(): Sensors 
-            * Retrieves sensor data from the robot. 
-            * Pre-Conditions: The robot must be connected and functioning properly. 
-            * Post-Conditions: None 
-            * Parameters: None 
-            * Returns: A Sensors object representing the sensor data 
-
-* (Sensors) Class purpose: Data type for storing sensor data from the robot (video, ultraonsic). 
+                * None 
+            * Returns: None
+            * 
+* (Banner) Class purpose: Website code to manage interaction menu for the user. 
     * Data Fields:  
-        * image 
-            * Type: Image 
-        * ultrasonic 
-            * Type: int 
+        * state 
+            * Type: boolean 
+    * Methods:
+        * render(): void
+            * Displays and manages user interaction with the banner menu.
+            * Pre-conditions: The server and robot must be initialized and connected.
+            * Post-conditions: None
+            * Parameters: 
+                * None
+            * Returns: None
+            * Exceptions Thrown: None
 
-* (CommandWindow) Class purpose: To execute commands on the robot and render a user interface element. 
+* (About) Class purpose: Handles the display of about information to the website. 
     * Data Fields:  
-        * robot 
-            * Type: Robot 
+        * About 
+            * Type: ReactElement 
 
     * Methods:  
-        * executeCommand(String command): void 
-            * Executes a command given as a string. 
-            * Pre-Conditions: The robot must be initialized and connected. 
+        * return(): void 
+            * Returns and displays elements of the About page to the website
+            * Pre-Conditions: The server and robot must be initialized and connected. 
             * Post-Conditions: None 
-            * Parameters: command (String) - the command to be executed 
+            * Parameters: None
             * Returns: None 
-            * Exceptions thrown: None 
+            * Exceptions Thrown: None 
 
+* (Control) Class purpose: Handles rendering and interaction of the control page to the website.
+    * Data Fields:
+        * COMMANDS_WS_URL: 
+            * Type: string
+        * commands_ws: 
+            * Type: websocket
+        * Control: 
+            * Type: ReactElement 
+    * Methods:  
+        * return(): void 
+            * Returns the control page object to the website. 
+            * Pre-Conditions: The server and robot must be initialized and connected. 
+            * Post-Conditions: None 
+            * Parameters: None 
+            * Returns: None
+            * Exceptions Thrown: None 
+
+* (ButtongGrid) Class purpose: Handles the rendering of the buttons on the control page.
+    * Data Fields:
+        * KeyPress:
+            * Type: dict
+        * DirectionContent:
+            * Type: dict
+        * msgData:
+            * Type: dict
+        * wasd:
+            * Type: dict
+        * direction_buttons:
+            * Type: dict
+        * wasd_default:
+            * Type: dict
+        * ButtonGrid:
+            * Type: ReactElement
+            * 
+    * Methods:  
         * render(): React.ReactElement 
-            * Renders the command window component. 
-            * Pre-Conditions: None 
+            * Renders the buttong grid layout of controls. 
+            * Pre-Conditions: The server and robot must be initialized and connected.
             * Post-Conditions: None 
             * Parameters: None 
             * Returns: A React.ReactElement 
-            * Exceptions thrown: None 
+            * Exceptions Thrown: None 
 
-* (StopRobotButton) Class purpose: To render a user interface element to stop the robot's movement. 
+* (Home) Class purpose: Handles the rendering and interaction of the home page to the website. 
     * Methods:  
-        * render(): React.ReactElement 
-            * Renders the stop button component. 
+        * navigate(): void 
+            * Handles the navigation of the user to different components of the website. 
             * Pre-Conditions: None 
             * Post-Conditions: None 
             * Parameters: None 
-            * Returns: A React.ReactElement 
+            * Returns: None 
             * Exceptions thrown: None 
+        * return(): void
+            * Returns the home page to the website.
+            * Pre-conditions: The server and robot must be initialized and connected.
+            * Post-conditions: None
+            * Parameters: None
+            * Returns: None
+            * Exceptions Thrown: None
 
-* (SidePanel) Class purpose: To render a selection panel on the side of the website for navigation. 
-    * Methods:  
-        * render(): React.ReactElement 
-            * Renders the side panel component. 
-            * Pre-Conditions: None 
-            * Post-Conditions: None 
-            * Parameters: None 
-            * Returns: A React.ReactElement 
-            * Exceptions thrown: None 
-
-* (DataWindow) Class purpose: To retrieve and display server and robot data and render a user interface element. 
+* (Login) Class purpose: Handles the rendering and interaction of the login page of the website. 
     * Data Fields:  
-        * server 
-            * Type: Server 
-        * robot 
-            * Type: Robot 
+        * LoginProps 
+            * Type: dict 
 
     * Methods:  
-        * render(): React.ReactElement 
-            * Renders the data window component. 
+        * Login(): void
+            * Handles the logic of login to the website for control page access. 
             * Pre-Conditions: The server and robot must be initialized and connected. 
             * Post-Conditions: None 
             * Parameters: None 
             * Returns: A React.ReactElement 
             * Exceptions thrown: None 
+        * HandleClick(): void
+            * Handles the logic of the user clicking on a button or menu object for the website.
+            * Pre-Conditions: None
+            * Parameters: None
+            * Returns: None
+            * Exceptions Thrown: None
 
-* (Server) Class purpose: Send messages to and communicate with the OpenCV code on the server. 
-    * Methods:  
-        * getAlgorithmVisual(): Image 
-            * Returns a video that shows the algorithm being used by the server. 
-            * Pre-Conditions: None 
-            * Post-Conditions: None 
-            * Parameters: None 
-            * Returns: A Video object 
-            * Exceptions thrown: None 
-
-* (App) Class purpose: To connect the user to the server and the robot. 
-    * Data Fields:  
-        * robot 
-            * Type: Robot 
-
-    * Methods:  
-        * connectToServer(): Server 
-            * Connects the app to the server. 
-            * Pre-Conditions: The server must be initialized and the WebSocket server running. 
-            * Post-Conditions: None 
-            * Parameters: None 
-            * Returns: A Server object 
-            * Exceptions thrown: None 
-        * connectToRobot(): Robot  
-            * Connects the app to the robot. 
-            * Pre-Conditions: The robot must be initialized and the robot WebSocket server running. 
-            * Post-Conditions: None 
-            * Parameters: None 
-            * Returns: A Robot object 
-            * Exceptions thrown: None \
 
 # Sequence Diagrams
 <!-- TODO: Insert sequence diagram stuff -->
