@@ -17,16 +17,8 @@ sidebar_position: 1
         * video_thread:
             * Type: Thread
 
-* (robot_commands_ws) Class purpose: Provides a means for sending commands from the robot to the server. 
+* (RobotCommandWS) Class purpose: Provides a means for sending commands from the robot to the server. 
     * Data Fields:  
-        * PORT 
-            * Type: int 
-        * HOST: 
-            * Type: string 
-        * HOST_PATH:
-            * Type: string
-        * fuc : 
-            * Type: functions
         * clients: 
             * Type: Set
         * robot_ws: 
@@ -60,8 +52,7 @@ sidebar_position: 1
 
 * (RobotVideoWS) Class purpose: Send video data from the robot to the server. 
     * Data Fields: 
-        * gstr 
-            * Type: string 
+        * None
     * Methods: 
         * run() : void 
             * This method take the images from the robot's onboard camera and send it through the JSON websocket. 
@@ -101,6 +92,7 @@ sidebar_position: 1
             * Type: Lock 
         * color_detection_lock 
             * Type: Lock 
+        
     * Methods: 
         * cv2_to_base64(img) : int64 []
             * This method will take the image from the video feed and convert it to base64 array.  
@@ -113,7 +105,18 @@ sidebar_position: 1
        
 * (VideoWS) Class purpose: Connects to the websocket port and creates two video feeds, one of the original video data and one of the processed images from the onboard camera. 
     * Data Fields: 
-        * None
+        * clients:
+            * Type: set
+        * vid:
+            * Type: VideoCapture
+        * img_proc_q:
+            * Type: Queue
+        * websocket_q:
+            * Type: Queue
+        * app:
+            * Type: Flask
+        * autonomous: 
+            * Type boolean
     * Methods: 
         * start(img_proc_q, websocket_q, autonomous) : void 
             * This method connects to the websocket queue for both the image processing and display of original video 
@@ -125,17 +128,56 @@ sidebar_position: 1
             * Post-conditions: None 
             * Return Values: None  
             * Exceptions Thrown: None
- 
+        * original_stream(): Response
+            * This method takes in the images from the robot to send to the website.
+            * Parameters: None
+            * Pre-conditions: A successful connection to the robot and to the website.
+            * Post-conditions: None
+            * Return Values:
+                * Returns a Response object to send to the website.
+            * Exceptions THrown: None
+        * color_detectionStream(): Response
+            * This method take processed images to send to the website..
+            * Parameters: None
+            * Pre-conditions: A successful connection to the robot and to the website.
+            * Post-conditions: None
+            * Return Values:
+                * Returns a Response object to send to the website.
+            * Exceptions THrown: None
+        * original() : void
+            * This method control the lock on the queue of images from the video feed of the robot to the website.
+            * Parameters: None
+            * Pre-conditions: A successful connection to the robot and to the website.
+            * Post-conditions: None
+            * Return Values: None
+            * Exceptions Thrown: None
+        * color_detection() : void
+            * This method controls the lock on the queue of processed images from the server to the website.
+            * Parameters: None
+            * Pre-conditions: A successful connection to the robot and to the website.
+            * Post-conditions: None
+            * Return Values: None
+            * Exceptions Thrown: None
+  
 * (CommandsWS) Class purpose: Handles the sending of commands through either manual or autonomous mode.
     * Data Fields:
-        * PORT:
-            * Type: int
-        * HOST:
-            * Type: string 
+        * clients:
+            * Type: set
+        * robot_ws:
+            * Type: WebSocket
+        * command_q:
+            * Type: Queue
+        * autonomous:
+            * Type: boolean
+        * ultrasonic_data_q:
+            * Type Queue 
     * Methods: 
-        * start_server(): void 
-            * This method start the connection to the robot for passing of commands.  
-            * Parameters: None 
+        * start_server(command_q, autonomous, ultrasonic_data_q): void 
+            * This method starts the connection to the robot and begins populating the Queues with data or commands.  
+            * Parameters: 
+                * command_q: The queue to send commands to the robot.
+                * autonomous: The boolean flag to run or stop the autonomous logic for robot movement.
+                * ultrasonic_data_q: The queue to receive data from the robot using the ultrasonic sensor.  
             * Pre-conditions: Successful connection to robot and website host. 
             * Post-conditions: None 
             * Return values: None 
@@ -158,6 +200,13 @@ sidebar_position: 1
             * Post-conditions: None
             * Return values: None
             * Exceptions Thrown: None
+        * send(WebSocket) : void 
+            * This method will send data from the server to the robot through JSON websockets. 
+            * Pre-conditions: None
+            * Parameters: 
+                * WebSocket: A JSON websocket connecting the the host server. 
+            * Return Values: None 
+            * Exceptions thrown: None 
 
 * (process_images) Class purpose: Processes the images received from the robot.
     * Data Fields:
