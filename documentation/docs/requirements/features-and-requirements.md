@@ -12,14 +12,12 @@ sidebar_position: 4
   - User should be able to tilt the camera up and down
 - Video Imaging
   - User should be able to receive video stream from robot, displayed on the GUI
-  - Robot should be able to upload video stream in autonomous mode to the GUI
-- Ultrasonic Sensor
-  - User should be able to receive ultrasonic data on the GUI, indicating distance to nearest obstacle
+  - Robot should be able to receive video stream in autonomous mode adn display it on the GUI
 - Autonomous Mode
   - User should be able to enable and disable autonomous mode, allowing robot to act within a set of parameters
-  - Robot should have parameters established for autonomous mode allowing for movement within object or following distinct feature within video or ultrasonic sensor
-  - Robot should be able to identify obstacles in autonomous mode and find routes to continue with issued commands, utilizing the object detection algorithm
+  - Robot should have parameters established for autonomous mode allowing for movement between laid out path
+  - Robot should be able to make slight turns autonomously in the correct direction
+  - Once finished its navigation, robot should stop at end of its autonomous path
 - Color Detection
-  - Server should be able to detect colored lines and display the detection to the user
-- Object Detection
-  - Robot should be able to detect obstacles in autonomous mode and stop if these obstacles block its path
+  - Server should be able to detect colored lines
+  - Server should be able to display color detection image to users
