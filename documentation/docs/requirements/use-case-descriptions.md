@@ -1,5 +1,6 @@
 ---
 sidebar_position: 5
+title: "Use Case Descriptions"
 ---
 <!-- TODO: Change from user stories into use cases. Examples found here: https://capstone-projects-2022-fall.github.io/project-collabybot/docs/requirements/use-case-descriptions -->
 # Use-case descriptions

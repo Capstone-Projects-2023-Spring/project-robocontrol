@@ -2,8 +2,8 @@ from typing import List
 import cv2
 import numpy as np
 
-yellow_tape_lower = np.array([29, 68, 123], np.uint8)
-yellow_tape_upper = np.array([97, 255, 255], np.uint8)
+yellow_tape_lower = np.array([5, 121, 137], np.uint8)
+yellow_tape_upper = np.array([134, 254, 246], np.uint8)
 
 kernel = np.ones((15, 15), "uint8")
 
@@ -11,7 +11,7 @@ kernel = np.ones((15, 15), "uint8")
 center_tolerance = 80
 
 # Tolerance for contour size
-contour_tolerance = 400
+contour_tolerance = 4500
 
 class Contour:
 	def __init__(self, area, contour) -> None:
@@ -30,6 +30,7 @@ class ColorDetection:
 	def __init__(self, img) -> None:
 		self.img = img
 		self.turn = False
+		self.turn_direction='no'
 
 	def set_img(self, img):
 		self.img = img
@@ -47,20 +48,41 @@ class ColorDetection:
 		contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 		contour_list = [x for x in contours]
 		contour_list.sort(key=lambda x: cv2.contourArea(x), reverse=True) # Sort by size
-
-		if len(contour_list) >= 1:
+		print(len(contour_list))
+		if len(contour_list) >= 2:
 			largest_contours[0] = Contour(cv2.contourArea(contour_list[-1]), contour_list[-1])
-			if len(contour_list) >= 2:
-				largest_contours[1] = Contour(cv2.contourArea(contour_list[-2]), contour_list[-2])
-			# Get the left tape line and right tape line, as long as there are 2 in the list
-			if len(contour_list) >= 2 and largest_contours[0].area >= contour_tolerance and largest_contours[1].area >= contour_tolerance:
-				self.turn = False
-				return self.two_lines_visible(largest_contours)
-			elif largest_contours[0].area >= contour_tolerance:
-				return self.one_line_visible(largest_contours[0])
-			else: return 'no'
+			
+			largest_contours[1] = Contour(cv2.contourArea(contour_list[-2]), contour_list[-2])
 
-		return 'no'
+			if largest_contours[0].area >= contour_tolerance and largest_contours[1].area >= contour_tolerance:
+				print("Area of contour 0: ", largest_contours[0].area)
+				# print("Contour -1: ", contour_list[-1])
+				# print("Contour -2: ", contour_list[-2])
+
+				print("Area of contour 1: ", largest_contours[1].area)
+
+				value = self.two_lines_visible(largest_contours)
+				print(value)
+
+				return value	
+			else:
+				value = self.two_lines_visible(largest_contours)
+				print(value)
+				return value
+			# Get the left tape line and right tape line, as long as there are 2 in the list
+			# if len(contour_list) >= 2 and largest_contours[0].area >= contour_tolerance and largest_contours[1].area >= contour_tolerance:
+				# self.turn = False
+				# return self.two_lines_visible(largest_contours)
+			# elif largest_contours[0].area >= contour_tolerance:
+				# print("inside single contour")
+				# return self.one_line_visible(largest_contours[0])
+			# else: return 'no'
+		elif len(contour_list) == 0:
+			return 'backward'
+		else:
+			largest_contours[0] = Contour(cv2.contourArea(contour_list[-1]), contour_list[-1])
+			return self.one_line_visible(largest_contours[0])
+		# return 'no'
 
 	def two_lines_visible(self, largest_contours: List[Contour]) -> str:
 		img_width = self.img.shape[1]
@@ -84,18 +106,45 @@ class ColorDetection:
 		right_x, _, _, _ = cv2.boundingRect(right_contour)
 		l1 = left_x + left_w # Bottom right corner of the left tape line
 		l2 = img_width - right_x # Bottom left corner of the right tape line
-		# print('l1: ' + str(l1))
-		# print('l2: ' + str(l2))
-		return 'right' if (l1 - l2) > center_tolerance else 'left' if (l1 - l2) < -center_tolerance else 'no'
+		print('l1: ' + str(l1))
+		print('l2: ' + str(l2))
+		ratio = l1 / l2
+		print("ratio:", ratio)
+		if ratio < 0.3: 
+			print("returning left")
+			return 'left'
+		elif ratio > 1.7: 
+			print("returning right")
+			return 'right'
+		else: return 'no'
+		
+		# if ((l1-l2) > 0) and ((l1-l2) < center_tolerance): 
+		# 	return 'no'
+		# elif (l1-l2) > 0:
+		# 	return 'left'
+		# else:
+		# 	return 'right'
+		# return 'right' if (l1 - l2) > center_tolerance else 'left' if (l1 - l2) < -center_tolerance else 'no'
 
 	# When only one line is visible (turning probably)
 	def one_line_visible(self, largest_contour: Contour):
 		draw_contour(self.img, largest_contour.contour, 'Single Line')
-		if self.turn: return
-		self.turn = True
+		# if self.turn: return
+		# self.turn = True
 		img_width = self.img.shape[1]
+		
 		img_center = img_width / 2
+		print(img_center)
+		img_left_trigger = img_width / 4
+		img_right_trigger = img_center + img_left_trigger
 		x, _, w, _ = cv2.boundingRect(largest_contour.contour)
 		contour_center = x + w / 2
-		if img_center > contour_center: self.turn_direction = 'right'
-		else: self.turn_direction = 'left'
+		print(contour_center)
+		if contour_center < img_center:
+			return 'right'
+		elif contour_center > img_center:
+			return 'left'
+		else:
+			return 'stop'
+		# if img_center > contour_center: self.turn_direction = 'right'
+		# else: self.turn_direction = 'left'
