@@ -39,8 +39,8 @@ const direction_buttons: DirectionContent[] = [
 const wasd_default: wasd = { forward: false, backward: false, left: false, right: false, shoulderDown: false, shoulderUp: false, elbowDown: false, elbowUp: false, clawOpen: false, clawClose: false, cameraDown: false, cameraUp: false }
 const activeStyle = { boxShadow: '0px 0px 0px 0px', top: '5px', left: '5px', backgroundColor: COLORS.PRESSBUTTON };
 
-export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, commands_ws: WebSocket, setAutonomous: (isActive: boolean) => void }, { activeMovement: wasd, autonomousMode: boolean }> {
-	constructor(props: { keyPress: KeyPress, commands_ws: WebSocket, setAutonomous: (isActive: boolean) => void}) {
+export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, commands_ws: WebSocket, setAutonomous: Function, testing?: boolean }, { activeMovement: wasd, autonomousMode: boolean }> {
+	constructor(props: { keyPress: KeyPress, commands_ws: WebSocket, setAutonomous: Function}) {
 		super(props)
 		this.state = { activeMovement: wasd_default, autonomousMode: false }
 	}
@@ -74,7 +74,7 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 
 	sendMessage = (active: wasd, cmd?: string) => {
 		if (cmd) {
-			this.props.commands_ws.send(cmd)
+			if (!this.props.testing) this.props.commands_ws.send(cmd)
 			return
 		}
 		const data: MsgData = { direction: '', turn: '', shoulder: '', elbow: '', claw: '', camera: '' }
@@ -104,7 +104,7 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 		else { data.turn = 'no' }
 
 		console.log(data)
-		this.props.commands_ws.send(JSON.stringify(data))
+		if (!this.props.testing) this.props.commands_ws.send(JSON.stringify(data))
 	}
 
 
@@ -127,7 +127,7 @@ export default class ButtonGrid extends React.Component<{ keyPress: KeyPress, co
 
 	render(): React.ReactElement {
 		return (
-			<Styles.ButtonGridContainer>
+			<Styles.ButtonGridContainer data-testid='ButtonGrid'>
 				{/* Send a message to the robot */}
 				{this.renderDirections()}
 

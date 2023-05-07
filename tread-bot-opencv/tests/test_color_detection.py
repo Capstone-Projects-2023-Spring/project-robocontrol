@@ -12,14 +12,18 @@ def test_draw_contour():
 	cd.draw_contour(contour_img, contour, 'Test')
 	assert (contour_img != img).any()
 
-def test_direction_to_center_straight():
+def test_already_centered():
 	direction = color_detection.direction_to_center()
 	assert direction == 'no'
 
-def test_direction_to_center_one_line():
+def test_turn_right():
 	img = cv2.imread('./tests/one-line-path.jpg', cv2.IMREAD_COLOR)
 	color_detection.img = img
-	direction1 = color_detection.direction_to_center()
+	direction = color_detection.direction_to_center()
+	assert direction == 'right'
+
+def test_turn_left():
+	img = cv2.imread('./tests/one-line-path.jpg', cv2.IMREAD_COLOR)
 	color_detection.img = cv2.flip(img, 1)
-	direction2 = color_detection.direction_to_center()
-	assert direction1 == 'right' and direction2 == 'left'
+	direction = color_detection.direction_to_center()
+	assert direction == 'left'

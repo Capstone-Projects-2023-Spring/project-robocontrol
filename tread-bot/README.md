@@ -2,7 +2,7 @@
 
 ## Testing Commands
 ```sh
-coverage run -m pytest -vvv -s # Run the unit tests
+coverage run -m pytest -vvv -s # Run the unit tests with output to the screen
 coverage report --omit="/opt/*","/usr/*" -i --skip-empty # Show the coverage report, skip empty files, omit imported files
 coverage html --omit="/opt/*" -i --skip-empty # Output to HTML page
 ```

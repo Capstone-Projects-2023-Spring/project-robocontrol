@@ -4,11 +4,15 @@ import numpy as np
 
 autonomous = Automation(Queue())
 
-def test_centering_robot_commands():
+def test_turn_left():
 	center_direction: dict = autonomous.center_robot('left')
 	assert center_direction.get('turn') == 'left'
+
+def test_turn_right():
 	center_direction: dict = autonomous.center_robot('right')
 	assert center_direction.get('turn') == 'right'
+
+def test_already_centered():
 	center_direction: dict = autonomous.center_robot('stop')
 	assert center_direction.get('turn') == 'no'
 
