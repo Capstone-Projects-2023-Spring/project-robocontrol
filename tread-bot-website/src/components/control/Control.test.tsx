@@ -21,6 +21,8 @@ test('Try to login', async () => {
 	const linkElement = screen.getByTestId('Login');
 	expect(linkElement).toBeDefined()
 	await user.type(screen.getByTestId('username'), 'ryan')
-	await user.type(screen.getByTestId('password'), 'hodge')
+	await user.type(screen.getByTestId('password'), 'ryan')
 	await user.click(screen.getByRole('button', {name: 'Login'}));
+	const buttonGridElement = screen.getByTestId('ButtonGrid');
+	expect(buttonGridElement).toBeDefined();
 });

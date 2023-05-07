@@ -22,3 +22,4 @@ def test_crop_image():
 	cropped = autonomous.crop_image(img, 0, height)
 	cropped_image_calculation = img[img.shape[0] - height:img.shape[0]][:]
 	assert (cropped_image_calculation == cropped).all()
+	assert cropped.shape[0] == 20

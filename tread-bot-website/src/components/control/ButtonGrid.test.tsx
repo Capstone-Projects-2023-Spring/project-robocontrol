@@ -23,7 +23,7 @@ test('Render button grid', () => {
 	expect(linkElement).toBeDefined()
 });
 
-test('Click arrows', async () => {
+test('Move robot with key-presses', async () => {
 	let view = render(<ButtonGrid keyPress={{ char: 'arrowup', keyDown: true }} commands_ws={commands_ws} setAutonomous={() => {}} testing />);
 	let linkElement = await screen.findByRole('button', {name: '↑'});
 	expect(linkElement.getAttribute('style')?.includes('rgb(152, 164, 252)')).toBeTruthy()
