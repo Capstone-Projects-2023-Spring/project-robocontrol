@@ -28,6 +28,7 @@ This section provides an overview of the hardware and software components requir
 	- ReactJS
 	- TypeScript, HTML5, CSS, and a capable web browser
 	- Python 3
+	- Open cv color detection
 - Git version control
 - WebSockets
 - GitHub Pages
