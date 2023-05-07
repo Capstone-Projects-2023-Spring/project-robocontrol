@@ -3,7 +3,7 @@ sidebar_position: 4
 ---
 
 # Development Environment
-This section contains an outline of the hardware and software components of this project. This includes the components necessary for the robot to function properly, the components needed for communication, and the components to host the services such as the website and the remote server. 
+This section provides an overview of the hardware and software components required for this project. It covers the components necessary for the robot's operation, communication, and hosting services, such as the website and remote server. 
 
 ## Required Hardware
 - Adeept Rasptank
