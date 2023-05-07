@@ -3,65 +3,21 @@ sidebar_position: 2
 ---
 
 # Tasks
-
-1. Develop User Wireframes & Website Interface Mockups
-- Implement list into mockup web interface
-- Develop list of website interface features
-- Divide list into javascript, HTML, and CSS domains
-- Develop user wireframe from list
-- Create simple color scheme
-
-2. Create User Navigation Pane
-- Create side pane for navigation
-- Make the pane functional
-- Create routing for each of the links
-
-3. Create Controls Tab Content of Navigation Pane
-- Make WASD keys for controlling robot
-- Write code for robot arm / claw
-- Turn while moving forward / backward
-- Create emergency stop button
-- Display camera feed
-- Add Autonomous button
-
-4. Create About Tab Content of Navigation Pane
-- Interage the markdown file into the website
-
-5. Implement Website User Queue
-- UX waiting queue design
-- Implement waiting queue (robot)
-- Make passwords secure (hashing)
-- Implement waiting queue (website)
-- Create "password" screen
-
-6. OpenCV Color Detection
-- Compile list of useful libraries
-- Create code to detect colors
-- Add thread for image processing
-- Integrate color detection on robot
-- Automate centering between boundary colors / lines
-
-7. OpenCV Line Navigation
-- Create program outline
-- Create navigation algorithm for straight path
-- Update navigation algorithm to account for turns
-
-8. Object Detection
-- Develop distance detection algorithm
-- Create distance labels for objects
-- Edit robot behavior upon object detection
-
-9. Styling / frontend
-- Home, about and navigation page restyling
-- Control page login box
-- Padding, margins, and color in constants
-- URL tab name and favicon
-
-10. Documentation
-- Introduction
-- Requirements Specification
-- Software Development Plan
-- System Architecture
-- API Specification
-- Test Procedures
-
+| **Task #** | **Task** | **Estimated Effort** | **Area Of work** | **Successor Tasks** | **Assignee** |
+| ---------- | ---------------------------------------------------- | ----------------------- | -------------------------- | ----------------------- | ---------------------------------------- |
+| **1**| Setup Remote Project Server| 1 Person x 1 week| Server| N/A| Ryan Hodge|
+| **2**| Develop User Wireframes & Website Interface Mockups| 2 People x 1 week| Website graphical outline| N/A| Antonio Keyes<br/>Oliva Chaves|
+| **3**| Develop Front-End Website Framework| 3 People x 1 week| Website outline| Task 2| Antonio Keyes<br/>Edward Keegan<br/>Cindy Tang |
+| **4**| Setup RaspTank Communication with Website | 2 People x 1 week | Raspberry pi communication | Task 3 | Ryan Hodge<br/>Kevin Jang|
+| **5**| Create Website Video and Controls GUI Features | 3 People x 1 week | Website video and controls | Task 4 | Ryan hodge<br/>Antonio Keyes<br/>Olivia Chaves |
+| **6**| Implement Website User Queue | 1 Person x 2 weeks| Website Functionality| Task 2 | Qian Peng|
+| **7**| Implement functionality for Robot Arm | 1 Person x 2 weeks| Website controls| Task 2 | Cindy Tang |
+| **8**| Finalize Website Features| 3 Person x 2 weeks| Website | Task 5 | Antonio Keyes<br/>Edward Keegan<br/>Qian Peng|
+| **9**| Establish Raspberry Pi Communication with Server | 1 Person x 1 week | Data processing | Task 1 | Ryan Hodge |
+| **10** | Redesign RaspTank Program Architecture| 2 People x 2 weeks| Controllable robot | N/A| Ryan Hodge<br/>Kevin Jang|
+| **11** | Research OpenCV Libraries| 3 People x 2 weeks| Research| N/A| Kevin Jang<br/>Anubhav Kundu<br/>Ryan Hodge|
+| **12** | Develop Color Detection Algorithm | 2 People x 2 week | Color mapping images | Task 9 | Kevin Jang<br/>Anubhav Kundu |
+| **13** | Finish Image Processing Algorithm | 3 People x 2 weeks| Partial Autonomy| Task 10| Kevin Jang<br/>Anubhav Kundu<br/>Cindy Tang|
+| **14** | Develop Obstacle Avoidance Algorithm| 3 People x 2 week | Autonomy| Task 11| Keving Jang<br/>Ryan Hodge<br/>Qian Peng |
+| **15** | Establish Communication Between Server and Website | 2 People x 2 weeks| Algorithm visualizations | Task 1 & Task 3 | Olivia Chaves<br/>Edward Keegan|
+| **16** | Confirm and Test Communication Between All Platforms | 2 People x 2 weeks| Proper Communication | All Communication Tasks | Ryan hodge<br/>Antonio Keyes |
