@@ -13,7 +13,7 @@ const Home = () => {
 	};
 
 	return (
-		<HomeStyles.HomeContainer>
+		<HomeStyles.HomeContainer data-testid='Home'>
 			<HomeStyles.RoboControlBox>ROBOCONTROL</HomeStyles.RoboControlBox>
 			<HomeStyles.ControlsImage><div/></HomeStyles.ControlsImage>
 			<HomeStyles.AboutImage><div/></HomeStyles.AboutImage>

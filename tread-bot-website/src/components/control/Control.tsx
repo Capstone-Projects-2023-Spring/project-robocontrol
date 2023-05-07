@@ -20,6 +20,9 @@ const Control = (): React.ReactElement => {
 			if (loggedIn && !event.repeat) {
 				setKey({ char: event.key.toLowerCase(), keyDown: true })
 			}
+			if (event.key.toLowerCase() === 'arrowdown' || event.key.toLowerCase() === 'arrowup') {
+				event.preventDefault()
+			}
 		};
 
 		const handleKeyUp = (event: KeyboardEvent) => {
@@ -40,16 +43,14 @@ const Control = (): React.ReactElement => {
 	return (
 
 		// Give camera feed its own container to avoid overlapping with WASD controls
-		<Styles.ControlContainer>
+		<Styles.ControlContainer data-testid='Control'>
 			{/* Display the Base64 image string sent from the robot */}
-			{autonomous ? (
-			<img
-			  src="https://ryanhodge.net/stream/color_detection"
-			  alt="Color detection stream"
-			/>
-		  ) : (
+
+				<img
+				  src="https://ryanhodge.net/stream/color_detection"
+				  alt="Color detection stream"
+				/>
 			<img src="https://ryanhodge.net/stream/original" alt="Video stream from robot" />
-		  )}
 			<Styles.ButtonContainer>
 				{!loggedIn ? <Login loginSuccessful={login} /> :
 					<ButtonGrid
