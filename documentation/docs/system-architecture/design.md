@@ -17,16 +17,8 @@ sidebar_position: 1
         * video_thread:
             * Type: Thread
 
-* (robot_commands_ws) Class purpose: Provides a means for sending commands from the robot to the server. 
+* (RobotCommandWS) Class purpose: Provides a means for sending commands from the robot to the server. 
     * Data Fields:  
-        * PORT 
-            * Type: int 
-        * HOST: 
-            * Type: string 
-        * HOST_PATH:
-            * Type: string
-        * fuc : 
-            * Type: functions
         * clients: 
             * Type: Set
         * robot_ws: 
@@ -60,8 +52,7 @@ sidebar_position: 1
 
 * (RobotVideoWS) Class purpose: Send video data from the robot to the server. 
     * Data Fields: 
-        * gstr 
-            * Type: string 
+        * None
     * Methods: 
         * run() : void 
             * This method take the images from the robot's onboard camera and send it through the JSON websocket. 
@@ -72,7 +63,7 @@ sidebar_position: 1
 ## OpenCV Diagram ##
 ![](assets/Architecture_TREAD_BOT_OPENCV.png)
 ### OpenCV Code ###
-* (opencv) Class Purpose: The controller for video feed display and image processing. Also handles command passing to the robot for both manual and autnomous mode. 
+* (openCV) Class Purpose: The controller for video feed display and image processing. Also handles command passing to the robot for both manual and autnomous mode. 
     * Data Fields: 
         * img_proc_q 
             * Type: Queue 
@@ -101,6 +92,7 @@ sidebar_position: 1
             * Type: Lock 
         * color_detection_lock 
             * Type: Lock 
+        
     * Methods: 
         * cv2_to_base64(img) : int64 []
             * This method will take the image from the video feed and convert it to base64 array.  
@@ -113,7 +105,18 @@ sidebar_position: 1
        
 * (VideoWS) Class purpose: Connects to the websocket port and creates two video feeds, one of the original video data and one of the processed images from the onboard camera. 
     * Data Fields: 
-        * None
+        * clients:
+            * Type: set
+        * vid:
+            * Type: VideoCapture
+        * img_proc_q:
+            * Type: Queue
+        * websocket_q:
+            * Type: Queue
+        * app:
+            * Type: Flask
+        * autonomous: 
+            * Type boolean
     * Methods: 
         * start(img_proc_q, websocket_q, autonomous) : void 
             * This method connects to the websocket queue for both the image processing and display of original video 
@@ -125,17 +128,56 @@ sidebar_position: 1
             * Post-conditions: None 
             * Return Values: None  
             * Exceptions Thrown: None
- 
+        * original_stream(): Response
+            * This method takes in the images from the robot to send to the website.
+            * Parameters: None
+            * Pre-conditions: A successful connection to the robot and to the website.
+            * Post-conditions: None
+            * Return Values:
+                * Returns a Response object to send to the website.
+            * Exceptions THrown: None
+        * color_detectionStream(): Response
+            * This method take processed images to send to the website..
+            * Parameters: None
+            * Pre-conditions: A successful connection to the robot and to the website.
+            * Post-conditions: None
+            * Return Values:
+                * Returns a Response object to send to the website.
+            * Exceptions THrown: None
+        * original() : void
+            * This method control the lock on the queue of images from the video feed of the robot to the website.
+            * Parameters: None
+            * Pre-conditions: A successful connection to the robot and to the website.
+            * Post-conditions: None
+            * Return Values: None
+            * Exceptions Thrown: None
+        * color_detection() : void
+            * This method controls the lock on the queue of processed images from the server to the website.
+            * Parameters: None
+            * Pre-conditions: A successful connection to the robot and to the website.
+            * Post-conditions: None
+            * Return Values: None
+            * Exceptions Thrown: None
+  
 * (CommandsWS) Class purpose: Handles the sending of commands through either manual or autonomous mode.
     * Data Fields:
-        * PORT:
-            * Type: int
-        * HOST:
-            * Type: string 
+        * clients:
+            * Type: set
+        * robot_ws:
+            * Type: WebSocket
+        * command_q:
+            * Type: Queue
+        * autonomous:
+            * Type: boolean
+        * ultrasonic_data_q:
+            * Type Queue 
     * Methods: 
-        * start_server(): void 
-            * This method start the connection to the robot for passing of commands.  
-            * Parameters: None 
+        * start_server(command_q, autonomous, ultrasonic_data_q) : void 
+            * This method starts the connection to the robot and begins populating the Queues with data or commands.  
+            * Parameters: 
+                * command_q: The queue to send commands to the robot.
+                * autonomous: The boolean flag to run or stop the autonomous logic for robot movement.
+                * ultrasonic_data_q: The queue to receive data from the robot using the ultrasonic sensor.  
             * Pre-conditions: Successful connection to robot and website host. 
             * Post-conditions: None 
             * Return values: None 
@@ -158,10 +200,18 @@ sidebar_position: 1
             * Post-conditions: None
             * Return values: None
             * Exceptions Thrown: None
+        * send(WebSocket) : void 
+            * This method will send data from the server to the robot through JSON websockets. 
+            * Pre-conditions: None
+            * Parameters: 
+                * WebSocket: A JSON websocket connecting the the host server. 
+            * Return Values: None 
+            * Exceptions thrown: None 
 
 * (process_images) Class purpose: Processes the images received from the robot.
     * Data Fields:
-        * None
+        * debug:
+            * Type: boolean
     * Methods:
         * process_img(img_proc_q, websocket_q, command_q, autonomous, ultrasonic_data_q) : void
             * This method processes the images received. If in manual mode, sends commands from website to robot. If in autonomous mode, executes the logic to send commands to the robot.
@@ -212,39 +262,6 @@ sidebar_position: 1
             * Return values: A dictionary item holding the direction, turn, and speed values to turn the robot. 
             * Exceptions Thrown: None
 
-* (color_detection) Class purpose: Identifies the color to search for in the image and creates contours around those objects.
-    * Data Fields: 
-        * yellow_tape_lower: 
-            * Type: A numpy array of integer values with the RGB values of the lower end for the color to detect.
-        * yellow_tape_upper:
-            * Type: A numpy array of integer values iwth the RGB values of the upper end for hte color to detect.
-        * kernel: 
-            * Type: A numpy matrix of 1's.
-        * center_tolerance: 
-            * Type: An integer value of the tolerance for centering.
-        * contour_tolerance:
-            * Type: An integer value of the tolerance for contour size.
-    * Methods:
-        * None
-
-* (Contour) Class purpose: An object over the image received from the robot depicting the area of the color defined.
-    * Data Fields:
-        * area:
-            * Type: An integer value of the area to select.
-        * contour:
-            * Type: A contour of the detected value.
-    * Methods:
-        * draw_contour(img, contour, text) : void
-            * This method draws the contour over the image received from the robot image queue.
-            * Parameters:
-                * img: The image in cv2 format received from the robot image queue.
-                * contour: The contour object to put over the image.
-                * text: A string value to put next to the contour placed over the image.
-            * Pre-conditions: None
-            * Post-conditions: None
-            * Return values: None
-            * Exceptions Thrown: None
-
 * (ColorDetection) Class purpose: Detects the color between the selected range defined in the color_detection class.
     * Data Fields:
         * img:
@@ -286,6 +303,26 @@ sidebar_position: 1
             * Return value: A string of 'left', 'right', 'forward', or 'backward'.
             * Exceptions Thrown: None
 
+* (Contour) Class purpose: An object over the image received from the robot depicting the area of the color defined.
+    * Data Fields:
+        * area:
+            * Type: An integer value of the area to select.
+        * contour:
+            * Type: A contour of the detected value.
+    * Methods:
+        * draw_contour(img, contour, text) : void
+            * This method draws the contour over the image received from the robot image queue.
+            * Parameters:
+                * img: The image in cv2 format received from the robot image queue.
+                * contour: The contour object to put over the image.
+                * text: A string value to put next to the contour placed over the image.
+            * Pre-conditions: None
+            * Post-conditions: None
+            * Return values: None
+            * Exceptions Thrown: None
+
+
+
 ## Website Diagram ##
 ![](assets/Architecture_TREAD_BOT_WEBSITE.png)
 ### Website Code ###
@@ -293,26 +330,27 @@ sidebar_position: 1
     * Data Fields:
         * None    
     * Methods:  
-        * app(): void 
+        * app(): JSX.Element 
             * Runs and manages interactions between 
             * Pre-conditions: None 
             * Post-conditions: None 
             * Parameters:  
                 * None 
-            * Returns: None
-            * 
+            * Returns: A JSX.Element object to be sent to the website.
+            * Exceptions Thrown: None
+  
 * (Banner) Class purpose: Website code to manage interaction menu for the user. 
     * Data Fields:  
-        * state 
+        * show 
             * Type: boolean 
     * Methods:
-        * render(): void
+        * render(): JSX.Element
             * Displays and manages user interaction with the banner menu.
             * Pre-conditions: The server and robot must be initialized and connected.
             * Post-conditions: None
             * Parameters: 
                 * None
-            * Returns: None
+            * Returns: A JSX.Element object to be sent to the website.
             * Exceptions Thrown: None
 
 * (About) Class purpose: Handles the display of about information to the website. 
@@ -321,56 +359,77 @@ sidebar_position: 1
             * Type: ReactElement 
 
     * Methods:  
-        * return(): void 
-            * Returns and displays elements of the About page to the website
+        * return(): JSX.Element 
+            * Returns and displays elements of the About page to the website as an html embedded JavaScript Object
             * Pre-Conditions: The server and robot must be initialized and connected. 
             * Post-Conditions: None 
             * Parameters: None
-            * Returns: None 
+            * Returns: JSX.Element
             * Exceptions Thrown: None 
 
 * (Control) Class purpose: Handles rendering and interaction of the control page to the website.
     * Data Fields:
-        * COMMANDS_WS_URL: 
-            * Type: string
-        * commands_ws: 
-            * Type: websocket
-        * Control: 
-            * Type: ReactElement 
+        * loggedIn: 
+            * Type: boolean
+        * key: 
+            * Type: char
+        * autonomous: 
+            * Type: boolean 
     * Methods:  
-        * return(): void 
-            * Returns the control page object to the website. 
+       * return(): JSX.Element 
+            * Returns and displays elements of the Control page to the website as an html embedded JavaScript Object
             * Pre-Conditions: The server and robot must be initialized and connected. 
             * Post-Conditions: None 
-            * Parameters: None 
+            * Parameters: None
+            * Returns: JSX.Element
+            * Exceptions Thrown: None 
+  
+        * handleKeyUP(KeyboardEvent) : void
+            * Sets the states of key presses to true depending on the specific key pressed.
+            * Pre-conditions: None
+            * Post-conditions: None
+            * Parameters: 
+                * KeyboardEvent: The specific key pressed.
+            * Returns: None
+            * Exceptions Thrown: None 
+  
+        * handleKeyUP(KeyboardEvent) : void
+            * Sets the states of key presses to false depending on the specific key pressed.
+            * Pre-conditions: None
+            * Post-conditions: None
+            * Parameters: 
+                * KeyboardEvent: The specific key pressed let go on the keyboard.
             * Returns: None
             * Exceptions Thrown: None 
 
 * (ButtongGrid) Class purpose: Handles the rendering of the buttons on the control page.
     * Data Fields:
-        * KeyPress:
-            * Type: dict
-        * DirectionContent:
-            * Type: dict
-        * msgData:
-            * Type: dict
-        * wasd:
-            * Type: dict
-        * direction_buttons:
+        * keyPress:
+            * Type: KeyPress
+        * command_ws:
+            * Type: WebSocket
+        * autonomousMode:
+            * Type: boolean
+        * activeMovement:
             * Type: dict
         * wasd_default:
             * Type: dict
-        * ButtonGrid:
-            * Type: ReactElement
-            * 
+
     * Methods:  
-        * render(): React.ReactElement 
-            * Renders the buttong grid layout of controls. 
+        * render(): JSX.Element
+            * Renders the button grid layout of controls. 
             * Pre-Conditions: The server and robot must be initialized and connected.
             * Post-Conditions: None 
             * Parameters: None 
-            * Returns: A React.ReactElement 
+            * Returns: A JSX.Element object to be sent to the website.
             * Exceptions Thrown: None 
+        * setAutonomous() : void
+            * Sets the autonomous flag for autonomous mode.
+            * Pre-Conditions: The server and robot must be initialized and connected.
+            * Post-Conditions: None
+            * Parameters: None
+            * Returns: None
+            * Exceptions Thrown: None
 
 * (Home) Class purpose: Handles the rendering and interaction of the home page to the website. 
     * Methods:  
@@ -391,20 +450,38 @@ sidebar_position: 1
 
 * (Login) Class purpose: Handles the rendering and interaction of the login page of the website. 
     * Data Fields:  
-        * LoginProps 
-            * Type: dict 
+        * username 
+            * Type: string
+        * password: 
+            * Type: string
+        * error:
+            * Type: string
+        * usernameFocused: 
+            * Type: boolean
+        * passwordFocused:
+            * Type: boolean
+        * buttonFocused:
+            * Type: boolean
 
     * Methods:  
-        * Login(): void
+        * handleLogin(): void
             * Handles the logic of login to the website for control page access. 
             * Pre-Conditions: The server and robot must be initialized and connected. 
             * Post-Conditions: None 
             * Parameters: None 
             * Returns: A React.ReactElement 
             * Exceptions thrown: None 
-        * HandleClick(): void
-            * Handles the logic of the user clicking on a button or menu object for the website.
+        * handleEnterKeyPress(KeyboardEvent): void
+            * Waits to verify username and password until the Enter key is pressed.
             * Pre-Conditions: None
+            * Parameters:
+                * KeyboardEvent: If the enter key is pressed, conditions are set to execute code.
+            * Returns: None
+            * Exceptions Thrown: None
+        * * return(): void
+            * Returns the login page to the website.
+            * Pre-conditions: The server and robot must be initialized and connected.
+            * Post-conditions: None
             * Parameters: None
             * Returns: None
             * Exceptions Thrown: None
