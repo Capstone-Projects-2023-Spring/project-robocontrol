@@ -293,26 +293,27 @@ sidebar_position: 1
     * Data Fields:
         * None    
     * Methods:  
-        * app(): void 
+        * app(): JSX.Element 
             * Runs and manages interactions between 
             * Pre-conditions: None 
             * Post-conditions: None 
             * Parameters:  
                 * None 
-            * Returns: None
-            * 
+            * Returns: A JSX.Element object to be sent to the website.
+            * Exceptions Thrown: None
+  
 * (Banner) Class purpose: Website code to manage interaction menu for the user. 
     * Data Fields:  
-        * state 
+        * show 
             * Type: boolean 
     * Methods:
-        * render(): void
+        * render(): JSX.Element
             * Displays and manages user interaction with the banner menu.
             * Pre-conditions: The server and robot must be initialized and connected.
             * Post-conditions: None
             * Parameters: 
                 * None
-            * Returns: None
+            * Returns: A JSX.Element object to be sent to the website.
             * Exceptions Thrown: None
 
 * (About) Class purpose: Handles the display of about information to the website. 
@@ -321,56 +322,77 @@ sidebar_position: 1
             * Type: ReactElement 
 
     * Methods:  
-        * return(): void 
-            * Returns and displays elements of the About page to the website
+        * return(): JSX.Element 
+            * Returns and displays elements of the About page to the website as an html embedded JavaScript Object
             * Pre-Conditions: The server and robot must be initialized and connected. 
             * Post-Conditions: None 
             * Parameters: None
-            * Returns: None 
+            * Returns: JSX.Element
             * Exceptions Thrown: None 
 
 * (Control) Class purpose: Handles rendering and interaction of the control page to the website.
     * Data Fields:
-        * COMMANDS_WS_URL: 
-            * Type: string
-        * commands_ws: 
-            * Type: websocket
-        * Control: 
-            * Type: ReactElement 
+        * loggedIn: 
+            * Type: boolean
+        * key: 
+            * Type: char
+        * autonomous: 
+            * Type: boolean 
     * Methods:  
-        * return(): void 
-            * Returns the control page object to the website. 
+       * return(): JSX.Element 
+            * Returns and displays elements of the Control page to the website as an html embedded JavaScript Object
             * Pre-Conditions: The server and robot must be initialized and connected. 
             * Post-Conditions: None 
-            * Parameters: None 
+            * Parameters: None
+            * Returns: JSX.Element
+            * Exceptions Thrown: None 
+  
+        * handleKeyUP(KeyboardEvent) : void
+            * Sets the states of key presses to true depending on the specific key pressed.
+            * Pre-conditions: None
+            * Post-conditions: None
+            * Parameters: 
+                * KeyboardEvent: The specific key pressed.
+            * Returns: None
+            * Exceptions Thrown: None 
+  
+        * handleKeyUP(KeyboardEvent) : void
+            * Sets the states of key presses to false depending on the specific key pressed.
+            * Pre-conditions: None
+            * Post-conditions: None
+            * Parameters: 
+                * KeyboardEvent: The specific key pressed let go on the keyboard.
             * Returns: None
             * Exceptions Thrown: None 
 
 * (ButtongGrid) Class purpose: Handles the rendering of the buttons on the control page.
     * Data Fields:
-        * KeyPress:
-            * Type: dict
-        * DirectionContent:
-            * Type: dict
-        * msgData:
-            * Type: dict
-        * wasd:
-            * Type: dict
-        * direction_buttons:
+        * keyPress:
+            * Type: KeyPress
+        * command_ws:
+            * Type: WebSocket
+        * autonomousMode:
+            * Type: boolean
+        * activeMovement:
             * Type: dict
         * wasd_default:
             * Type: dict
-        * ButtonGrid:
-            * Type: ReactElement
-            * 
+
     * Methods:  
-        * render(): React.ReactElement 
-            * Renders the buttong grid layout of controls. 
+        * render(): JSX.Element
+            * Renders the button grid layout of controls. 
             * Pre-Conditions: The server and robot must be initialized and connected.
             * Post-Conditions: None 
             * Parameters: None 
-            * Returns: A React.ReactElement 
+            * Returns: A JSX.Element object to be sent to the website.
             * Exceptions Thrown: None 
+        * setAutonomous() : void
+            * Sets the autonomous flag for autonomous mode.
+            * Pre-Conditions: The server and robot must be initialized and connected.
+            * Post-Conditions: None
+            * Parameters: None
+            * Returns: None
+            * Exceptions Thrown: None
 
 * (Home) Class purpose: Handles the rendering and interaction of the home page to the website. 
     * Methods:  
@@ -391,20 +413,38 @@ sidebar_position: 1
 
 * (Login) Class purpose: Handles the rendering and interaction of the login page of the website. 
     * Data Fields:  
-        * LoginProps 
-            * Type: dict 
+        * username 
+            * Type: string
+        * password: 
+            * Type: string
+        * error:
+            * Type: string
+        * usernameFocused: 
+            * Type: boolean
+        * passwordFocused:
+            * Type: boolean
+        * buttonFocused:
+            * Type: boolean
 
     * Methods:  
-        * Login(): void
+        * handleLogin(): void
             * Handles the logic of login to the website for control page access. 
             * Pre-Conditions: The server and robot must be initialized and connected. 
             * Post-Conditions: None 
             * Parameters: None 
             * Returns: A React.ReactElement 
             * Exceptions thrown: None 
-        * HandleClick(): void
-            * Handles the logic of the user clicking on a button or menu object for the website.
+        * handleEnterKeyPress(KeyboardEvent): void
+            * Waits to verify username and password until the Enter key is pressed.
             * Pre-Conditions: None
+            * Parameters:
+                * KeyboardEvent: If the enter key is pressed, conditions are set to execute code.
+            * Returns: None
+            * Exceptions Thrown: None
+        * * return(): void
+            * Returns the login page to the website.
+            * Pre-conditions: The server and robot must be initialized and connected.
+            * Post-conditions: None
             * Parameters: None
             * Returns: None
             * Exceptions Thrown: None
