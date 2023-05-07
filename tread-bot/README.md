@@ -1,5 +1,12 @@
 # Tread-Bot
 
+## Testing Commands
+```sh
+coverage run -m pytest -vvv -s # Run the unit tests
+coverage report --omit="/opt/*","/usr/*" -i --skip-empty # Show the coverage report, skip empty files, omit imported files
+coverage html --omit="/opt/*" -i --skip-empty # Output to HTML page
+```
+
 ## Helpful Links
 - [Instruction manual](https://www.adeept.com/learn/tutorial-378.html)
 - [Adeept RaspTank GitHub](https://github.com/ryanhodge240/tread-bot/tree/main)
