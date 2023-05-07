@@ -48,3 +48,4 @@ This section provides an overview of the hardware and software components requir
 ## Test Tools
 - JUnit testing
 - Mock calls
+- Hardware testing
