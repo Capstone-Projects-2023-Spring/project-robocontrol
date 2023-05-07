@@ -11,6 +11,7 @@ def test_draw_contour():
 	contour_img = img.copy()
 	cd.draw_contour(contour_img, contour, 'Test')
 	assert (contour_img != img).any()
+	assert (contour_img[0][0] != [0]).any()
 
 def test_already_centered():
 	direction = color_detection.direction_to_center()
