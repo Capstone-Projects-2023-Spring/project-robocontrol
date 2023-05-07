@@ -7,7 +7,7 @@ This section provides an overview of the hardware and software components requir
 
 ## Required Hardware
 - Adeept Rasptank
-	- Servos – x4
+	- Servos – x5
 	- Raspberry Pi 3 B+
 	- Acrylic frame
 	- Geared motors – x2
