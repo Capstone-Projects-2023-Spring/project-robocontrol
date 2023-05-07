@@ -63,7 +63,7 @@ sidebar_position: 1
 ## OpenCV Diagram ##
 ![](assets/Architecture_TREAD_BOT_OPENCV.png)
 ### OpenCV Code ###
-* (opencv) Class Purpose: The controller for video feed display and image processing. Also handles command passing to the robot for both manual and autnomous mode. 
+* (openCV) Class Purpose: The controller for video feed display and image processing. Also handles command passing to the robot for both manual and autnomous mode. 
     * Data Fields: 
         * img_proc_q 
             * Type: Queue 
@@ -172,7 +172,7 @@ sidebar_position: 1
         * ultrasonic_data_q:
             * Type Queue 
     * Methods: 
-        * start_server(command_q, autonomous, ultrasonic_data_q): void 
+        * start_server(command_q, autonomous, ultrasonic_data_q) : void 
             * This method starts the connection to the robot and begins populating the Queues with data or commands.  
             * Parameters: 
                 * command_q: The queue to send commands to the robot.
@@ -210,7 +210,8 @@ sidebar_position: 1
 
 * (process_images) Class purpose: Processes the images received from the robot.
     * Data Fields:
-        * None
+        * debug:
+            * Type: boolean
     * Methods:
         * process_img(img_proc_q, websocket_q, command_q, autonomous, ultrasonic_data_q) : void
             * This method processes the images received. If in manual mode, sends commands from website to robot. If in autonomous mode, executes the logic to send commands to the robot.
