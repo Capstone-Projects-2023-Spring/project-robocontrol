@@ -262,39 +262,6 @@ sidebar_position: 1
             * Return values: A dictionary item holding the direction, turn, and speed values to turn the robot. 
             * Exceptions Thrown: None
 
-* (color_detection) Class purpose: Identifies the color to search for in the image and creates contours around those objects.
-    * Data Fields: 
-        * yellow_tape_lower: 
-            * Type: A numpy array of integer values with the RGB values of the lower end for the color to detect.
-        * yellow_tape_upper:
-            * Type: A numpy array of integer values iwth the RGB values of the upper end for hte color to detect.
-        * kernel: 
-            * Type: A numpy matrix of 1's.
-        * center_tolerance: 
-            * Type: An integer value of the tolerance for centering.
-        * contour_tolerance:
-            * Type: An integer value of the tolerance for contour size.
-    * Methods:
-        * None
-
-* (Contour) Class purpose: An object over the image received from the robot depicting the area of the color defined.
-    * Data Fields:
-        * area:
-            * Type: An integer value of the area to select.
-        * contour:
-            * Type: A contour of the detected value.
-    * Methods:
-        * draw_contour(img, contour, text) : void
-            * This method draws the contour over the image received from the robot image queue.
-            * Parameters:
-                * img: The image in cv2 format received from the robot image queue.
-                * contour: The contour object to put over the image.
-                * text: A string value to put next to the contour placed over the image.
-            * Pre-conditions: None
-            * Post-conditions: None
-            * Return values: None
-            * Exceptions Thrown: None
-
 * (ColorDetection) Class purpose: Detects the color between the selected range defined in the color_detection class.
     * Data Fields:
         * img:
@@ -335,6 +302,26 @@ sidebar_position: 1
             * Post-conditions: Turn the robot to bring back two contours into the image.
             * Return value: A string of 'left', 'right', 'forward', or 'backward'.
             * Exceptions Thrown: None
+
+* (Contour) Class purpose: An object over the image received from the robot depicting the area of the color defined.
+    * Data Fields:
+        * area:
+            * Type: An integer value of the area to select.
+        * contour:
+            * Type: A contour of the detected value.
+    * Methods:
+        * draw_contour(img, contour, text) : void
+            * This method draws the contour over the image received from the robot image queue.
+            * Parameters:
+                * img: The image in cv2 format received from the robot image queue.
+                * contour: The contour object to put over the image.
+                * text: A string value to put next to the contour placed over the image.
+            * Pre-conditions: None
+            * Post-conditions: None
+            * Return values: None
+            * Exceptions Thrown: None
+
+
 
 ## Website Diagram ##
 ![](assets/Architecture_TREAD_BOT_WEBSITE.png)
