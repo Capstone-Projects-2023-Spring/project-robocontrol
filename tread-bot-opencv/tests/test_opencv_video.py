@@ -1,7 +1,7 @@
 from opencv_video import VideoWS, cv2_to_base64
 import numpy as np
 
-def test_img_to_b64():
+def test_image_to_base64():
 	img = np.zeros((30,60,3),np.uint8)
 	b64 = cv2_to_base64(img)
 	assert isinstance(b64, bytes)

@@ -196,6 +196,7 @@ const testing = {
 
 	// Whether to use watchman for file crawling
 	// watchman: true,
+	coveragePathIgnorePatterns: ["tools"]
 };
 
 export default testing

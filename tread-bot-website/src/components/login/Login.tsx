@@ -16,6 +16,7 @@ const Login = (props: LoginProps): React.ReactElement => {
 
 
 	const handleLogin = async () => {
+		console.log('TESTINGGGGG')
 		setError('');
 		const endpoint = 'https://ryanhodge.net/login';
 	  
@@ -57,13 +58,14 @@ const Login = (props: LoginProps): React.ReactElement => {
 
 
 	return (
-		<Styles.LoginContainer>
+		<Styles.LoginContainer data-testid='Login'>
 			<Styles.Heading>Controls</Styles.Heading>
 			<Styles.InputContainer>
 				{!usernameFocused && !username && (
 					<label htmlFor="username">Username</label>
 				)}
 				<input
+					data-testid='username'
 					type="text"
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
@@ -78,6 +80,7 @@ const Login = (props: LoginProps): React.ReactElement => {
 					<label htmlFor="password">Password</label>
 				)}
 				<input
+					data-testid='password'
 					type="password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}

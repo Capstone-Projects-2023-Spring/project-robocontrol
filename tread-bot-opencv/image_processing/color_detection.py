@@ -141,9 +141,9 @@ class ColorDetection:
 		contour_center = x + w / 2
 		print(contour_center)
 		if contour_center < img_center:
-			return 'left'
-		elif contour_center > img_center:
 			return 'right'
+		elif contour_center > img_center:
+			return 'left'
 		else:
 			return 'stop'
 		# if img_center > contour_center: self.turn_direction = 'right'
