@@ -72,7 +72,7 @@ sequenceDiagram
         C->>+BG: Send key data
         BG->>+CV: WebSocket command
         CV->>+R: WebSocket command
-        R->>+M: Move arm servo up
+        R->>+M: Move specified servo
         Note right of U: Loop occurs while the user<br/>wants to keep controlling<br/>the robot
         M->>-R: 
         R->>-CV: 
@@ -162,7 +162,7 @@ sequenceDiagram
         C->>+BG: Send key data
         BG->>+CV: WebSocket command
         CV->>+R: WebSocket command
-        R->>+M: Move arm servo up
+        R->>+M: Move camera servo
         Note right of U: Loop occurs while the user<br/>wants to keep controlling<br/>the robot
         M->>-R: 
         R->>-CV: 
