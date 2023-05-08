@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+title: Class Diagrams
 ---
 # Class Diagrams
 
@@ -478,14 +479,10 @@ sidebar_position: 1
                 * KeyboardEvent: If the enter key is pressed, conditions are set to execute code.
             * Returns: None
             * Exceptions Thrown: None
-        * * return(): void
+        * return(): void
             * Returns the login page to the website.
             * Pre-conditions: The server and robot must be initialized and connected.
             * Post-conditions: None
             * Parameters: None
             * Returns: None
             * Exceptions Thrown: None
-
-
-# Sequence Diagrams
-<!-- TODO: Insert sequence diagram stuff -->

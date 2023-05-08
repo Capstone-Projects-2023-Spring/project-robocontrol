@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-description: What should be in this section.
+description: Class documentation for the code architecture
 ---
 
 # Class Documentation
