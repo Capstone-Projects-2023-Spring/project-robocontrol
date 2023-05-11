@@ -12,6 +12,11 @@ By accessing the website (Ryanhodge.net), the user will be able to:
 2. Manually control its movement and arm / claw with self-explanatory controls
 3. Prompt the RaspTank to autonomously navigate an predefined course by enabling 'Autonomous' mode
 
+## Known Bugs
+-No automatic exit for autonomous mode.
+-Hardware power issues lead to variance in autonomous mode performance.
+-Server reliability dependent on number of active connections to server.
+
 ## How To Install
 ### Server
 1. Ssh into the server
