@@ -11,3 +11,11 @@ By accessing the website (Ryanhodge.net), the user will be able to:
 1. View the RaspTank's surroundings via a live camera feed
 2. Manually control its movement and arm / claw with self-explanatory controls
 3. Prompt the RaspTank to autonomously navigate an predefined course by enabling 'Autonomous' mode
+
+## How To Install
+1. Ssh into the server
+2. Clone the repository 
+3. Install nginx 
+4. Change your working directory to tread-bot-website
+5. Run "npm i" to build the website package.
+6. Run "npm start" to execute the website. 
